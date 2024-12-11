@@ -1,0 +1,189 @@
+'use client';
+import { useState } from "react";
+import LoadingAnimation from "../app/auth/LoadingAnimation";
+import CreateAddressApi from "../apis/store/CreateAddressApi";
+import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
+
+
+function ManageAddress({showModal,setShowModal,accessToken,userInfo,getAddress})
+{
+    let[loadingAnimation,setLoadingAnimation]=useState(false);
+    let[houseNo,setHouseNo]=useState('');
+    let[apartmentNo,setApartmentNo]=useState('');
+    let[zipcode,setZipcode]=useState('');
+    let[city,setCity]=useState('');
+    let[state,setState]=useState('');
+    let[country,setCountry]=useState('');
+
+    let[invalidFields,setInvalidFields]=useState(false);
+
+     //to handle input of houseNo name
+     function handleHouseNoInput(e)
+     {
+         let sanitizedValue=SanitizeInputs(e.target.value);
+         setHouseNo(sanitizedValue);
+     }
+
+      //to handle input of apartment name
+      function handleapartmentInput(e)
+      {
+          let sanitizedValue=SanitizeInputs(e.target.value);
+          setApartmentNo(sanitizedValue);
+      }
+
+        //to handle input of Zipcode
+        function handleZipcodeInput(e)
+        {
+            let sanitizedValue=SanitizeInputs(e.target.value);
+            setZipcode(sanitizedValue);
+        }
+
+          //to handle input of City name
+        function handleCityInput(e)
+        {
+            let sanitizedValue=SanitizeInputs(e.target.value);
+            setCity(sanitizedValue);
+        }
+
+        //to handle input of State
+        function handleStateInput(e)
+        {
+            let sanitizedValue=SanitizeInputs(e.target.value);
+            setState(sanitizedValue);
+        }
+          //to handle input of Country
+        function handleCountryInput(e)
+        {
+            let sanitizedValue=SanitizeInputs(e.target.value);
+            setCountry(sanitizedValue);
+        }
+
+    function closeModal()
+    {
+        setShowModal(false);
+    }
+
+    function handleCreateAddress()
+    {
+        
+        if(houseNo.length<0 || apartmentNo.length<0 || zipcode.length<0|| city.length<0 || state.length<0|| country.length<0)
+        {
+            setInvalidFields(true);
+            return;
+        }
+        setLoadingAnimation(true);
+        setInvalidFields(false);
+
+        let obj={
+            "first_name": userInfo.first_name,
+            "last_name": userInfo.last_name,
+            "phone": userInfo.phone_number,
+            "address_1": houseNo,
+            // "address_2": "{value}",
+            "city": city,
+            "country_code": country,
+            "province": state,
+            "postal_code": zipcode,
+            // "address_name": "{value}"
+            // "Is_default_shipping":true,
+            // "is_default_billing":true
+            
+            }
+            
+        CreateAddressApi(obj,accessToken)
+        .then((response)=>{
+            console.log(response);
+            if(response)
+            {
+                setHouseNo('');
+                setApartmentNo('');
+                setZipcode('');
+                setCity('');
+                setState('');
+                setCountry('');
+                setShowModal(false);
+                getAddress();
+            }
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+        .finally(()=>{
+            setLoadingAnimation(false);
+        })
+    }
+    return(
+        <div className="       ">
+        <div className={`  w-full  flex flex-col gap-8 px-6  background-custom-grey50  mt-auto duration-500 small-border border-black fixed lg:absolute z-[2] ${showModal?' bottom-0 max-h-[2000px] overflow-auto pb-10 pt-14 ' :' -bottom-[100%] max-h-0 overflow-hidden '} `} >
+            <div className="flex justify-center items-center">
+                <div className="w-12  background-custom-grey400 cursor-pointer" onClick={closeModal}>close</div>
+            </div>
+            <div className="flex flex-col gap-2 items-center">
+                <h2 className="heading-h2 text-center custom-text-grey900">Manage address</h2>
+                <div className="body font-normal custom-text-grey700 text-center">Enter or edit your address for accurate delivery</div>
+            </div>
+
+            <div className="flex flex-col gap-6 ">
+
+                    <div className="flex flex-col gap-1.5">
+                        <div className="all-caps-12-bold custom-text-grey900 uppercase">house/flat number, Street Name</div>
+                        <input type="text"   value={houseNo} onChange={handleHouseNoInput}  className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                        {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
+                    </div>
+                    
+                    <div className="flex flex-col gap-1.5">
+                        
+                        <div className="all-caps-12-bold custom-text-grey900 uppercase">apartment, suite (Optional)</div>
+                        <input type="text" value={apartmentNo} onChange={handleapartmentInput} name="password"  className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                    {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}                    
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <div className="flex flex-col gap-1.5">
+                                <div className="all-caps-12-bold custom-text-grey900 uppercase">Zipcode</div>
+                                <input type="tel"  value={zipcode} onChange={handleZipcodeInput}  className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                                {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
+                            </div>
+
+                            <div className="flex flex-col gap-1.5">
+                                <div className="all-caps-12-bold custom-text-grey900 uppercase">City</div>
+                                <input type="text"  value={city} onChange={handleCityInput}  className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                                {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
+                            </div>
+                            
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <div className="flex flex-col gap-1.5">
+                                <div className="all-caps-12-bold custom-text-grey900 uppercase">State</div>
+                                <input type="text"  value={state} onChange={handleStateInput}  className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                                {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
+                            </div>
+
+                            <div className="flex flex-col gap-1.5">
+                                <div className="all-caps-12-bold custom-text-grey900 uppercase">Country</div>
+                                <input type="text"  value={country}  onChange={handleCountryInput}  className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                                {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
+                            </div>
+                            
+                        </div>
+
+
+
+
+                    <div className="flex flex-col gap-2">
+                      <button className={`py-4 px-7 w-full flex justify-center items-center shadow-sm custom-text-white all-caps-12 text-center   bg-black `} onClick={handleCreateAddress}  >{loadingAnimation?<LoadingAnimation borderColor='border-white'/>:<span>Save and Continue</span>}</button>
+                    </div>
+
+
+
+                  
+
+            </div>
+        </div>
+    </div>
+    )
+}
+
+
+export default ManageAddress;

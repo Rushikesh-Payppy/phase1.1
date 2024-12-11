@@ -1,0 +1,98 @@
+"use client";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+
+// Components
+// import FlixNavbar from "@/Components/FlixNavbar";
+import ScrollButtons from "@/Components/ScrollButtons";
+import FlixBlogContent from "@/Components/FlixBlogContent";
+import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
+
+const Page = ({ scrollButtons = true, navbar = true }) => {
+  const scrollContainer = useRef(null);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const initialFetchDone = useRef(false); // Tracks if the first fetch is complete
+
+  // Fetch data for a given page
+  const getFlixData = useCallback(async () => {
+    if (loading || !hasMore) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://strapi.payppy.app/api/flixes/?populate=*&pagination[page]=${page}&pagination[pageSize]=3`
+      );
+      const json = await response.json();
+
+      const newItems = json?.data || [];
+      console.log("new items",newItems);
+      setData((prevData) => [...prevData, ...newItems]);
+
+      if (newItems.length < 3) setHasMore(false); // If fewer than 3 items are fetched, no more data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    setLoading(false);
+  }, [page, hasMore, loading]);
+
+  // Load initial data (only once)
+  useEffect(() => {
+    if (initialFetchDone.current) return;
+    initialFetchDone.current = true;
+    getFlixData();
+  }, []); // Run only once on mount
+
+  // Handle infinite scroll
+  const handleScroll = () => {
+    if (!scrollContainer.current) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainer.current;
+    if (scrollTop + clientHeight >= scrollHeight - 50 && hasMore && !loading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  // Fetch data on page change (but skip initial render caused by `setPage`)
+  useEffect(() => {
+    if (page > 1) {
+      getFlixData();
+    }
+  }, [page]);
+
+  // Attach scroll listener
+  useEffect(() => {
+    const container = scrollContainer.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+
+  return (
+    <>
+      {/* snap-start snap-always --> used for scrolling inside flix home page */}
+      <article className="relative h-screen page-center-parent-container  flex flex-col items-center justify-between mx-auto snap-start snap-always">
+        {/* Navbar */}
+        {/* {navbar && <FlixNavbar />} */}
+
+        <main className="absolute top-0 left-0 h-full w-full">
+          <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll">
+            {data.length > 0 &&
+              data.map((element, index) => (
+                <FlixBlogContent data={element} key={index} />
+              ))}
+            {loading && <InitialPageLoadingAnimation/>}
+          </section>
+        </main>
+
+        {/* Scroll Buttons */}
+        {scrollButtons && <ScrollButtons containerName={scrollContainer} />}
+      </article>
+    </>
+  );1
+};
+
+export default Page;
