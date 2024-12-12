@@ -20,7 +20,7 @@ function MobileVerificationSection()
      let[sessionId,setSessionId]=useState('');
      let[sendingOtp,setSendingOtp]=useState(false);
  
-     let[otpVerificationStep,setOtpVerificationStep]=useState(0);
+     let[otpVerificationStep,setOtpVerificationStep]=useState(1);
      let[accessToken,setAccessToken]=useState('');
      let[gettingAccessToken,setGettingAccessToken]=useState(true);
  
@@ -32,7 +32,6 @@ function MobileVerificationSection()
      },[])
  
     
-  
  
    
  
@@ -136,11 +135,11 @@ function MobileVerificationSection()
 
                         </div>
                     </div>
+                </div>}
 
 
 
             {otpVerificationStep===1&&<SoftLaunchOtpInputs setOtpVerificationStep={setOtpVerificationStep} sessionId={sessionId} accessToken={accessToken} phone_number={phoneNumber}/>}
-                </div>}
              {/* </section>} */}
 
 
