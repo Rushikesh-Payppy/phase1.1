@@ -114,7 +114,7 @@ function ManageAddress({showModal,setShowModal,accessToken,userInfo,getAddress})
     }
     return(
         <div className="       ">
-        <div className={`  w-full  flex flex-col gap-8 px-6  background-custom-grey50  mt-auto duration-500 small-border border-black fixed lg:absolute z-[2] ${showModal?' bottom-0 max-h-[2000px] overflow-auto pb-10 pt-14 ' :' -bottom-[100%] max-h-0 overflow-hidden '} `} >
+        <div className={`  w-full  flex flex-col gap-8 px-6  background-custom-grey50  mt-auto duration-500 small-border border-black fixed sm:absolute z-[2] ${showModal?' bottom-0 max-h-[2000px] overflow-auto pb-10 pt-14  ' :'  -bottom-[100%] max-h-0 overflow-hidden '} `} >
             <div className="flex justify-center items-center">
                 <div className="w-12  background-custom-grey400 cursor-pointer" onClick={closeModal}>close</div>
             </div>
