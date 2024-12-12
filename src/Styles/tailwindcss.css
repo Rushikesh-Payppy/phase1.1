@@ -742,6 +742,10 @@ body {
   top: 2rem;
 }
 
+.top-\[100\%\] {
+  top: 100%;
+}
+
 .top-\[50\%\] {
   top: 50%;
 }
@@ -752,6 +756,10 @@ body {
 
 .z-0 {
   z-index: 0;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .z-\[1\] {
@@ -989,6 +997,10 @@ body {
   max-height: 900px;
 }
 
+.max-h-screen {
+  max-height: 100vh;
+}
+
 .min-h-\[200px\] {
   min-height: 200px;
 }
@@ -1115,6 +1127,22 @@ body {
 .rotate-180 {
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 1s cubic-bezier(0.87, 0, 0.13, 1) both;
 }
 
 @keyframes spin {
@@ -1809,14 +1837,14 @@ body {
   color: hsl(var(--muted-foreground));
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .underline {
@@ -1920,10 +1948,6 @@ body {
 @media (min-width: 1024px) {
   .lg\:fixed {
     position: fixed;
-  }
-
-  .lg\:absolute {
-    position: absolute;
   }
 
   .lg\:right-\[31\%\] {

@@ -68,18 +68,18 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
 
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  }, []);
 
 
   return (
     <>
       {/* snap-start snap-always --> used for scrolling inside flix home page */}
-      <article className="relative h-screen page-center-parent-container  flex flex-col items-center justify-between mx-auto snap-start snap-always">
+      <article className="relative h-screen page-center-parent-container  flex flex-col items-center justify-between mx-auto snap-start snap-always ">
         {/* Navbar */}
         {/* {navbar && <FlixNavbar />} */}
 
         <main className="absolute top-0 left-0 h-full w-full">
-          <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll">
+          <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll ">
             {data.length > 0 &&
               data.map((element, index) => (
                 <FlixBlogContent data={element} key={index} />
@@ -96,3 +96,4 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
 };
 
 export default Page;
+
