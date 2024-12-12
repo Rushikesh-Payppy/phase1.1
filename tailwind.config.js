@@ -9,6 +9,17 @@ module.exports = {
   ],
   theme: {
   	extend: {
+
+		// animate-slide-in
+		animation: {
+			'slide-in': 'slide-in 1s cubic-bezier(0.87, 0, 0.13, 1) both',
+		  },
+		  keyframes: {
+			'slide-in': {
+			  '0%': { transform: 'translateX(100%)', opacity: '0.5' },
+			  '100%': { transform: 'translateX(0)', opacity: '1' },
+			},
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

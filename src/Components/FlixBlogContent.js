@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,9 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
 });
+
+//PAGE
+import BlogPage from '@/app/flix-blogs/[blog]/Blog';
 
 // icons
 import ChevronLeft from '@/Images/Icons/arrow-icon.svg';
@@ -28,16 +31,21 @@ let baseUrl = "https://strapi.payppy.app";
 
 // BlogShowcase
 const FlixBlogContent = ({ data }) => {
+
+  const [modalVisible,setModalVisible] = useState(false);  //Modal (Blog Reader) state
+
   let router = useRouter();
 
   function handleReadMore() {
-    router.push("flix-blogs/" + data.documentId);
+    // router.push("flix-blogs/" + data.documentId);
+    setModalVisible(true);
   }
 
   const handleBack = ()=>{
     router.back();
 
 }
+
 
 function getImgUrl(data) {
   const imgName = data.CoverImage.formats?.large?.url || data.CoverImage.formats?.medium?.url ||  data.CoverImage.formats?.small?.url || data.CoverImage.formats?.thumbnail.url;
@@ -49,8 +57,11 @@ function getImgUrl(data) {
     <>
       <article className="relative w-full h-full flex flex-col justify-end snap-start snap-always ">
 
+     {/* Blog reader Modal */}
+        <BlogPage modalVisible={modalVisible} setModalVisible={setModalVisible} data={data} />
+
       {/* Back Button */}
-      <button onClick={handleBack} className={`absolute top-0 left-0 mt-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
+      <button onClick={handleBack} className={`fixed top-0 mt-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
         <Image  src={ChevronLeft} width={24} height={24} alt="img" quality={100} />
       </button>
 
@@ -64,7 +75,8 @@ function getImgUrl(data) {
        {/* Blog title */}
         <section className={ "blog-title-gradient w-full h-1/2 flex justify-center items-center " + plus_jakarta_sans.className} >
 
-            <Link href={"flix-blogs/" + data.documentId} className="gap-5 mx-4 flex flex-col items-center " >
+        {/* href={"flix-blogs/" + data.documentId}  */}
+            <Link href='#' onClick={handleReadMore} className="gap-5 mx-4 flex flex-col items-center " >
               <h1 className="heading-h1 custom-text-white text-center ">
                 {data.Title}
               </h1>
@@ -79,7 +91,7 @@ function getImgUrl(data) {
             </Link>
       
         </section>
-      
+
       {/* footer */}
         {/* <FlixFooter positionValue="absolute" backOption="/" /> */}
       
