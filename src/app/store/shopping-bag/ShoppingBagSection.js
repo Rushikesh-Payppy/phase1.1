@@ -72,7 +72,7 @@ function ShoppingBagSection() {
              console.log(response);
              if(response&&'message' in response&&response.message==='Refresh token is missing!')
              {
-                 window.location.href='/';
+                 window.location.href='/auth/user-auth';
              }
              if(response&&'access_token' in response)
              {

@@ -12,7 +12,7 @@ function StoreGetProductsExcludingOne(query,productId)
             return data.json();
         })
         .then((response)=>{
-            let products=response.products.filter((element,index)=>{
+            let products=response.products.filter((element)=>{
                 return element.id!==productId;
             })
 

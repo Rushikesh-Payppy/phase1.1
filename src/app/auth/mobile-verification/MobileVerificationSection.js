@@ -126,7 +126,7 @@ function MobileVerificationSection()
                             <div className="flex flex-col gap-6">
                                 <div className="flex flex-col gap-1.5">
                                     <div className="all-caps-12-bold custom-text-grey900">Phone Number</div>
-                                    <input type="text" name="phone" maxLength={10} value={phoneNumber}  className='w-full small-border border-black outline-none py-3.5 px-5 ' onChange={handlePhoneInput} onKeyDown={handleMobileNumberKeyEnter}/>
+                                    <input type="tel" name="phone" maxLength={10} value={phoneNumber}  className='w-full small-border border-black outline-none py-3.5 px-5 ' onChange={handlePhoneInput} onKeyDown={handleMobileNumberKeyEnter}/>
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     {invalidPhoneNumebr&&<div className="custom-text-alert body-sm text-center">Please enter a valid Phone Number</div>}
@@ -139,9 +139,9 @@ function MobileVerificationSection()
 
 
 
+            {otpVerificationStep===1&&<SoftLaunchOtpInputs setOtpVerificationStep={setOtpVerificationStep} sessionId={sessionId} accessToken={accessToken} phone_number={phoneNumber}/>}
                 </div>}
              {/* </section>} */}
-            {otpVerificationStep===1&&<SoftLaunchOtpInputs setOtpVerificationStep={setOtpVerificationStep} sessionId={sessionId} accessToken={accessToken} phone_number={phoneNumber}/>}
 
 
         </>
