@@ -185,7 +185,7 @@ function ProductSection()
         }
         if(accessToken==='')
         {
-            router.push('/');
+            router.push('/auth/user-auth');
         }
 
         let obj={

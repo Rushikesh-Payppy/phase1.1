@@ -28,6 +28,10 @@ import GetAccessTokenAPI from '@/apis/auth/GetAccessToken';
 import GetCartItemsApi from '@/apis/store/GetCartItemsApi';
 import { useRouter } from 'next/navigation';
 import GetAddressApi from '../../../apis/store/GetAddressApi';
+import CreatePaymentCollectionApi from '@/apis/store/CreatePaymentCollectionApi';
+import GetPaymentProviderList from '@/apis/store/GetPaymentProviderList';
+import IntiatePaymentApi from '@/apis/store/IntiatePaymentApi';
+import GenerateOrderIdApi from '@/apis/store/GenerateOrderIdApi';
 
 
 
@@ -47,10 +51,17 @@ function CheckoutSection() {
     let[selectedTerms,setSelectedTerms]=useState(false);
     let[userAddress,setUserAddress]=useState(false);
 
+
+    let [paymentCollection, setPaymentCollection] = useState(null); 
+    let[paymentProviderList,setPaymentProvidersList]=useState([]);
+    let[invalidAddress,setInvalidAddress]=useState(false);
+
+
     let router=useRouter();
      //to get a access token
      useEffect(()=>{
         getAccessToken();
+        getPaymentProviderList();
     },[])
     useEffect(()=>{
         if(accessToken)
@@ -70,8 +81,22 @@ function CheckoutSection() {
         if(cartInfo)
         {
             getCartItems();
+            CreatePaymentCollection();
         }
     },[cartInfo])
+    useEffect(()=>{
+        if(cartInfo)
+        {
+            CreatePaymentCollection();
+        }
+    },[cartInfo])
+
+    useEffect(()=>{
+        if(paymentCollection)
+        {
+            IntiatePaymentSession();
+        }
+    },[paymentCollection])
 
      //getting access token
      function getAccessToken()
@@ -129,6 +154,61 @@ function CheckoutSection() {
         })
      }
 
+     //create payment collection
+     function CreatePaymentCollection()
+     {
+         // Fetch the data when the component mounts
+         let obj={
+            "cart_id": cartInfo.cart_id
+
+         }
+            CreatePaymentCollectionApi(obj)
+            .then((response) => {
+            if (response && response?.payment_collection) {
+                setPaymentCollection(response?.payment_collection); // Store the payment collection in state
+            } 
+            })
+            .catch((err) => {
+                console.error("Error fetching payment collection:", err);
+            });
+     }
+
+      //get payment provider list
+      function getPaymentProviderList()
+      {
+          // Fetch the data when the component mounts
+         
+             GetPaymentProviderList()
+             .then((response) => {
+                if(response&&'payment_providers' in response)
+                {
+                    setPaymentProvidersList(response.payment_providers);
+                }
+             })
+             .catch((err) => {
+                 console.error("Error fetching payment collection:", err);
+             });
+      }
+
+         //create payment collection
+     function IntiatePaymentSession()
+     {
+         // Fetch the data when the component mounts
+         let obj={
+            "provider_id": "pp_razorpay_razorpay"
+
+         }
+         
+         IntiatePaymentApi(obj,paymentCollection?.id)
+            .then((response) => {
+                console.log(response);
+                
+            })
+            .catch((err) => {
+                console.error("Error fetching payment collection:", err);
+            });
+     }
+
      function getAddress()
      {
         GetAddressApi(accessToken)
@@ -140,7 +220,22 @@ function CheckoutSection() {
         })
      }
 
+     function handleProceedToPay()
+     {
+        setInvalidAddress( !userAddress[0]?.address_1);
+        if(!userAddress[0]?.address_1)
+        {
+            return;
+        }
 
+        GenerateOrderIdApi(paymentCollection.id)
+        .then((response)=>{
+            console.log(response);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+     }
 
     function handleAddressClick()
     {
@@ -269,7 +364,8 @@ function CheckoutSection() {
                                     </div>
                                     <div className="body-sm custom-text-grey900"> I have read and agree to the website <Link href={'/my-account/legal-policies-and-more/terms-of-use'} className='font-semibold '>terms and conditions *</Link></div>
                                 </div>
-                                <button className={`text-center all-caps-12-bold  custom-text-white px-5 py-4 ${!selectedTerms?' background-custom-grey500 ':'  bg-black '}`} disabled={!selectedTerms}>Proceed to Pay</button>
+                                {!userAddress[0]?.address_1&&<span className="body-sm text-red-600">Please Enter Valid Address</span>}
+                                <button className={`text-center all-caps-12-bold  custom-text-white px-5 py-4 ${!selectedTerms || cartItems?.items.length===0?' background-custom-grey500 ':'  bg-black '}`} disabled={!selectedTerms || cartItems?.items.length===0} onClick={handleProceedToPay}>Proceed to Pay</button>
                                 <div className="flex justify-center items-center  gap-2">
                                     <div className="all-caps-12 custom-text-grey700">Secured by</div>
                                     <Image src={Razorpay} width={74} height={16} alt="img" quality={100} className="" />
