@@ -1,4 +1,5 @@
-.body-sm, .body-sm-bold {
+.body-sm,
+.body-sm-bold {
   font-size: 0.75rem;
   line-height: 1.125rem;
 }
@@ -7,7 +8,8 @@
   font-weight: 600;
 }
 
-.body, .body-bold {
+.body,
+.body-bold {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -17,11 +19,16 @@
   line-height: 2rem;
 }
 
-.body-bold, .body-sm-bold, .all-caps-10-bold, .all-caps-12-bold, .all-caps-14-bold {
+.body-bold,
+.body-sm-bold,
+.all-caps-10-bold,
+.all-caps-12-bold,
+.all-caps-14-bold {
   font-weight: 600;
 }
 
-.all-caps-10, .all-caps-10-bold {
+.all-caps-10,
+.all-caps-10-bold {
   font-size: 0.625rem;
   line-height: 0.875rem;
   text-transform: uppercase;
@@ -32,14 +39,16 @@
   font-weight: 600;
 }
 
-.all-caps-12, .all-caps-12-bold {
+.all-caps-12,
+.all-caps-12-bold {
   font-size: 0.75rem;
   line-height: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
 }
 
-.all-caps-14, .all-caps-14-bold {
+.all-caps-14,
+.all-caps-14-bold {
   font-size: 0.875rem;
   line-height: 1.125rem;
   text-transform: uppercase;
@@ -277,6 +286,10 @@
 
 .background-custom-alert {
   background-color: #E13A3A;
+}
+
+body {
+  background-color: #FDFBF8;
 }
 
 .page-center-parent-container {

@@ -1648,6 +1648,14 @@ body {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.bg-\[background-custom-grey50\] {
+  background-color: background-custom-grey50;
+}
+
+.bg-\[background-custom-grey500\] {
+  background-color: background-custom-grey500;
+}
+
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
 }
