@@ -19,7 +19,7 @@ const ScrollButtons = ({containerName}) => {
 
   return (
     <>
-      <aside className="hidden lg:fixed lg:top-[90vh] lg:pb-10 lg:right-[31%] lg:transform lg:-translate-y-1/2 lg:flex lg:flex-col lg:items-center lg:gap-4">
+      <aside className="hidden lg:absolute lg:-right-20 lg:bottom-4  z-[1] lg:transform lg:-translate-y-1/2 lg:flex lg:flex-col lg:items-center lg:gap-4">
         
         <button className="gap-2.5 p-1.5" onClick={scrollUp} type="button" aria-label="Scroll Up" >
           <Image src={ArrowUp} width={28} height={28} alt="" quality={100} />
