@@ -32,7 +32,6 @@ function MobileVerificationSection()
      },[])
  
     
-  
  
    
  
@@ -136,11 +135,11 @@ function MobileVerificationSection()
 
                         </div>
                     </div>
+                </div>}
 
 
 
             {otpVerificationStep===1&&<SoftLaunchOtpInputs setOtpVerificationStep={setOtpVerificationStep} sessionId={sessionId} accessToken={accessToken} phone_number={phoneNumber}/>}
-                </div>}
              {/* </section>} */}
 
 

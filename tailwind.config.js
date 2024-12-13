@@ -10,14 +10,50 @@ module.exports = {
   theme: {
   	extend: {
 
-		// animate-slide-in
+		
 		animation: {
+			// animate-slide-in
 			'slide-in': 'slide-in 1s cubic-bezier(0.87, 0, 0.13, 1) both',
+			"move-out": "move-out 0.8s cubic-bezier(0.87, 0, 0.13, 1) both",
+			"move-in": "move-in 0.8s cubic-bezier(0.87, 0, 0.13, 1) both",
+			"fall-back": "fall-back 1s cubic-bezier(0.87, 0, 0.13, 1) both",
+			"drop-out": "drop-out 1s cubic-bezier(0.87, 0, 0.13, 1) both",
+			"pop-in": "pop-in 0.4s cubic-bezier(0.87, 0, 0.13, 1) both",
+			"come-in": "come-in 1.4s cubic-bezier(0.87, 0, 0.13, 1) both",
+			"fade-back": "fade-back 1s cubic-bezier(0.87, 0, 0.13, 1) both",
 		  },
 		  keyframes: {
-			'slide-in': {
-			  '0%': { transform: 'translateX(100%)', opacity: '0.5' },
-			  '100%': { transform: 'translateX(0)', opacity: '1' },
+			"slide-in": {
+			  "0%": { transform: "translateX(100%)", opacity: "0.5" },
+			  "100%": { transform: "translateX(0)", opacity: "1" },
+			},
+			"move-out": {
+			  "0%": { transform: "translateY(0%)" },
+			  "100%": { transform: "translateY(-100%)" },
+			},
+			"move-in": {
+			  "0%": { transform: "translateY(100%)" },
+			  "100%": { transform: "translateY(0%)" },
+			},
+			"fall-back": {
+			  "0%": { transform: "scale(1)" },
+			  "100%": { transform: "scale(0.8)" },
+			},
+			"drop-out": {
+			  "0%": { transform: "translateY(0)", opacity: "1" },
+			  "100%": { transform: "translateY(100%)", opacity: "0" },
+			},
+			"pop-in": {
+			  "0%": { transform: "translateY(100%)", opacity: "0" },
+			  "100%": { transform: "translateY(0)", opacity: "1" },
+			},
+			"come-in": {
+			  "0%": { transform: "scale(0.8)" },
+			  "100%": { transform: "scale(1)" },
+			},
+			"fade-back": {
+			  "0%": { opacity: "1", transform: "scale(1)" },
+			  "100%": { opacity: "0.5", transform: "scale(0.8)" },
 			},
 		  },
   		colors: {

@@ -44,6 +44,7 @@ function ShoppingBagSection() {
     let[cartItems,setCartItems]=useState([]);
     let[notEligibleForCheckout,setNotEligibleForCheckout]=useState(true);
 
+
     let router=useRouter();
      //to get a access token
      useEffect(()=>{
@@ -182,7 +183,7 @@ function ShoppingBagSection() {
      }
     return (
         <>
-          {  gettingAccessToken? <IntialLoadingAnimation/>
+          {  gettingAccessToken || !accessToken? <IntialLoadingAnimation/>
             :<section className={"flex justify-center min-h-screen w-full background-custom-grey50    " + plus_jakarta_sans.className}>
                 <div className="page-center-parent-container  small-border custom-border-grey600 overflow-y-scroll overflow-scrollbar-hidden flex flex-col justify-between relative">
                 <div>
@@ -235,15 +236,15 @@ function ShoppingBagSection() {
 
 
                 {/* checkout section  */}
-                    <div className=" sticky bottom-0 z-[1] background-custom-white">
-                        <div className="flex justify-end ">
-                            <button className="py-[5px] px-2 flex items-center gap-1 small-border-x small-border-top custom-border-grey800">
+                    <div className=" sticky bottom-0 z-[1] ">
+                        <div className="flex justify-end bg-transparent">
+                            <button className="py-[5px] px-2 flex items-center gap-1 small-border-x small-border-top custom-border-grey800" onClick={()=>{setShowDetails(!showDetails);}}>
                                 <div className="all-caps-10 custom-text-grey900">Details</div>
-                                <Image src={ChevronUp} width={16} height={16} alt="img" quality={100} className="" />
+                                <Image src={ChevronUp} width={16} height={16} alt="img" quality={100} className={`duration-300 ${showDetails? " ":" rotate-180 "}`} />
                             </button>
                         </div>
                         <div className="flex flex-col gap-4  small-border-top custom-border-grey800">
-                            <div className="flex flex-col gap-2 py-4 px-6">
+                            <div className={`flex flex-col gap-2 duration-300 px-6 ${showDetails?' max-h-[400px] h-full py-4  overflow-auto ':'  max-h-0 overflow-hidden '}`}>
                                 <div className="flex justify-between">
                                     <div className="all-caps-10 custom-text-grey900">Subtotal:</div>
                                     <div className="flex items-center ">
@@ -272,6 +273,10 @@ function ShoppingBagSection() {
                                 </div>                                   
                             </div>
 
+                            <div className="px-6">
+                                <div className="custom-text-grey900  small-border custom-border-grey800 border-dashed  "></div>
+                            </div>
+                            <div className="custom-text-grey700 body-xs px-6 text-center">Note: You can apply coupons and see delivery estimates at checkout.</div>
                             <div className="flex flex-col">
                                 <button className={`text-center all-caps-12-bold  custom-text-white px-5 py-4 ${notEligibleForCheckout?' background-custom-grey500 ':'  bg-black '}`} onClick={handleSecureCheckout} disabled={notEligibleForCheckout}>Secure Checkout</button>
                             </div>

@@ -55,7 +55,7 @@ function getImgUrl(data) {
 
   return (
     <>
-      <article className="relative w-full h-full flex flex-col justify-end snap-start snap-always ">
+      <article className="relative w-full h-full flex flex-col justify-end snap-start snap-always">
 
      {/* Blog reader Modal */}
         <BlogPage modalVisible={modalVisible} setModalVisible={setModalVisible} data={data} />
