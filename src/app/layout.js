@@ -1,9 +1,11 @@
+import BillPayModal from '@/Components/BillPayModal';
 import '@/Styles/tailwindcss.css';
 import '@/Styles/Typography.css';
 
 
 //component
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Suspense } from 'react';
 
 
 // const geistSans = localFont({
@@ -65,6 +67,9 @@ export default function RootLayout({ children }) {
         <body className={" "+plus_jakarta_sans.className}>
           {children}
           {/* <PWAInstallPrompt/> */}
+          <Suspense>
+            <BillPayModal/>
+          </Suspense>
         </body>
       </html>
 

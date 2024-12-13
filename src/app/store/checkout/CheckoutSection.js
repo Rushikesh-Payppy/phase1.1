@@ -216,8 +216,8 @@ function CheckoutSection() {
             if(response&&'response' in response&&response?.response&&'addresses' in response?.response)
             {
                     setUserAddress(response?.response?.addresses);
-                    setInvalidAddress( response?.response?.addresses[0]?.address_1);
-
+                    setInvalidAddress(!response?.response?.addresses[0]?.address_1);
+                    
             }
         })
      }
@@ -249,13 +249,13 @@ function CheckoutSection() {
     }
     return (
         <>
-            <section className={"flex justify-center min-h-screen w-full background-custom-grey50    "}>
-                <div className="page-center-parent-container  small-border background-custom-grey100  overflow-scrollbar-hidden relative">
+            <section className={"flex justify-center min-h-screen w-full background-custom-grey50  "}>
+                <div className="page-center-parent-container  small-border border-black background-custom-grey100  overflow-scrollbar-hidden relative">
 
 
                     {/* navbar  */}
-                    <div className="flex items-center justify-between py-3.5 px-4 background-custom-white">
-                        <button onClick={handleBackClick}>
+                    <div className="relative flex items-center justify-center py-3.5 px-4 background-custom-grey50">
+                        <button onClick={handleBackClick} className='absolute top-4 left-3.5'>
                             <Image src={CloseIcon} width={20} height={20} alt="img" quality={100} className="" />
                         </button>
                         <h4 className="heading-h4 custom-text-grey900">Review & Pay</h4>
@@ -263,7 +263,7 @@ function CheckoutSection() {
 
 
                     {/* contatct details */}
-                    <div className="background-custom-white py-7 px-6 flex gap-2 justify-start items-start small-border-top custom-border-grey800">
+                    <div className="background-custom-grey50 py-7 px-6 flex gap-2 justify-start items-start small-border-top custom-border-grey800">
                         <Image src={UserIcon} width={20} height={20} alt="img" quality={100} className="" />
                         <div className="flex flex-col gap-2 ">
                             <div className="all-caps-12 custom-text-grey900">Contact Details</div>
@@ -279,21 +279,21 @@ function CheckoutSection() {
                     </div>
 
                     {/* Shipping details */}
-                   {userAddress?.length<1? <button className="background-custom-white w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800" onClick={handleAddressClick}>
+                   {userAddress?.length<1? <button className="background-custom-grey50 w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800" onClick={handleAddressClick}>
                         <div className="flex items-center gap-2 ">
                             <Image src={Location} width={20} height={20} alt="img" quality={100} className="" />
                             <div className="all-caps-12 custom-text-grey900">Add Address</div>
                         </div>
                         <Image src={Arrow} width={20} height={20} alt="img" quality={100} className="" />
                     </button>
-                  :  <div className="background-custom-white py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
+                  :  <div className="background-custom-grey50 py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
                         
                         <div className="flex gap-2  items-start">
                         <Image src={Location} width={20} height={20} alt="img" quality={100} className="" />
                         <div className="flex flex-col gap-2 ">
                             <div className="all-caps-12 custom-text-grey900">Shipping to</div>
                             <div className="flex flex-col gap-1">
-                                <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div>
+                                {/* <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div> */}
                                     <div className="body-sm-bold custom-text-grey900">{userAddress[0]?.address_1}
                                     <br />{userAddress[0]?.city}, {userAddress[0]?.province}, {userAddress[0]?.postal_code}</div>
                                 </div>
@@ -314,7 +314,7 @@ function CheckoutSection() {
                     </button> */}
 
                     {/* Delivery details */}
-                    <div className="background-custom-white py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
+                    <div className="background-custom-grey50 py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
                         <div className="flex items-center gap-2 ">
                             <Image src={Availability} width={20} height={20} alt="img" quality={100} className="" />
                             <div className="body-sm-bold custom-text-grey900">Expected Delivery:  3-5 Days</div>
@@ -322,11 +322,11 @@ function CheckoutSection() {
                     </div>
 
 
-                    <div className="px-6 pt-8 background-custom-grey100 relative ">
-                        <Image src={Subtract} width={524} height={29} alt="img" quality={100} className="w-full object-cover absolute left-0 -top-2 z-[1]" />
+                    <div className="px-6 py-8 background-custom-grey100 relative h-auto">
+                        <Image src={Subtract} width={524} height={20} alt="img" quality={100} className=" w-full object-cover absolute left-0 -top-2 z-[1]" />
 
 
-                        <div className="flex flex-col gap-4  ">
+                        <div className="flex flex-col gap-4  relative z-[2]">
                             <button className="py-[5px] px-2 flex items-center gap-1 ">
                                 <Image src={Store} width={20} height={20} alt="img" quality={100} className="" />
                                 <div className="all-caps-12 custom-text-grey900">Order Summary</div>
