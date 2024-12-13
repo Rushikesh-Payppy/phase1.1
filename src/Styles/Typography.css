@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 .body-xs, .body-xs-bold {
   font-size: 0.75rem;
   line-height: 1.125rem;
 }
 
-.body-sm, .body-sm-bold {
-=======
 .body-sm,
 .body-sm-bold {
->>>>>>> a8b86c573c9300d5086bdd00d35d83f04ec6f8d7
   font-size: 0.75rem;
   line-height: 1.125rem;
 }
@@ -28,15 +24,7 @@
   line-height: 2rem;
 }
 
-<<<<<<< HEAD
 .body-bold, .body-xs-bold, .body-sm-bold, .all-caps-10-bold, .all-caps-12-bold, .all-caps-14-bold {
-=======
-.body-bold,
-.body-sm-bold,
-.all-caps-10-bold,
-.all-caps-12-bold,
-.all-caps-14-bold {
->>>>>>> a8b86c573c9300d5086bdd00d35d83f04ec6f8d7
   font-weight: 600;
 }
 
