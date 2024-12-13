@@ -1,3 +1,8 @@
+.body-xs, .body-xs-bold {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+
 .body-sm, .body-sm-bold {
   font-size: 0.75rem;
   line-height: 1.125rem;
@@ -17,7 +22,7 @@
   line-height: 2rem;
 }
 
-.body-bold, .body-sm-bold, .all-caps-10-bold, .all-caps-12-bold, .all-caps-14-bold {
+.body-bold, .body-xs-bold, .body-sm-bold, .all-caps-10-bold, .all-caps-12-bold, .all-caps-14-bold {
   font-weight: 600;
 }
 
@@ -299,11 +304,13 @@
 }
 
 .store-button-shadow {
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
+          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
 }
 
 .snap-x-custom {
-  scroll-snap-type: x mandatory;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
 }
 
 .snap-start-custom {
@@ -311,5 +318,6 @@
 }
 
 .get-light-img {
-  filter: brightness(100);
+  -webkit-filter: brightness(100);
+          filter: brightness(100);
 }/*# sourceMappingURL=Typography.css.map */

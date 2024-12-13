@@ -48,8 +48,8 @@ function CheckoutSection() {
 
     let[cartItems,setCartItems]=useState([]);
     // let[notEligibleForCheckout,setNotEligibleForCheckout]=useState(true);
-    let[selectedTerms,setSelectedTerms]=useState(false);
-    let[userAddress,setUserAddress]=useState(false);
+    let[selectedTerms,setSelectedTerms]=useState('');
+    let[userAddress,setUserAddress]=useState('');
 
 
     let [paymentCollection, setPaymentCollection] = useState(null); 
@@ -216,6 +216,8 @@ function CheckoutSection() {
             if(response&&'response' in response&&response?.response&&'addresses' in response?.response)
             {
                     setUserAddress(response?.response?.addresses);
+                    setInvalidAddress( response?.response?.addresses[0]?.address_1);
+
             }
         })
      }
@@ -303,13 +305,13 @@ function CheckoutSection() {
                     </div>
 }
                     {/* Apply coupon code details */}
-                    <button className="background-custom-white w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
+                    {/* <button className="background-custom-white w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
                         <div className="flex items-center gap-2 ">
                             <Image src={Offer} width={20} height={20} alt="img" quality={100} className="" />
                             <div className="all-caps-12 custom-text-grey900">Apply coupon code</div>
                         </div>
                         <Image src={Arrow} width={20} height={20} alt="img" quality={100} className="" />
-                    </button>
+                    </button> */}
 
                     {/* Delivery details */}
                     <div className="background-custom-white py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
@@ -364,7 +366,7 @@ function CheckoutSection() {
                                     </div>
                                     <div className="body-sm custom-text-grey900"> I have read and agree to the website <Link href={'/my-account/legal-policies-and-more/terms-of-use'} className='font-semibold '>terms and conditions *</Link></div>
                                 </div>
-                                {!userAddress[0]?.address_1&&<span className="body-sm text-red-600">Please Enter Valid Address</span>}
+                                {invalidAddress&&<span className="body-sm text-red-600">Please Enter Valid Address</span>}
                                 <button className={`text-center all-caps-12-bold  custom-text-white px-5 py-4 ${!selectedTerms || cartItems?.items.length===0?' background-custom-grey500 ':'  bg-black '}`} disabled={!selectedTerms || cartItems?.items.length===0} onClick={handleProceedToPay}>Proceed to Pay</button>
                                 <div className="flex justify-center items-center  gap-2">
                                     <div className="all-caps-12 custom-text-grey700">Secured by</div>

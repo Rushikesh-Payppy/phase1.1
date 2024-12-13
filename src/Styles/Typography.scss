@@ -1,5 +1,9 @@
 // Font Variables
 
+// body xs
+$body-xs-size: 0.625rem; // 10px
+$body-xs-lineheight: 1rem; // 16px
+
 // body 
 $body-sm-size: 0.75rem; // 12px
 $body-sm-lineheight: 1.125rem; // 18px
@@ -45,6 +49,11 @@ $heading-h5-size: 1rem; // 16px
 $heading-h5-lineheight: 1.25rem; // 20px
 
 
+// Body xs (body-xs)
+.body-xs,.body-xs-bold {
+  font-size: $body-sm-size;
+  line-height: $body-sm-lineheight;
+}
 // Body Small (body-sm)
 .body-sm,.body-sm-bold {
   font-size: $body-sm-size;
@@ -67,7 +76,7 @@ $heading-h5-lineheight: 1.25rem; // 20px
 }
 
 // for bold classes
-.body-bold,.body-sm-bold,.all-caps-10-bold,.all-caps-12-bold,.all-caps-14-bold{
+.body-bold,.body-xs-bold ,.body-sm-bold,.all-caps-10-bold,.all-caps-12-bold,.all-caps-14-bold{
     font-weight: 600;
 }
 

@@ -20,7 +20,7 @@ function MobileVerificationSection()
      let[sessionId,setSessionId]=useState('');
      let[sendingOtp,setSendingOtp]=useState(false);
  
-     let[otpVerificationStep,setOtpVerificationStep]=useState(1);
+     let[otpVerificationStep,setOtpVerificationStep]=useState(0);
      let[accessToken,setAccessToken]=useState('');
      let[gettingAccessToken,setGettingAccessToken]=useState(true);
  
