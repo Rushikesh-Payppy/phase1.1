@@ -9,53 +9,108 @@ module.exports = {
   ],
   theme: {
   	extend: {
-
-		
-		animation: {
-			// animate-slide-in
-			'slide-in': 'slide-in 1s cubic-bezier(0.87, 0, 0.13, 1) both',
-			"move-out": "move-out 0.8s cubic-bezier(0.87, 0, 0.13, 1) both",
-			"move-in": "move-in 0.8s cubic-bezier(0.87, 0, 0.13, 1) both",
-			"fall-back": "fall-back 1s cubic-bezier(0.87, 0, 0.13, 1) both",
-			"drop-out": "drop-out 1s cubic-bezier(0.87, 0, 0.13, 1) both",
-			"pop-in": "pop-in 0.4s cubic-bezier(0.87, 0, 0.13, 1) both",
-			"come-in": "come-in 1.4s cubic-bezier(0.87, 0, 0.13, 1) both",
-			"fade-back": "fade-back 1s cubic-bezier(0.87, 0, 0.13, 1) both",
-		  },
-		  keyframes: {
-			"slide-in": {
-			  "0%": { transform: "translateX(100%)", opacity: "0.5" },
-			  "100%": { transform: "translateX(0)", opacity: "1" },
-			},
-			"move-out": {
-			  "0%": { transform: "translateY(0%)" },
-			  "100%": { transform: "translateY(-100%)" },
-			},
-			"move-in": {
-			  "0%": { transform: "translateY(100%)" },
-			  "100%": { transform: "translateY(0%)" },
-			},
-			"fall-back": {
-			  "0%": { transform: "scale(1)" },
-			  "100%": { transform: "scale(0.8)" },
-			},
-			"drop-out": {
-			  "0%": { transform: "translateY(0)", opacity: "1" },
-			  "100%": { transform: "translateY(100%)", opacity: "0" },
-			},
-			"pop-in": {
-			  "0%": { transform: "translateY(100%)", opacity: "0" },
-			  "100%": { transform: "translateY(0)", opacity: "1" },
-			},
-			"come-in": {
-			  "0%": { transform: "scale(0.8)" },
-			  "100%": { transform: "scale(1)" },
-			},
-			"fade-back": {
-			  "0%": { opacity: "1", transform: "scale(1)" },
-			  "100%": { opacity: "0.5", transform: "scale(0.8)" },
-			},
-		  },
+  		animation: {
+  			'slide-in': 'slide-in 1s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'move-out': 'move-out 0.8s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'move-in': 'move-in 0.8s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'fall-back': 'fall-back 1s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'drop-out': 'drop-out 1s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'pop-in': 'pop-in 0.4s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'come-in': 'come-in 1.4s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'fade-back': 'fade-back 1s cubic-bezier(0.87, 0, 0.13, 1) both',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		keyframes: {
+  			'slide-in': {
+  				'0%': {
+  					transform: 'translateX(100%)',
+  					opacity: '0.5'
+  				},
+  				'100%': {
+  					transform: 'translateX(0)',
+  					opacity: '1'
+  				}
+  			},
+  			'move-out': {
+  				'0%': {
+  					transform: 'translateY(0%)'
+  				},
+  				'100%': {
+  					transform: 'translateY(-100%)'
+  				}
+  			},
+  			'move-in': {
+  				'0%': {
+  					transform: 'translateY(100%)'
+  				},
+  				'100%': {
+  					transform: 'translateY(0%)'
+  				}
+  			},
+  			'fall-back': {
+  				'0%': {
+  					transform: 'scale(1)'
+  				},
+  				'100%': {
+  					transform: 'scale(0.8)'
+  				}
+  			},
+  			'drop-out': {
+  				'0%': {
+  					transform: 'translateY(0)',
+  					opacity: '1'
+  				},
+  				'100%': {
+  					transform: 'translateY(100%)',
+  					opacity: '0'
+  				}
+  			},
+  			'pop-in': {
+  				'0%': {
+  					transform: 'translateY(100%)',
+  					opacity: '0'
+  				},
+  				'100%': {
+  					transform: 'translateY(0)',
+  					opacity: '1'
+  				}
+  			},
+  			'come-in': {
+  				'0%': {
+  					transform: 'scale(0.8)'
+  				},
+  				'100%': {
+  					transform: 'scale(1)'
+  				}
+  			},
+  			'fade-back': {
+  				'0%': {
+  					opacity: '1',
+  					transform: 'scale(1)'
+  				},
+  				'100%': {
+  					opacity: '0.5',
+  					transform: 'scale(0.8)'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -100,7 +155,7 @@ module.exports = {
   		},
   		backgroundImage: {
   			'landingpage-gradient': 'linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.7) 99.5%)',
-			'store-footer-gradient':'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)',
+  			'store-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

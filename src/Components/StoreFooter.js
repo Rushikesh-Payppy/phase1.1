@@ -8,8 +8,8 @@ import HomeLight from "@/Images/Icons/home-icon-light.svg";
 import HomeDark from "@/Images/Icons/home-icon-dark.svg";
 import FlixLight from "@/Images/Icons/flix-icon-light.svg";
 import FlixDark from "@/Images/Icons/flix-icon-dark.svg";
-// import BillLight from "@/Images/Icons/bill-icon-light.svg";
-// import BillDark from "@/Images/Icons/bill-icon-dark.svg";
+import BillLight from "@/Images/Icons/bill-icon-light.svg";
+import BillDark from "@/Images/Icons/bill-icon-dark.svg";
 import BagLight from "@/Images/Icons/bag-icon-light.svg";
 import BagDark from "@/Images/Icons/bag-icon-dark.svg";
 import AccountLight from "@/Images/Icons/account-icon-light.svg";
@@ -29,21 +29,27 @@ const StoreFooter = () => {
   
   return (
     <footer className="sticky bg-store-footer-gradient h-[88px] z-[2]  bottom-0 flex justify-center items-center ">
-      <div className="flex items-center max-w-64 w-full gap-6 py-3 px-5 small-border border-black rounded-full background-white background-custom-white ">
+      <div className="flex items-center max-w-64 w-full gap-6 py-3 px-5 small-border border-black rounded-full  background-custom-grey50 ">
         <Link href="/">
         { pathname==='/store/home' || pathname==='/'?<Image src={HomeDark} width={24} height={24} alt="img" quality={100} />
           :<Image src={HomeLight} width={24} height={24} alt="img" quality={100} />}
         </Link>
+        
 
         <Link href="/flix-blogs">
          {pathname.includes('/flix-blogs')? <Image src={FlixDark} width={24} height={24} alt="img" quality={100} />
           :<Image src={FlixLight} width={24} height={24} alt="img" quality={100} />}
         </Link>
 
-        <Link href="#">
+        <Link href={pathname+`/?billpay=true`}>
+         {pathname.includes('/?billpay=true')? <Image src={BillDark } width={24} height={24} alt="img" quality={100} />
+          :<Image src={BillLight} width={24} height={24} alt="img" quality={100} />}
+        </Link>
+
+        {/* <Link href="#">
          {pathname.includes('/search')? <Image src={SearcgDark} width={24} height={24} alt="img" quality={100} />
           :<Image src={SearchLight} width={24} height={24} alt="img" quality={100} />}
-        </Link>
+        </Link> */}
 
         <Link href="/store/shopping-bag">
          {pathname.includes('/shopping-bag')?  <Image src={BagDark} width={24} height={24} alt="img" quality={100} />

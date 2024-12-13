@@ -85,9 +85,9 @@ function Blog({ data, modalVisible, setModalVisible }) {
         <InitialPageLoadingAnimation />
       ) : (
         <>
-          <article className={`page-center-parent-container animate-slide-in ${modalVisible ? ' absolute top-0  z-10  overflow-scroll max-h-screen h-full block' : ' hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} `}>
+          <article className={`page-center-parent-container  ${modalVisible ? ' absolute top-0  z-10  overflow-scroll max-h-screen h-full block animate-slide-in' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} `}>
 
-            <main className=" background-custom-grey50 relative small-border-left small-border-right custom-border-grey800 background-custom-white scroll-smooth -mt-[50px]">
+            <main className=" background-custom-grey50 relative small-border-left small-border-right custom-border-grey800 scroll-smooth -mt-[50px]">
 
                {/* Back Button */}
                <button onClick={handleBack} className={`sticky top-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
