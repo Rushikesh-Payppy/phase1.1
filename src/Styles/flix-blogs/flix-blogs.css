@@ -57,4 +57,9 @@
 
 .flix-blog img {
   padding: 20px 0px;
+  width: 100%;
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=flix-blogs.css.map */
