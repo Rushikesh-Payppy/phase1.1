@@ -77,7 +77,10 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
       <article className="relative h-screen page-center-parent-container  flex flex-col items-center justify-between mx-auto snap-start snap-always ">
         {/* Navbar */}
         {/* {navbar && <FlixNavbar />} */}
-
+              
+       {/* Scroll Buttons */}
+       {scrollButtons && <ScrollButtons containerName={scrollContainer} />}    
+         
         <main className="absolute top-0 left-0 h-full w-full">
           <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll ">
             {data.length > 0 &&
@@ -88,8 +91,7 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
           </section>
         </main>
 
-        {/* Scroll Buttons */}
-        {scrollButtons && <ScrollButtons containerName={scrollContainer} />}
+
       </article>
     </>
   );1

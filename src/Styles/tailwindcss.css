@@ -800,6 +800,10 @@ body {
   margin-bottom: 2.5rem;
 }
 
+.-mt-\[50px\] {
+  margin-top: -50px;
+}
+
 .mb-16 {
   margin-bottom: 4rem;
 }
@@ -985,16 +989,16 @@ body {
   max-height: 2000px;
 }
 
+.max-h-\[400px\] {
+  max-height: 400px;
+}
+
 .max-h-\[900px\] {
   max-height: 900px;
 }
 
 .max-h-screen {
   max-height: 100vh;
-}
-
-.max-h-\[400px\] {
-  max-height: 400px;
 }
 
 .min-h-\[200px\] {
@@ -1860,16 +1864,16 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .lg\:fixed {
-    position: fixed;
+  .lg\:absolute {
+    position: absolute;
   }
 
-  .lg\:right-\[31\%\] {
-    right: 31%;
+  .lg\:-right-20 {
+    right: -5rem;
   }
 
-  .lg\:top-\[90vh\] {
-    top: 90vh;
+  .lg\:bottom-4 {
+    bottom: 1rem;
   }
 
   .lg\:flex {
@@ -1895,10 +1899,6 @@ body {
 
   .lg\:gap-4 {
     gap: 1rem;
-  }
-
-  .lg\:pb-10 {
-    padding-bottom: 2.5rem;
   }
 }
 
