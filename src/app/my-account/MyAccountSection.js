@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -22,23 +22,29 @@ import policyIcon from "@/Images/Icons/policy-icon.svg";
 // Apis 
 import GetAccessTokenAPI from "@/apis/auth/GetAccessToken";
 import LogoutApi from "@/apis/auth/LogoutApi";
+import GetCartInfoApi from "@/apis/store/GetCartInfoApi";
+import IntialLoadingAnimation from "@/Components/InitialPageLoadingAnimation";
 
 
 const MyAccountSection = () => {
 
   let[accessToken,setAccessToken]=useState('');
+  let[userInfo,setUserInfo]=useState('');
+  let[gettingAccessToken,setGettingAccessToken]=useState(true);
 
   let router=useRouter();
 
   useEffect(()=>{
     getAccessToken();
-    console.log(accessToken);
-    
   },[])
+  useEffect(()=>{
+    getCartInfo();
+  },[accessToken])
 
   //getting access token
   function getAccessToken()
   {
+    setGettingAccessToken(true);
       GetAccessTokenAPI()
       .then((response)=>{
           if(response&&'access_token' in response)
@@ -50,7 +56,27 @@ const MyAccountSection = () => {
       .catch((error)=>{
         console.log(error);
       })
+      .finally(()=>{
+        setGettingAccessToken(false);
+      })
   }
+
+   //get user information from api
+   function getCartInfo()
+   {
+       GetCartInfoApi(accessToken)
+       .then((response)=>{
+           console.log('response');
+
+           if(response)
+           {
+            setUserInfo(response);
+           }
+       })
+       .catch((error)=>{
+           console.log(error);
+       })
+   }
   //when user click logout
   function handleLogOut()
   {
@@ -66,30 +92,46 @@ const MyAccountSection = () => {
           
       })
   }
+
+  //if click on login/signup button
+  function handleLoginSignupClick() {
+    router.push('/auth/user-auth');
+}
   return (
     <>
+    {gettingAccessToken?<IntialLoadingAnimation/>
+      :
       <article className={"page-center-parent-container h-screen small-border border-black  scroll-smooth relative "  }>
        {/* hero section */}
         <header className="small-border-bottom custom-border-grey800 ">
-          <Link href="#">
-            <div className="gap-6 mt-4 mx-4 rounded-tl-xl rounded-tr-xl small-border-top small-border-right  small-border-left custom-border-grey800 background-custom-grey100 h-[235px] flex justify-center items-center">
+          {/* <Link href="#"> */}
+            <div className="gap-6 mt-4 mx-4 rounded-tl-xl rounded-tr-xl small-border-top small-border-right  small-border-left custom-border-grey800 background-custom-grey100 min-h-[235px] flex justify-center items-center">
               
               {/* User Section */}
+             {!accessToken? <section className="gap-6 flex flex-col items-center py-12 px-5">
+                <div className="gap-2 flex flex-col items-center max-w-60 w-full">
+                    <h2 className="heading-h2 custom-text-grey900 text-center ">Welcome to Payppy Membership!</h2>
+                    <div className="custom-text-grey900 text-center body">From sensible rewards to irresistible collections, cool things await you on this side of the world.</div>
+                </div>
+                <button className="background-custom-green all-caps-12-bold custom-text-grey900 text-center py-4 small-border border-black max-w-[156px] w-full " onClick={handleLoginSignupClick} >Login/SignuP</button>
+
+              </section>
+              :
               <section className="gap-2 flex flex-col items-center ">
                   <h2 className="heading-h2 custom-text-grey900 ">
-                    Omkar Ghodke
+                  {(userInfo?.details_data?.first_name || "")  + " "+ (userInfo?.details_data?.last_name || "")  }
                   </h2>
 
-                  <section className="flex items-center justify-center pt-1">
+                  <div className="flex items-center justify-center pt-1">
                     <div className=" h-[1px] w-2 background-custom-grey600 mr-1 "></div>
                     <p className="all-caps-10-bold custom-text-grey600">
                       WELCOME TIER
                     </p>
                     <div className=" h-[1px] w-2 background-custom-grey600 ml-1 "></div>
-                  </section>
-              </section>
+                  </div>
+              </section>}
             </div>
-          </Link>
+          {/* </Link> */}
         </header>
 
         {/* main section */}
@@ -107,15 +149,16 @@ const MyAccountSection = () => {
     
           <AccountCopyrightSection />
          
-          <button type="button" className=" py-3 px-6 small-border custom-border-grey800 all-caps-10-bold custom-text-grey900 w-full" onClick={handleLogOut}>
+         {accessToken&& <button type="button" className=" py-3 px-6 small-border custom-border-grey800 all-caps-10-bold custom-text-grey900 w-full" onClick={handleLogOut}>
             Logout
-          </button>
+          </button>}
 
 
         </footer>
           <StoreFooter/>
 
       </article>
+    }
     </>
   );
 };

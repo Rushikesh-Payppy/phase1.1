@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import UserInformationSection from "./UserInformationSection";
 
 
@@ -7,7 +8,9 @@ export default function Home() {
 
   return (
     <>
-    <UserInformationSection/>
+    <Suspense>
+      <UserInformationSection/>
+    </Suspense>
 
     </>
   );

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import MobileVerificationSection from "./MobileVerificationSection";
 
 
@@ -6,7 +7,9 @@ export default function Home() {
 
   return (
     <>
-    <MobileVerificationSection/>
+    <Suspense>
+      <MobileVerificationSection/>
+    </Suspense>
 
     </>
   );

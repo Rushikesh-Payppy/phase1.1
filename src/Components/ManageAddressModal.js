@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import LoadingAnimation from "../app/auth/LoadingAnimation";
 import CreateAddressApi from "../apis/store/CreateAddressApi";
 import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
+import CreateCartApi from "@/apis/store/CreateCartApi";
 
 
 function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddress }) {
@@ -82,9 +83,9 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
         setInvalidFields(false);
 
         let obj = {
-            "first_name": userInfo.first_name,
-            "last_name": userInfo.last_name,
-            "phone": userInfo.phone_number,
+            "first_name": userInfo?.details_data?.first_name,
+            "last_name": userInfo?.details_data?.last_name,
+            "phone": userInfo?.details_data?.phone_number,
             "address_1": houseNo,
             // "address_2": "{value}",
             "city": city,
@@ -100,15 +101,30 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
         CreateAddressApi(obj, accessToken)
             .then((response) => {
                 console.log(response);
+                
                 if (response) {
-                    setHouseNo('');
-                    setApartmentNo('');
-                    setZipcode('');
-                    setCity('');
-                    setState('');
-                    setCountry('');
-                    setShowModal(false);
-                    getAddress();
+
+                    let createCartObj={
+                        "billing_address": obj,
+                        "shipping_address": obj
+                    }
+
+                    CreateCartApi(createCartObj,userInfo.cart_id)
+                    .then((response)=>{
+                        console.log(response);     
+                        setHouseNo('');
+                        setApartmentNo('');
+                        setZipcode('');
+                        setCity('');
+                        setState('');
+                        setCountry('');
+                        setShowModal(false);
+                        getAddress();
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                        
+                    })
                 }
             })
             .catch((error) => {

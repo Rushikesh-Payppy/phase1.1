@@ -32,6 +32,8 @@ import CreatePaymentCollectionApi from '@/apis/store/CreatePaymentCollectionApi'
 import GetPaymentProviderList from '@/apis/store/GetPaymentProviderList';
 import IntiatePaymentApi from '@/apis/store/IntiatePaymentApi';
 import GenerateOrderIdApi from '@/apis/store/GenerateOrderIdApi';
+import Script from 'next/script';
+import AddShippingMethodsApi from '@/apis/store/AddShippingMethodsApi';
 
 
 
@@ -51,7 +53,7 @@ function CheckoutSection() {
     let[selectedTerms,setSelectedTerms]=useState('');
     let[userAddress,setUserAddress]=useState('');
 
-
+    let[shippingId,setShippingId]=useState('');
     let [paymentCollection, setPaymentCollection] = useState(null); 
     let[paymentProviderList,setPaymentProvidersList]=useState([]);
     let[invalidAddress,setInvalidAddress]=useState(false);
@@ -81,15 +83,17 @@ function CheckoutSection() {
         if(cartInfo)
         {
             getCartItems();
-            CreatePaymentCollection();
+            AddShippingMethod();
         }
     },[cartInfo])
+
     useEffect(()=>{
-        if(cartInfo)
+        if(userAddress)
         {
             CreatePaymentCollection();
         }
-    },[cartInfo])
+    },[userAddress])
+
 
     useEffect(()=>{
         if(paymentCollection)
@@ -154,6 +158,25 @@ function CheckoutSection() {
         })
      }
 
+     //add shipping method
+     function AddShippingMethod()
+     {
+        let obj={
+              "option_id": "so_01JE68TCMQVJTGQWHYZPT6A28H"
+        }
+        AddShippingMethodsApi(obj,cartInfo.cart_id)
+        .then((response)=>{
+            console.log(response);
+            setShippingId(response?.cart);
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+            
+        })
+
+     }
+
      //create payment collection
      function CreatePaymentCollection()
      {
@@ -216,7 +239,8 @@ function CheckoutSection() {
             if(response&&'response' in response&&response?.response&&'addresses' in response?.response)
             {
                     setUserAddress(response?.response?.addresses);
-                    setInvalidAddress(!response?.response?.addresses[0]?.address_1);
+                    let length=response?.response.addresses.length-1;
+                    setInvalidAddress(!response?.response?.addresses[length]?.address_1);
                     
             }
         })
@@ -230,9 +254,13 @@ function CheckoutSection() {
             return;
         }
 
-        GenerateOrderIdApi(paymentCollection.id)
+        GenerateOrderIdApi(cartInfo.cart_id)
         .then((response)=>{
             console.log(response);
+            if(response&&'order' in response&&'id' in response?.order.id)
+            {
+                router.push('store/order-complete?id?='+response?.order.id);
+            }
         })
         .catch((error)=>{
             console.log(error);
@@ -294,8 +322,8 @@ function CheckoutSection() {
                             <div className="all-caps-12 custom-text-grey900">Shipping to</div>
                             <div className="flex flex-col gap-1">
                                 {/* <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div> */}
-                                    <div className="body-sm-bold custom-text-grey900">{userAddress[0]?.address_1}
-                                    <br />{userAddress[0]?.city}, {userAddress[0]?.province}, {userAddress[0]?.postal_code}</div>
+                                    <div className="body-sm-bold custom-text-grey900">{userAddress[userAddress.length-1]?.address_1}
+                                    <br />{userAddress[userAddress.length-1]?.city}, {userAddress[userAddress.length-1]?.province}, {userAddress[userAddress.length-1]?.postal_code}</div>
                                 </div>
                             </div>
                         </div>
@@ -380,10 +408,12 @@ function CheckoutSection() {
                     </div>
 
 
-                    <ManageAddress showModal={showModal} setShowModal={setShowModal} userInfo={cartInfo?.details_data} accessToken={accessToken} getAddress={getAddress}/>
+                    <ManageAddress showModal={showModal} setShowModal={setShowModal} userInfo={cartInfo} accessToken={accessToken} getAddress={getAddress}/>
 
                 </div>
             </section>
+
+            <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
         </>
     )
 }

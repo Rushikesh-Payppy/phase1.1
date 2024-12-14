@@ -20,11 +20,15 @@ const noto_serif = Noto_Serif({
 });
 
 // icons
-import ChevronLeftDark from '@/Images/Icons/chevron-left-icon-dark.svg';
+// import ChevronLeftDark from '@/Images/Icons/chevron-left-dark.svg';
+
+// //footer icons
+// import Bookmark from '@/Images/flix/bookmarkDark.svg';
+// import Like from '@/Images/flix/likeDark.svg';
 
 //components
 import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
-// import FlixFooter from "@/Components/FlixFooter";
+import FlixFooter from "@/Components/FlixFooter";
 // import FooterGradient from "@/Components/FooterGradient";
 
 
@@ -33,15 +37,15 @@ import FlixForYouBlogData from "@/apis/flix/FlixForYouBlogData";
 
 
 // function Blog({ data=false, modalVisible, setModalVisible }) {
-function Blog({ data, modalVisible, setModalVisible }) {
+function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
 
   let router = useRouter();
-  let [response, setReponse] = useState(data);
+  let [response, setResponse] = useState(data || '');
 
   function getBlogData() {
     FlixForYouBlogData(id)
       .then((data) => {
-        setReponse(data.data);
+        setResponse(data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -49,16 +53,26 @@ function Blog({ data, modalVisible, setModalVisible }) {
   }
 
   useEffect(() => {
+
     if (!data) {
       getBlogData();
+
     }
   }, []);
+
+
+  useEffect(() => {
+    console.log(response);
+
+  }, [response]);
+
+
 
   //base URL
   let baseUrl = "https://strapi.payppy.app";
 
   function getCoverImgUrl(data) {
-    const imgName = data.FeaturedImageOrVideo.formats?.large?.url || data.FeaturedImageOrVideo.formats?.medium?.url || data.FeaturedImageOrVideo.formats?.small?.url || data.FeaturedImageOrVideo.formats?.thumbnail.url;
+    const imgName = data?.FeaturedImageOrVideo?.formats?.large?.url || data?.FeaturedImageOrVideo?.formats?.medium?.url || data?.FeaturedImageOrVideo?.formats?.small?.url || data?.FeaturedImageOrVideo?.formats?.thumbnail.url;
     return (imgName ? (baseUrl + imgName) : "");
   }
 
@@ -75,61 +89,64 @@ function Blog({ data, modalVisible, setModalVisible }) {
     return `${day} ${month} ${year}`;
   }
 
-  const handleBack = () => {
-    setModalVisible(false);
-  }
+  // const handleBack = () => {
+  //   setModalVisible(false);
+  // }
+
+  const url = `/flix-blogs/${data?.documentId || response?.documentId}`;
+  const title = data?.Title || response?.Title;
 
   return (
     <>
-      {response.length == 0 ? (
+      {!response ? (
         <InitialPageLoadingAnimation />
       ) : (
         <>
-          <article className={`page-center-parent-container  ${modalVisible ? ' absolute top-0  z-10  overflow-scroll max-h-screen h-full block animate-slide-in' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} `}>
+          <article className={`page-center-parent-container max-h-screen animate-slide-in  ${modalVisible ? 'absolute top-0 z-10 overflow-scroll max-h-screen h-full block ' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-scroll' : ''}`}>
 
-            <main className=" background-custom-grey50 relative small-border-left small-border-right custom-border-grey800 scroll-smooth -mt-[50px]">
-
-               {/* Back Button */}
-               <button onClick={handleBack} className={`sticky top-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
-                <Image src={ChevronLeftDark} width={24} height={24} alt="img" quality={100} />
-              </button>
+            {/* -mt-[50px] add in main tag when top back button is used */}
+            <main className="background-custom-grey50 relative small-border-left small-border-right custom-border-grey800 scroll-smooth">
 
               {/* blog Rich feature image */}
               <Image src={getCoverImgUrl(response)} alt="img" height={500} width={500} quality={100} className="w-full h-auto aspect-square object-cover" />
 
-              <div className="flex flex-col gap-5 pb-[75px] px-6 pt-7">
+              <div className="flex flex-col gap-5 pb-12 px-6 pt-7">
                 {/* blog title & publish details */}
                 <section className=" gap-3">
                   <section className={" gap-2 py-[1px] flex flex-row items-center uppercase font-medium all-caps-10 custom-text-grey600 " + plus_jakarta_sans.className} >
-                    <p>{response.BlogReadingminutes} min read</p>
+                    <p>{response?.BlogReadingminutes} min read</p>
                     <p className="border-l pl-2 custom-border-grey300 ">
-                      Published on: {gerFormattedPublishedDate(response.publishedAt)}
+                      Published on: {gerFormattedPublishedDate(response?.publishedAt)}
                     </p>
                   </section>
 
                   <h1 className={"heading-h1 tracking-tight !font-normal custom-text-grey900 mt-3 " + noto_serif.className}>
-                    {response.Title}
+                    {response?.Title}
                   </h1>
                 </section>
 
-                <RichText data={response.BlogDescription} />
+                <RichText data={response?.BlogDescription || []} />
 
                 {/* categories at bottom */}
                 <section className={"flex flex-wrap gap-4 items-center custom-text-grey900 " + plus_jakarta_sans.className}>
-                  {response.Category.split(',').map((element, index) => {
-                    return <div className="gap-2 py-2.5 px-4 background-custom-grey50 text-center border-[0.5px] custom-border-grey900 rounded-full ">
+                  {response?.Category?.length > 0 && response?.Category?.split(',').map((element, index) => {
+                    return <div key={index} className="gap-2 py-2.5 px-4 background-custom-grey50 text-center border-[0.5px] custom-border-grey900 rounded-full ">
                       #{element}
                     </div>
                   })}
                 </section>
               </div>
+
+              {/* Back Button */}
+              {/* <button onClick={handleBack} className={`sticky bottom-0 z-10 ml-[60px] background-custom-grey50  gap-8 p-3 small-border custom-border-grey800 rounded-[90px] cursor-pointer`}>
+                <Image src={ChevronLeftDark} width={24} height={24} alt="img" quality={100} />
+              </button> */}
+
+              {/* footer */}
+              <FlixFooter url={url} title={title} gradient={true} positionValue="sticky" setModalVisible={setModalVisible} mode="light" />
+
             </main>
 
-            {/* footer gradient */}
-            {/* <FooterGradient positionValue="fixed"/> */}
-
-            {/* footer */}
-            {/* <FlixFooter positionValue="fixed" backOption="/flix/flix-blogs" mode="light" /> */}
           </article>
         </>
       )}
