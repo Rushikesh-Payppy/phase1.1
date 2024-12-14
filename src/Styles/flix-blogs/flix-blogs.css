@@ -64,4 +64,8 @@
      object-position: center;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.scroll-up-animation {
+  animation: scrollUp 1000ms ease-in-out;
 }/*# sourceMappingURL=flix-blogs.css.map */

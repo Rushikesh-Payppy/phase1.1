@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, AccordionContent, AccordionItem } from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem } from "@/Components/ui/accordion";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { Plus } from "lucide-react";
 

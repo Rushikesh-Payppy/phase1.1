@@ -172,6 +172,19 @@ $grey950: #1A1917;
 $green: #00FF95;
 $alert: #E13A3A;
 
+// for flix dark footer
+$flix-footer-background: #1a1917cf;  
+
+.flix-footer-dark-fradient {
+    background: #1a1917cf;
+    box-shadow: 0px 1px 2px 0px #0000000F;
+    box-shadow: 0px 1px 3px 0px #0000001A;
+}
+
+.footer-border-dark {
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+}
+
 
 // for Text Colors
 .custom-text-white {
@@ -428,4 +441,11 @@ body{
 
 .vh100{
   height: 100vh;
+}
+
+//blog page shared from link
+.for-flixBlock{
+  display: block !important;
+  position: static !important;
+  min-height: 100vh;
 }

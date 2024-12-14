@@ -91,6 +91,18 @@
   font-weight: 600;
 }
 
+.flix-footer-dark-fradient {
+  background: rgba(26, 25, 23, 0.8117647059);
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
+          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
+          box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
+}
+
+.footer-border-dark {
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+}
+
 .custom-text-white {
   color: #FFFFFF;
 }
@@ -333,4 +345,10 @@ body {
 
 .vh100 {
   height: 100vh;
+}
+
+.for-flixBlock {
+  display: block !important;
+  position: static !important;
+  min-height: 100vh;
 }/*# sourceMappingURL=Typography.css.map */
