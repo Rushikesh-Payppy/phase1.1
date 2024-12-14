@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import '@/Styles/flix-blogs/flix-blogs.css';
 import { useRouter } from "next/navigation";
 
 import '@/Styles/flix-blogs/flix-blogs.css';
@@ -17,9 +18,10 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 import BlogPage from '@/app/flix-blogs/[blog]/Blog';
 
 // icons
-import ChevronLeft from '@/Images/Icons/arrow-icon.svg';
+import ChevronLeft from '@/Images/Icons/chevron-left-dark.svg';
 import ChevronRightLight from '@/Images/Icons/chevron-right-light.svg';
 import HotAndCoolLogo from '@/Images/Icons/hot-and-cool-icon.svg';
+import FlixFooter from "./FlixFooter";
 
 //component
 // import FlixFooter from "./FlixFooter";
@@ -55,15 +57,15 @@ function getImgUrl(data) {
 
   return (
     <>
-      <article className="relative w-full h-full flex flex-col justify-end snap-start snap-always">
+      <article className="relative w-full h-full flex flex-col justify-end snap-start snap-always animate-scroll-up">
 
      {/* Blog reader Modal */}
         <BlogPage modalVisible={modalVisible} setModalVisible={setModalVisible} data={data} />
 
       {/* Back Button */}
-      <button onClick={handleBack} className={`fixed top-0 mt-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
+      {/* <button onClick={handleBack} className={`fixed top-0 mt-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
         <Image  src={ChevronLeft} width={24} height={24} alt="img" quality={100} />
-      </button>
+      </button> */}
 
 
        {/* hot and cool Logo */}
@@ -92,9 +94,10 @@ function getImgUrl(data) {
       
         </section>
 
-      {/* footer */}
-        {/* <FlixFooter positionValue="absolute" backOption="/" /> */}
-      
+        <footer className=" flex justify-center items-center">
+          <FlixFooter gradient={false} positionValue="absolute" />
+        </footer>
+
       </article>
     </>
   );

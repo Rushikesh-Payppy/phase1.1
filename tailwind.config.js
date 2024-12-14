@@ -20,7 +20,8 @@ module.exports = {
 				'come-in': 'come-in 1.4s cubic-bezier(0.87, 0, 0.13, 1) both',
 				'fade-back': 'fade-back 1s cubic-bezier(0.87, 0, 0.13, 1) both',
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'scroll-up': 'scrollUp 1000ms ease-in-out 0.6s',
 			},
 			keyframes: {
 				'slide-in': {
@@ -121,7 +122,12 @@ module.exports = {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				scrollUp: {
+					'0%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-70px)' },
+					'100%': { transform: 'translateY(0)' },
+				  },
 			},
 			colors: {
 				background: 'hsl(var(--background))',
@@ -167,7 +173,11 @@ module.exports = {
 			},
 			backgroundImage: {
 				'landingpage-gradient': 'linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.7) 99.5%)',
-				'store-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)'
+				'store-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)',
+				'flix-blog-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)',
+			},
+			boxShadow: {
+				'flix-footer-dark-shadow': '0px 1px 2px 0px #0000000F, 0px 1px 3px 0px #0000001A',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

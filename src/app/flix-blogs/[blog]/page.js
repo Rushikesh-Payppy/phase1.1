@@ -5,7 +5,8 @@ import Blog from "./Blog";
 const page = ({ params }) => {
   return (
     <>
-      <Blog id={params.blog} />
+     <Blog id={params.blog} />
+    
     </>
   );
 };
