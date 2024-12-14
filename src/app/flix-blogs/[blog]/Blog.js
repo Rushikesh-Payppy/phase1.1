@@ -20,22 +20,20 @@ const noto_serif = Noto_Serif({
 });
 
 // icons
-import ChevronLeftDark from '@/Images/Icons/chevron-left-dark.svg';
+// import ChevronLeftDark from '@/Images/Icons/chevron-left-dark.svg';
 
-//footer icons
-import Bookmark from '@/Images/flix/bookmarkDark.svg';
-import Like from '@/Images/flix/likeDark.svg';
+// //footer icons
+// import Bookmark from '@/Images/flix/bookmarkDark.svg';
+// import Like from '@/Images/flix/likeDark.svg';
 
 //components
 import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import FlixFooter from "@/Components/FlixFooter";
-import FooterGradient from "@/Components/FooterGradient";
+// import FooterGradient from "@/Components/FooterGradient";
 
 
 //API's
 import FlixForYouBlogData from "@/apis/flix/FlixForYouBlogData";
-import Link from "next/link";
-import ShareButton from "@/Components/FlixShareButton";
 
 
 // function Blog({ data=false, modalVisible, setModalVisible }) {
