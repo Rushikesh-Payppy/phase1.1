@@ -5,12 +5,18 @@ import { useRouter } from "next/navigation";
 //icons
 import LeftChevron from '@/Images/Icons/chevron-left-icon-dark.svg';
 
-const PageBackButton = () => {
+const PageBackButton = ({url=''}) => {
 
     const router = useRouter();
 
     const handleBack = () => { 
-        router.back();
+        if(url)
+        {
+            router.push(url);
+        }
+        else{
+            router.back();
+        }
     }
 
     return (

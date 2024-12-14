@@ -12,6 +12,7 @@ import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import LoadingAnimation from '@/app/auth/LoadingAnimation';
 import AddCustomerInformationApi from '../../../apis/auth/AddCustomerInformationApi';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 
 function UserInformationSection()
@@ -28,11 +29,23 @@ function UserInformationSection()
     let[accessToken,setAccessToken]=useState('');
     let[gettingAccessToken,setGettingAccessToken]=useState(true);
 
+    let[personalInfoPage,setPersonalInfoPage]=useState(false);
+
     let router=useRouter();
+
+    let params=useSearchParams();
 
     useEffect(()=>{
         getAccessToken();
     },[])
+
+    useEffect(()=>{
+        let isAccessingFromPersonalInfoPage=params.get('personalInfo');
+        if(isAccessingFromPersonalInfoPage)
+        {
+            setPersonalInfoPage(true);
+        }
+    },[params])
 
     //initail user nmae and sir name view functions
 
@@ -82,8 +95,15 @@ function UserInformationSection()
         .then((response)=>{
             // console.log(response);
             if(response&&"message" in response&&response.message==='User details updated successfully')
-            {
-                setUserInfoView(1);
+            {   
+                //this is for if someone try to edit the full name from personal info page
+                if(personalInfoPage)
+                {
+                    router.push('/my-account/settings-and-activity/personal-information');
+                }
+                else{
+                    setUserInfoView(1);
+                }
             }
         })
         .catch((error)=>{
@@ -136,6 +156,12 @@ function UserInformationSection()
              setGettingAccessToken(false);
          }
      }
+
+
+     function handleFullNameBackBtnClick()
+     {
+        router.push('/my-account/settings-and-activity/personal-information');
+     }
  
      if(gettingAccessToken)
      {
@@ -145,12 +171,15 @@ function UserInformationSection()
         <>
             {userInfoView===0&&
             // <section className={"flex justify-center  background-custom-grey50  h-screen  overflow-hidden "+plus_jakarta_sans.className}>
-                <div className="page-center-parent-container h-screen background-custom-grey50 border-black overflow-hidden px-6 py-24 small-border border-custom-grey800 ">
+                <div className="page-center-parent-container h-screen background-custom-grey50 border-black overflow-hidden px-6 py-4 small-border border-custom-grey800 ">
                     <div className="flex flex-col gap-10 ">
-                        <div className="flex flex-col gap-8">
+                        {personalInfoPage&&<Image src={Arrow} width={32} height={32} alt='img' quality={100} className='cursor-pointer' onClick={handleFullNameBackBtnClick}/>}
+                        
+                        <div className="flex flex-col gap-8 py-20">
                             <div className="flex flex-col gap-2">
-                                <h2 className="heading-h2 custom-text-grey900 ">Quick intros... 
-                                <br />What should we call you?</h2>
+                               {personalInfoPage? <h2 className="heading-h2 custom-text-grey900 ">Change my full name</h2>
+                                :<h2 className="heading-h2 custom-text-grey900 ">Quick intros... 
+                                <br />What should we call you?</h2>}
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <div className="all-caps-12-bold custom-text-grey900">First name</div>

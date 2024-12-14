@@ -103,6 +103,7 @@ function ProductSection() {
             getCartInfo();
         }
     }, [accessToken])
+    
 
 
     //fetch product
@@ -268,15 +269,19 @@ function ProductSection() {
             {gettingAccessToken ? <IntialLoadingAnimation />
                 :
                 <section className="page-center-parent-container  overflow-scrollbar-hidden   ">
-                    <div className="small-border-x border-black  " ref={parentContainer}>
+                    <div className="small-border-x border-black overflow-x-hidden " ref={parentContainer}>
 
                             <StoreShopPepoinNavbar share={true} store={true} pepcoin={true} accessToken={accessToken}/>
-                        <div className="   ">
+                        {/* <div className=" flex flex-nowrap overflow-scroll snap-x-custom  overflow-scrollbar-hidden scroll-smooth">
+                            {product?.images?.map((element,index)=>{
+                                return <Image key={index} src={element?.url} width={390} height={620} alt="img" quality={100} className="flex-shrink-0 grow w-full h-auto object-cover snap-start-custom items-stretch" />
+                            })}
 
-
+                        </div> */}
+                        <div className="">
                             {product?.thumbnail && <Image src={product?.thumbnail} width={390} height={620} alt="img" quality={100} className="w-full h-auto object-cover " />}
-
                         </div>
+
 
                         {/* <div className=""> */}
 
@@ -292,7 +297,7 @@ function ProductSection() {
                                 </div>
                                 <div className="flex flex-col items-end gap-1.5">
                                     <div className="all-caps-12 custom-text-grey800">₹{product?.variants?.[0]?.calculated_price?.calculated_amount}</div>
-                                    <div className="body-xs custom-text-grey500 ">MRP incl. of all taxes</div>
+                                    <div className="body-xs custom-text-grey500 text-right">MRP incl. of all taxes</div>
                                 </div>
 
                             </div>
@@ -309,7 +314,7 @@ function ProductSection() {
                                 </div>
                                 <div className="flex overflow-scroll overflow-scrollbar-hidden scroll-smooth">
                                     {product?.variants?.map((element, index) => {
-                                        return <div key={index} className={`flex justify-center items-center p-3 w-16 h-16 small-border body-sm  custom-text-grey900 cursor-pointer ${selectedSize === element.id ? '  border-black font-bold ' : ' custom-border-grey400 '}`} onClick={() => { handleSizeSelect(element.id) }}>{element.options[0]?.value}</div>
+                                        return <div key={index} className={`flex justify-center items-center p-3 w-16 h-16 small-border body-sm  custom-text-grey900 cursor-pointer text-center ${selectedSize === element.id ? '  border-black font-bold ' : ' custom-border-grey400 '}`} onClick={() => { handleSizeSelect(element.id) }}>{element.options[0]?.value==='Default option value'?'One Size':element.options[0]?.value}</div>
                                     })
 
                                     }
@@ -343,11 +348,11 @@ function ProductSection() {
                                     <div className="flex justify-between cursor-pointer" onClick={() => { handleProductInfoClick(0) }}>
                                         <div className="all-caps-10-bold custom-text-grey800">product Details</div>
                                         {/* <Image src={Plus} width={24} height={24} alt="img" quality={100} className="" /> */}
-                                        <Image src={ProductShoppingInfoVisibilityIndex === 0 ? Plus : Minus} width={24} height={24} alt="img" quality={100} className="" />
+                                        <Image src={ProductShoppingInfoVisibilityIndex === 0 ? Minus : Plus  } width={24} height={24} alt="img" quality={100} className="cursor-pointer" />
                                     </div>
                                     <div className={`flex flex-col gap-5 duration-500 ${ProductShoppingInfoVisibilityIndex == 0 ? ' max-h-[900px] pr-6 pb-2 h-fit overflow-auto ' : ' max-h-0 h-0 overflow-hidden '}`}>
-                                        <div className="body-sm custom-text-grey700">Introducing Cyberpunk, a collaboration story between two British heritage luxury brands. The collection encapsulates the best of contemporary and heritage styling, a collaboration story between </div>
-                                        <div className="grid grid-cols-2 gap-x-5 gap-y-1.5">
+                                        <div className="body-sm custom-text-grey700">{product?.description} </div>
+                                        {/* <div className="grid grid-cols-2 gap-x-5 gap-y-1.5">
                                             <div className="flex flex-col gap-1 py-3 small-border-top custom-border-grey400">
                                                 <div className="all-caps-10 custom-text-grey600">Type</div>
                                                 <div className="body-bold custom-text-grey900">Jacket</div>
@@ -372,7 +377,7 @@ function ProductSection() {
                                                 <div className="all-caps-10 custom-text-grey600">color</div>
                                                 <div className="body-bold custom-text-grey900">Red</div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
 
@@ -381,7 +386,7 @@ function ProductSection() {
                                     <div className="flex justify-between" onClick={() => { handleProductInfoClick(2) }}>
                                         <div className="all-caps-10-bold custom-text-grey800">Shipping, exchanges & returns</div>
                                         {/* <Image src={Plus} width={24} height={24} alt="img" quality={100} className="" /> */}
-                                        <Image src={ProductShoppingInfoVisibilityIndex === 2 ? Plus : Minus} width={24} height={24} alt="img" quality={100} className="" />
+                                        <Image src={ProductShoppingInfoVisibilityIndex === 2 ? Minus  : Plus} width={24} height={24} alt="img" quality={100} className="cursor-pointer" />
                                     </div>
                                     <div className={`text-xs body-sm custom-text-grey900 ${ProductShoppingInfoVisibilityIndex == 2 ? ' max-h-[900px] pb-2 h-fit overflow-auto ' : ' max-h-0 h-0 overflow-hidden '} `}>
                                         <div className="text-xs body-sm font-bold">Shipping:</div>
@@ -399,7 +404,7 @@ function ProductSection() {
                                             <li className="body-sm custom-text-grey900">A fee of ₹130 will be applied on the return of sale items.</li>
                                             <li className="body-sm custom-text-grey900">If your PIN is not serviceable for reverse pickup, you must ship the product to us.</li>
                                             <li className="body-sm custom-text-grey900">Returns of items below will ₹999 will incur a charge of ₹130.</li>
-                                            <li className="body-sm custom-text-grey900">If you receive a damaged product, find items missing from your order, or have received a delivery status notification without receiving the package, please contact us via email at <strong>upport@payppy.co</strong>s or phone at <strong>+91 9022558944</strong> within 24 hours of delivery.</li>
+                                            <li className="body-sm custom-text-grey900">If you receive a damaged product, find items missing from your order, or have received a delivery status notification without receiving the package, please contact us via email at <strong>support@payppy.co</strong> or phone at <strong>+91 9022558944</strong> within 24 hours of delivery.</li>
                                         </ul>
                                         <br />
                                         <div className="custom-text-grey900">For more details, please check our <Link href={'/my-account/legal-policies-and-more/shipping-return-refund'} className=" underline">shipping, return & refund policy here.</Link></div>

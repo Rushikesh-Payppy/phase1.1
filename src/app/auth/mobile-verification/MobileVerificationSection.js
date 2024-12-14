@@ -6,6 +6,11 @@ import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import LoadingAnimation from '@/app/auth/LoadingAnimation';
 import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
 import SentOtpApi from '@/apis/auth/SentOtpApi';
+import Arrow from '@/Images/Otp/arrow-icon.svg';
+
+import { useSearchParams } from 'next/navigation';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 function MobileVerificationSection()
@@ -24,14 +29,27 @@ function MobileVerificationSection()
      let[accessToken,setAccessToken]=useState('');
      let[gettingAccessToken,setGettingAccessToken]=useState(true);
  
- 
-    //  let router=useRouter();
+     let[personalInfoPage,setPersonalInfoPage]=useState(false);
+
+
+    let router=useRouter();
+
+    let params=useSearchParams();
+
+
+    useEffect(()=>{
+        let isAccessingFromPersonalInfoPage=params.get('personalInfo');
+        if(isAccessingFromPersonalInfoPage)
+        {
+            setPersonalInfoPage(true);
+        }
+    },[params])
  
      useEffect(()=>{
          getAccessToken();
      },[])
  
-    
+   
  
    
  
@@ -109,15 +127,21 @@ function MobileVerificationSection()
       {
          return <IntialLoadingAnimation/>
       }
+
+      function handleFullNameBackBtnClick()
+      {
+         router.push('/my-account/settings-and-activity/personal-information');
+      }
     return(
         <>
          {otpVerificationStep===0&&
             // <section className={"flex justify-center  background-custom-grey50  h-screen overflow-hidden "+plus_jakarta_sans.className}>
-                <div className="page-center-parent-container background-custom-grey50 border-black h-screen p-6 small-border border-custom-grey800 relative">
+                <div className="page-center-parent-container background-custom-grey50 border-black vh100 p-6 small-border border-custom-grey800 relative">
 
                     <div className="">
+                        {personalInfoPage&&<Image src={Arrow} width={32} height={32} alt='img' quality={100} className='cursor-pointer' onClick={handleFullNameBackBtnClick}/>}
 
-                        <div className="flex flex-col gap-8 py-24">
+                        <div className="flex flex-col gap-8 py-20">
                             <div className="flex flex-col gap-2">
                                 <h2 className="heading-h2 custom-text-grey900 ">Verify your phone number</h2>
                                 <div className="body-sm custom-text-grey700">We secure your account, not spam it</div>
@@ -139,7 +163,7 @@ function MobileVerificationSection()
 
 
 
-            {otpVerificationStep===1&&<SoftLaunchOtpInputs setOtpVerificationStep={setOtpVerificationStep} sessionId={sessionId} accessToken={accessToken} phone_number={phoneNumber}/>}
+            {otpVerificationStep===1&&<SoftLaunchOtpInputs setOtpVerificationStep={setOtpVerificationStep} sessionId={sessionId} accessToken={accessToken} phone_number={phoneNumber} personalInfoPage={personalInfoPage}/>}
              {/* </section>} */}
 
 

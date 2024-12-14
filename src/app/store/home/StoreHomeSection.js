@@ -48,6 +48,7 @@ function StoreHomeSection() {
 
     let query = '?region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9';
     function FetchProducts() {
+
         StoreProductsListApi(query)
             .then((response) => {
                 console.log(response);
@@ -56,6 +57,10 @@ function StoreHomeSection() {
             .catch((error) => {
                 console.log(error);
             })
+            // .finally()
+            // {
+            //     setGettingAccessToken(false);
+            // }
     }
 
 

@@ -7,10 +7,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import VerifyOtpApi from '@/apis/auth/VerifyOtpApi';
 import SentOtpApi from '@/apis/auth/SentOtpApi';
+import AddCustomerInformationApi from '@/apis/auth/AddCustomerInformationApi';
 
 
 
-function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,sessionId})
+function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,sessionId,personalInfoPage=false})
 {
 
     let router=useRouter();
@@ -19,6 +20,8 @@ function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,se
     let[invalidOtp,setInvalidOtp]=useState(false);
     let[isOtpResend,setIsOtpResend]=useState(false);
     let[payloadSessionId,setPayloadSessionId]=useState(sessionId);
+
+   
 
 
     useEffect(()=>{
@@ -122,29 +125,54 @@ function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,se
     {
         setInvalidOtp(false);
 
-        let payloadObj={
-            "phone":"+91"+phone_number,
-            "session_uuid":payloadSessionId,
-            "otp":getOtp()
-        }
-        VerifyOtpApi(payloadObj,accessToken)
-        .then((response)=>{
-            if(response&&'message' in response)
-            {
-                if(response.message==='Mobile number verified successfully.')
-                {
-                    router.push('/auth/user-information');
-                }
-                if(response.message==='session validation failed' || response.message==='session_uuid is not valid')
-                {
-                        setInvalidOtp(true);
-                        handleBackBtn();
-                }
+
+        //this is for if someone try to edit the full name from personal info page
+        if(personalInfoPage)
+        {
+            let obj={
+                "phone":"+91"+phone_number,
             }
-        })
-        .catch((error)=>{
-            console.error(error);
-        })
+            AddCustomerInformationApi(obj,accessToken)
+            .then((response)=>{
+                if(response&&"message" in response&&response.message==='User details updated successfully')
+                    {   
+                            router.push('/my-account/settings-and-activity/personal-information');
+                    }
+            })
+        }
+        else{
+
+            let payloadObj={
+                "phone":"+91"+phone_number,
+                "session_uuid":payloadSessionId,
+                "otp":getOtp()
+            }
+
+            VerifyOtpApi(payloadObj,accessToken)
+            .then((response)=>{
+                if(response&&'message' in response)
+                {
+                    if(response.message==='Mobile number verified successfully.')
+                    {
+                        if(personalInfoPage)
+                        {
+                            router.push('/my-account/settings-and-activity/personal-information');
+                        }
+                        else{
+                            router.push('/auth/user-information');
+                        }
+                    }
+                    if(response.message==='session validation failed' || response.message==='session_uuid is not valid')
+                    {
+                            setInvalidOtp(true);
+                            handleBackBtn();
+                    }
+                }
+            })
+            .catch((error)=>{
+                console.error(error);
+            })
+        }
 
     }
 
@@ -195,7 +223,7 @@ function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,se
     return(
         <>
         {/* <section className={"flex justify-center h-screen w-full background-custom-grey100  overflow-hidden "+plus_jakarta_sans.className}> */}
-            <div className="page-center-parent-container  small-border background-custom-grey50 p-6 h-screen relative">
+            <div className="page-center-parent-container  small-border background-custom-grey50 p-6 vh100 relative">
                         <Image src={Arrow} width={36} height={36} alt='img' quality={100} className='cursor-pointer ' onClick={()=>{handleBackBtn(true)}}/>
                 <div className="flex flex-col  pt-24 pb-10  gap-8  ">
                     <div className="flex flex-col gap-10 ">
