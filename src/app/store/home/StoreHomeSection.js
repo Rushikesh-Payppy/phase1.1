@@ -133,7 +133,6 @@ function StoreHomeSection()
 
                 </section>
 
-
                 <StoreFooter/>
             </div>
         </main>}

@@ -7,6 +7,7 @@ import ScrollButtons from "@/Components/ScrollButtons";
 import FlixBlogContent from "@/Components/FlixBlogContent";
 import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 
+
 const Page = ({ scrollButtons = true, navbar = true }) => {
   const scrollContainer = useRef(null);
   const [data, setData] = useState([]);
@@ -14,6 +15,7 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const initialFetchDone = useRef(false); // Tracks if the first fetch is complete
+
 
   // Fetch data for a given page
   const getFlixData = useCallback(async () => {
@@ -27,7 +29,7 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
       const json = await response.json();
 
       const newItems = json?.data || [];
-      console.log("new items",newItems);
+      console.log("new items", newItems);
       setData((prevData) => [...prevData, ...newItems]);
 
       if (newItems.length < 3) setHasMore(false); // If fewer than 3 items are fetched, no more data
@@ -73,28 +75,31 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
 
   return (
     <>
-      {/* snap-start snap-always --> used for scrolling inside flix home page */}
-      <article className="relative h-screen page-center-parent-container  flex flex-col items-center justify-between mx-auto snap-start snap-always ">
-        {/* Navbar */}
-        {/* {navbar && <FlixNavbar />} */}
-              
-       {/* Scroll Buttons */}
-       {scrollButtons && <ScrollButtons containerName={scrollContainer} />}    
-         
-        <main className="absolute top-0 left-0 h-full w-full">
-          <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll ">
-            {data.length > 0 &&
-              data.map((element, index) => (
-                <FlixBlogContent data={element} key={index} />
-              ))}
-            {loading && <InitialPageLoadingAnimation/>}
-          </section>
-        </main>
+      <article className="w-full flex justify-center ">
 
+        {/* snap-start snap-always --> used for scrolling inside flix home page */}
+        <main className="relative h-screen page-center-parent-container flex flex-col items-center justify-between mx-auto snap-start snap-always ">
+          {/* Navbar */}
+          {/* {navbar && <FlixNavbar />} */}
+
+          <div className="absolute top-0 left-0 h-full w-full">
+            <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll ">
+              {data.length > 0 &&
+                data.map((element, index) => (
+                  <FlixBlogContent data={element} key={index} />
+                ))}
+              {loading && <InitialPageLoadingAnimation />}
+            </section>
+          </div>
+
+          {/* Scroll Buttons */}
+          {scrollButtons && <ScrollButtons containerName={scrollContainer} />}
+
+        </main>
 
       </article>
     </>
-  );1
+  ); 
 };
 
 export default Page;

@@ -6,10 +6,6 @@
     box-sizing: border-box;
 }
 
-.blog-title-gradient {
-    background: linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.5) 60.99%);
-}
-
 /* Hide scrollbar for all elements */
 ::-webkit-scrollbar {
     display: none;
@@ -32,20 +28,6 @@
 //     animation: slideIn 200ms ease-out;
 
 // }
-
-/* Animation effect */
-// @keyframes slideIn {
-//     0% {
-//         transform: translateX(80%);
-//         /* Start from the right */
-//     }
-
-//     100% {
-//         transform: translateX(0);
-//         /* End at the original position */
-//     }
-// }
-
 
 // .flix-blog-main-container {
 //     width: 100%;
@@ -110,6 +92,6 @@
     object-fit: cover;
 }
 
-.scroll-up-animation {
-    animation: scrollUp 1000ms ease-in-out;
-  }
+// .scroll-up-animation {
+//     animation: scrollUp 1000ms ease-in-out;
+//   }

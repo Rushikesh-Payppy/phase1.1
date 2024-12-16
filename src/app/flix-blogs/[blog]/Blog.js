@@ -19,23 +19,14 @@ const noto_serif = Noto_Serif({
   display: "swap",
 });
 
-// icons
-import ChevronLeftDark from '@/Images/Icons/chevron-left-dark.svg';
-
-//footer icons
-import Bookmark from '@/Images/flix/bookmarkDark.svg';
-import Like from '@/Images/flix/likeDark.svg';
-
 //components
 import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import FlixFooter from "@/Components/FlixFooter";
-import FooterGradient from "@/Components/FooterGradient";
 
 
 //API's
 import FlixForYouBlogData from "@/apis/flix/FlixForYouBlogData";
-import Link from "next/link";
-import ShareButton from "@/Components/FlixShareButton";
+
 
 
 // function Blog({ data=false, modalVisible, setModalVisible }) {
@@ -145,7 +136,7 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
               </button> */}
 
               {/* footer */}
-              <FlixFooter url={url} title={title} gradient={true} positionValue="sticky" setModalVisible={setModalVisible} mode="light" />
+              <FlixFooter url={url} title={title} gradient={true} positionValue="sticky" setModalVisible={setModalVisible} mode="light" id={data?.documentId || response?.documentId}/>
 
             </main>
 
