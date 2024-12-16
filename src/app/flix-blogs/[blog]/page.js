@@ -6,7 +6,6 @@ const page = ({ params }) => {
   return (
     <>
      <Blog id={params.blog} />
-    
     </>
   );
 };
