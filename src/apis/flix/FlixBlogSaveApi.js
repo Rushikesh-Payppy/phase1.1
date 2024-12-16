@@ -1,16 +1,32 @@
-import axios from "axios";
 
-async function FlixBlogSaveApi() {
-    try {
-        let response = await axios.get("https://strapi.payppy.app/api/save");
-        return response.data;
+function FlixBlogSaveApi(payload,accessToken) {
+    
+       return fetch("https://payppy.in/api/save",{
+            method:'POST',
+            
+            headers:{
+                'Authorization': 'Bearer '+accessToken,
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(payload)
+        })
+        .then((response)=>{
+            return response.json();
+        })
+        .catch((error)=>{
+            return error;
+        })
     }
-    catch (error) {
-        console.log(error);
-    }
-}
+
 
 export default FlixBlogSaveApi;
+
+
+
+//for save post method
+//access token
+//var content_id
+//saved = true/ false
 
 
 
@@ -21,16 +37,12 @@ export default FlixBlogSaveApi;
 //var content_id
 //liked = true/ false
 
+
 //get likes
 //API 
 //"https://strapi.payppy.app/api/content/<content_id>/likes" get method no playload
 
 
-
-//for save post method
-//access token
-//var content_id
-//saved = true/ false
 
 //user likes get method
 //access token

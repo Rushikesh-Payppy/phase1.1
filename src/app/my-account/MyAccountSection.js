@@ -38,7 +38,10 @@ const MyAccountSection = () => {
     getAccessToken();
   },[])
   useEffect(()=>{
-    getCartInfo();
+    if(accessToken)
+    {
+      getCartInfo();
+    }
   },[accessToken])
 
   //getting access token

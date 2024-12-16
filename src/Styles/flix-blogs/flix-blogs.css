@@ -6,17 +6,19 @@
           box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 .blog-title-gradient {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(26, 25, 23, 0)), color-stop(60.99%, rgba(26, 25, 23, 0.5)));
   background: linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.5) 60.99%);
 }
 
+=======
+>>>>>>> b7c76de5eae2f1f3e97b143809c4093c7daa6a86
 /* Hide scrollbar for all elements */
 ::-webkit-scrollbar {
   display: none;
 }
 
-/* Animation effect */
 .flix-blog h1 {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -64,8 +66,4 @@
      object-position: center;
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.scroll-up-animation {
-  animation: scrollUp 1000ms ease-in-out;
 }/*# sourceMappingURL=flix-blogs.css.map */

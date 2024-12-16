@@ -143,7 +143,7 @@ function ProductSection() {
     //     let replacedUrl=imgsrc;
     //     if(imgsrc?.includes('http://localhost:9000'))
     //     {
-    //         replacedUrl=imgsrc.replace('http://localhost:9000','https://medusa.payppy.app');
+    //         replacedUrl=imgsrc.replace('http://localhost:9000','https://medusa.payppy.in');
     //     }
     //     return replacedUrl;
     // }
