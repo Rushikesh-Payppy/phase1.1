@@ -35,6 +35,10 @@ import GenerateOrderIdApi from '@/apis/store/GenerateOrderIdApi';
 import Script from 'next/script';
 import AddShippingMethodsApi from '@/apis/store/AddShippingMethodsApi';
 
+import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
+import TaxesApi from '@/apis/store/TaxesApi';
+import CreateCartApi from '@/apis/store/CreateCartApi';
+import GenerateOrderApi from '@/apis/store/GenerateOrderApi';
 
 
 function CheckoutSection() {
@@ -58,19 +62,24 @@ function CheckoutSection() {
     let[paymentProviderList,setPaymentProvidersList]=useState([]);
     let[invalidAddress,setInvalidAddress]=useState(false);
 
+    let[tax,setTax]=useState('');
+    let[orderDetails,setOrderDetails]=useState('');
+
 
     let router=useRouter();
+
+    const { error, isLoading, Razorpay } = useRazorpay();
      //to get a access token
      useEffect(()=>{
         getAccessToken();
         getPaymentProviderList();
     },[])
-    useEffect(()=>{
-        if(accessToken)
-        {
-            getAddress();
-        }
-    },[accessToken])
+    // useEffect(()=>{
+    //     if(accessToken)
+    //     {
+           
+    //     }
+    // },[accessToken])
 
     useEffect(()=>{
         if(accessToken)
@@ -83,6 +92,7 @@ function CheckoutSection() {
         if(cartInfo)
         {
             getCartItems();
+            getAddress();
             AddShippingMethod();
         }
     },[cartInfo])
@@ -94,13 +104,28 @@ function CheckoutSection() {
         }
     },[userAddress])
 
-
     useEffect(()=>{
         if(paymentCollection)
         {
-            IntiatePaymentSession();
+            PutTaxesInCart();
         }
     },[paymentCollection])
+
+
+    useEffect(()=>{
+        if(tax)
+        {
+            IntiatePaymentSession();
+        }
+    },[tax])
+
+    // useEffect(() => {
+    //     const script = document.createElement('script');
+    //     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    //     script.async = true;
+    //     script.onload = () => console.log('Razorpay script loaded!');
+    //     document.body.appendChild(script);
+    //   }, []);
 
      //getting access token
      function getAccessToken()
@@ -218,14 +243,20 @@ function CheckoutSection() {
      {
          // Fetch the data when the component mounts
          let obj={
-            "provider_id": "pp_razorpay_razorpay"
+            "provider_id": "pp_razorpay_razorpay",
+            "context":{
+                "extra": tax
 
          }
+        }
          
          IntiatePaymentApi(obj,paymentCollection?.id)
             .then((response) => {
                 console.log(response);
-                
+                if(response&&'payment_collection' in response)
+                {
+                    setOrderDetails(response.payment_collection);
+                }
             })
             .catch((err) => {
                 console.error("Error fetching payment collection:", err);
@@ -241,30 +272,124 @@ function CheckoutSection() {
                     setUserAddress(response?.response?.addresses);
                     let length=response?.response.addresses.length-1;
                     setInvalidAddress(!response?.response?.addresses[length]?.address_1);
+
+                    let Addresses=response?.response?.addresses[length];
+                    let billingAddresses = {}
+                    billingAddresses.company= ''
+                    billingAddresses.address_2= ''
+                    billingAddresses.metadata= {}
+                    billingAddresses.address_1= Addresses.address_1
+                    billingAddresses.city= Addresses.city
+                    billingAddresses.country_code= Addresses.country_code
+                    billingAddresses.first_name= Addresses.first_name
+                    billingAddresses.last_name= Addresses.last_name
+                    billingAddresses.phone= Addresses.phone
+                    billingAddresses.postal_code= Addresses.postal_code
+                    billingAddresses.province= Addresses.province
+
+                    let shipping_address= {}
+                    shipping_address.company= ''
+                    shipping_address.address_2= ''
+                    shipping_address.metadata= {}
+                    shipping_address.address_1= Addresses.address_1
+                    shipping_address.city= Addresses.city
+                    shipping_address.country_code= Addresses.country_code
+                    shipping_address.first_name= Addresses.first_name
+                    shipping_address.last_name= Addresses.last_name
+                    shipping_address.phone= Addresses.phone
+                    shipping_address.postal_code= Addresses.postal_code
+                    shipping_address.province= Addresses.province
+
+                    let createCartObj={
+                        "billing_address": billingAddresses,
+                        "shipping_address": shipping_address
+                    }
+
+                    CreateCartApi(createCartObj,cartInfo.cart_id)
+                    .then((response)=>{
+                        console.log(response);
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                    })
                     
             }
         })
      }
 
-     function handleProceedToPay()
+     function PutTaxesInCart()
      {
-        setInvalidAddress( !userAddress[0]?.address_1);
-        if(!userAddress[0]?.address_1)
-        {
-            return;
-        }
-
-        GenerateOrderIdApi(cartInfo.cart_id)
+        TaxesApi(cartInfo.cart_id)
         .then((response)=>{
-            console.log(response);
-            if(response&&'order' in response&&'id' in response?.order.id)
-            {
-                router.push('store/order-complete?id?='+response?.order.id);
+            console.log('tax info :',response);
+            if(response){
+                setTax(response.cart);
             }
         })
         .catch((error)=>{
             console.log(error);
         })
+     }
+
+     function handleProceedToPay()
+     {
+        try {
+            
+      
+        setInvalidAddress( !userAddress[userAddress.length-1]?.address_1);
+        if(!userAddress[userAddress.length-1]?.address_1)
+        {
+            return;
+        }
+
+
+        const options = {
+            key: 'rzp_test_7ouO5vEuMs7k4r', // Replace with Razorpay Test/Live Key ID
+            amount: orderDetails?.payment_sessions[0]?.data?.amount, // Amount from Razorpay Order
+            currency: 'INR', // Currency from Razorpay Order
+            order_id: orderDetails?.payment_sessions[0]?.data?.id, // Razorpay Order ID
+            name: cartInfo?.details_data?.first_name,
+            callback_url: `https://medusa.payppy.in/razorpay/hooks`,
+            description: 'Payment for product/service',
+            // image: '/your-logo.png', // Optional logo
+            handler: (response) => {
+              // Handle successful payment here
+              console.log('Payment successful:', response);
+            if(response&&'razorpay_payment_id' in response)
+            {
+                GenerateOrderApi(cartInfo.cart_id)
+                .then((response)=>{
+                  console.log('generate cart response :',response);
+                  
+                })
+                .catch((error)=>{
+                  console.log(error);
+                })
+            }
+            },
+            "prefill": {
+              "name": cartInfo?.details_data?.first_name, // Customer's name
+              "email": cartInfo?.email, // Customer's email
+              "contact": cartInfo?.details_data?.phone_number, // Customer's phone
+            },
+            theme: {
+              color: '#3399cc', // Optional custom theme color
+            },
+          };
+    
+          const razorpayInstance = new Razorpay(options);
+          razorpayInstance.open();
+
+          // Handling Razorpay errors
+            razorpayInstance.on('payment.failed', function (response) {
+                console.error('Payment failed:', response.error);
+                alert('Payment failed. Please try again or contact support.');
+            });
+
+        } catch (error) {
+            console.log(error);
+             
+        }
      }
 
     function handleAddressClick()
@@ -273,7 +398,7 @@ function CheckoutSection() {
     }
     function handleBackClick()
     {
-        router.back();
+        router.push('/store/shopping-bag');
     }
     return (
         <>
@@ -413,7 +538,7 @@ function CheckoutSection() {
                 </div>
             </section>
 
-            <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+            {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" /> */}
         </>
     )
 }

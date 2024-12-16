@@ -38,7 +38,10 @@ const PersonalInformationSection = () => {
     }, [])
 
     useEffect(()=>{
-        getUserInfo();
+        if(accessToken)
+        {
+            getUserInfo();
+        }
     },[accessToken])
 
 
