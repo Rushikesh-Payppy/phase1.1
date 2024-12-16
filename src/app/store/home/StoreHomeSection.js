@@ -135,33 +135,8 @@ function StoreHomeSection() {
 
 
                     </div>
-<<<<<<< HEAD
                         <StoreFooter />
                 </main>}
-=======
-                    <div className="flex items-center gap-4 ">
-                        <Image src={gridColums==1?SingleViewActiveFilter:SingleViewFilter} width={16} height={14} quality={100} alt='img' className='cursor-pointer' onClick={()=>{setGridColumns(1)}}/>
-                        <Image src={gridColums===2?MultiViewActiveFilter:MultiViewFilter} width={16} height={14} quality={100} alt='img' className='cursor-pointer' onClick={()=>{setGridColumns(2)}}/>
-                    </div>
-                </section>
-
-
-                {/* grid view section  */}
-                <section className={`grid grid-cols-${gridColums} small-border-bottom small-border-x  custom-border-grey800`}>
-
-                    {products?.length>0&&
-                        products.map((element,index)=>{
-                            return  <ClothsImgInfoCompo key={index} borderClass={`  small-border-top ${index%2==0&&gridColums===2?' small-border-right ':' '} `} data={element}/>
-                        })
-
-                    }
-
-                </section>
-
-                <StoreFooter/>
-            </div>
-        </main>}
->>>>>>> b7c76de5eae2f1f3e97b143809c4093c7daa6a86
         </>
     )
 }
