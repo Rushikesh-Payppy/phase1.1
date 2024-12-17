@@ -17,7 +17,7 @@ import Subtract from '@/Images/Checkout/Subtract.svg';
 
 //bottom checkout images
 import Store from '@/Images/Homepage/store-icon.svg';
-import Razorpay from '@/Images/Store/razorpay-logo.svg';
+import RazorpayIcon from '@/Images/Store/razorpay-logo.svg';
 import CheckIcon from '@/Images/Store/check-icon.svg';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -39,6 +39,7 @@ import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 import TaxesApi from '@/apis/store/TaxesApi';
 import CreateCartApi from '@/apis/store/CreateCartApi';
 import GenerateOrderApi from '@/apis/store/GenerateOrderApi';
+import DeleteCartIdApi from '@/apis/store/DeleteCartIdApi';
 
 
 function CheckoutSection() {
@@ -274,31 +275,21 @@ function CheckoutSection() {
                     setInvalidAddress(!response?.response?.addresses[length]?.address_1);
 
                     let Addresses=response?.response?.addresses[length];
-                    let billingAddresses = {}
-                    billingAddresses.company= ''
-                    billingAddresses.address_2= ''
-                    billingAddresses.metadata= {}
-                    billingAddresses.address_1= Addresses.address_1
-                    billingAddresses.city= Addresses.city
-                    billingAddresses.country_code= Addresses.country_code
-                    billingAddresses.first_name= Addresses.first_name
-                    billingAddresses.last_name= Addresses.last_name
-                    billingAddresses.phone= Addresses.phone
-                    billingAddresses.postal_code= Addresses.postal_code
-                    billingAddresses.province= Addresses.province
+                    //removing unwanted properties
+                    delete Addresses.company;
+                    delete Addresses.address_2;
+                    delete Addresses.metadata;
+                    delete Addresses.created_at;
+                    delete Addresses.updated_at;
+                    delete Addresses.customer_id;
+                    delete Addresses.id;
 
-                    let shipping_address= {}
-                    shipping_address.company= ''
-                    shipping_address.address_2= ''
-                    shipping_address.metadata= {}
-                    shipping_address.address_1= Addresses.address_1
-                    shipping_address.city= Addresses.city
-                    shipping_address.country_code= Addresses.country_code
-                    shipping_address.first_name= Addresses.first_name
-                    shipping_address.last_name= Addresses.last_name
-                    shipping_address.phone= Addresses.phone
-                    shipping_address.postal_code= Addresses.postal_code
-                    shipping_address.province= Addresses.province
+
+                    let billingAddresses =Addresses;
+                    let shipping_address=Addresses;
+                  
+
+                   
 
                     let createCartObj={
                         "billing_address": billingAddresses,
@@ -357,9 +348,21 @@ function CheckoutSection() {
               console.log('Payment successful:', response);
             if(response&&'razorpay_payment_id' in response)
             {
+                //if payment sucessfull then first generate the order id from medusa 
                 GenerateOrderApi(cartInfo.cart_id)
                 .then((response)=>{
                   console.log('generate cart response :',response);
+                  if(response&&'order' in response)
+                  {
+
+                    //then delete the cart id that has been used 
+                    DeleteCartIdApi(accessToken)
+                    .then()
+                    .catch()
+                    .finally(()=>{
+                        router.push('/store/order-complete?url='+response?.order.id)
+                    })
+                  }
                   
                 })
                 .catch((error)=>{
@@ -383,7 +386,8 @@ function CheckoutSection() {
           // Handling Razorpay errors
             razorpayInstance.on('payment.failed', function (response) {
                 console.error('Payment failed:', response.error);
-                alert('Payment failed. Please try again or contact support.');
+                // alert('Payment failed. Please try again or contact support.');
+                router.push('/store/order-fail?url='+orderDetails?.payment_sessions[0]?.data?.id);
             });
 
         } catch (error) {
@@ -421,11 +425,11 @@ function CheckoutSection() {
                         <div className="flex flex-col gap-2 ">
                             <div className="all-caps-12 custom-text-grey900">Contact Details</div>
                             <div className="flex flex-col gap-1">
-                                <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div>
+                                <div className="body-sm-bold custom-text-grey900">{(cartInfo?.details_data?.first_name || "") + " "+ (cartInfo?.details_data?.last_name || "")}</div>
                                 <div className="flex items-center gap-2">
-                                    <div className="body-sm-bold custom-text-grey900"> {cartInfo?.details_data?.phone_number}</div>
+                                    <div className="body-sm-bold custom-text-grey900"> {cartInfo?.details_data?.phone_number || ""}</div>
                                     <div className=" w-[0.5px] h-[18px] background-custom-grey900"></div>
-                                    <div className="body-sm-bold custom-text-grey900">{cartInfo?.email}</div>
+                                    <div className="body-sm-bold custom-text-grey900">{cartInfo?.email || ""}</div>
                                 </div>
                             </div>
                         </div>
@@ -447,8 +451,8 @@ function CheckoutSection() {
                             <div className="all-caps-12 custom-text-grey900">Shipping to</div>
                             <div className="flex flex-col gap-1">
                                 {/* <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div> */}
-                                    <div className="body-sm-bold custom-text-grey900">{userAddress[userAddress.length-1]?.address_1}
-                                    <br />{userAddress[userAddress.length-1]?.city}, {userAddress[userAddress.length-1]?.province}, {userAddress[userAddress.length-1]?.postal_code}</div>
+                                    <div className="body-sm-bold custom-text-grey900">{userAddress[userAddress.length-1]?.address_1 || ""}
+                                    <br />{userAddress[userAddress.length-1]?.city || ""}, {userAddress[userAddress.length-1]?.province || ""}, {userAddress[userAddress.length-1]?.postal_code || ""}</div>
                                 </div>
                             </div>
                         </div>
@@ -523,7 +527,7 @@ function CheckoutSection() {
                                 <button className={`text-center all-caps-12-bold  custom-text-white px-5 py-4 ${!selectedTerms || cartItems?.items.length===0?' background-custom-grey500 ':'  bg-black '}`} disabled={!selectedTerms || cartItems?.items.length===0} onClick={handleProceedToPay}>Proceed to Pay</button>
                                 <div className="flex justify-center items-center  gap-2">
                                     <div className="all-caps-12 custom-text-grey700">Secured by</div>
-                                    <Image src={Razorpay} width={74} height={16} alt="img" quality={100} className="" />
+                                    <Image src={RazorpayIcon} width={74} height={16} alt="img" quality={100} className="" />
                                 </div>
 
                             </div>
@@ -533,7 +537,7 @@ function CheckoutSection() {
                     </div>
 
 
-                    <ManageAddress showModal={showModal} setShowModal={setShowModal} userInfo={cartInfo} accessToken={accessToken} getAddress={getAddress}/>
+                    <ManageAddress showModal={showModal} setShowModal={setShowModal} userInfo={cartInfo} accessToken={accessToken} getAddress={getAddress} houseNoprops={userAddress[userAddress.length-1]?.address_1} apartmentNoprops={userAddress[userAddress.length-1]?.address_2} cityProps={userAddress[userAddress.length-1]?.city} zipcodeprops={userAddress[userAddress.length-1]?.postal_code} />
 
                 </div>
             </section>

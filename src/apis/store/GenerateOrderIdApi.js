@@ -1,8 +1,8 @@
 
 let baseurl='https://medusa.payppy.in/';
-function GenerateOrderIdApi(paymentCollectionId)
+function GenerateOrderIdApi(cartId)
 {
-    return fetch(`${baseurl}store/carts/${paymentCollectionId}/complete
+    return fetch(`${baseurl}store/carts/${cartId}/complete
 `,
         {
             method:'POST',

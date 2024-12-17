@@ -235,7 +235,7 @@ function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,se
                                 <div className="grid grid-cols-6 small-border border-l-0 custom-border-grey800 w-full ">
                                     {Array(6).fill(0).map((element,index)=>{
                                         return<div className={`${index>0?' small-border-left ':'' } h-16 custom-border-grey800 flex justify-center items-center `} key={index}>
-                                            <input type="tel"  ref={ref=>(otp.current[index]=ref)} className={`outline-none h-full px-5 heading-h2 w-full otp-input-fields text-center `}  onChange={(e)=>{handleOtp(e,index)}} onKeyDown={(e)=>{handleBackspace(e,index)}} />
+                                            <input type="tel"  ref={ref=>(otp.current[index]=ref)} maxLength={1} className={`outline-none h-full px-5 heading-h2 w-full otp-input-fields text-center `}  onChange={(e)=>{handleOtp(e,index)}} onKeyDown={(e)=>{handleBackspace(e,index)}} />
                                         </div>
                                     })}
                                    
