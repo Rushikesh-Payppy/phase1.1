@@ -74,32 +74,30 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
 
 
   return (
-    <>
-      <article className="w-full flex justify-center ">
 
-        {/* snap-start snap-always --> used for scrolling inside flix home page */}
-        <main className="relative h-screen page-center-parent-container flex flex-col items-center justify-between mx-auto snap-start snap-always ">
-          {/* Navbar */}
-          {/* {navbar && <FlixNavbar />} */}
+    <main className="w-full flex justify-center ">
 
-          <div className="absolute top-0 left-0 h-full w-full">
-            <section ref={scrollContainer} className="h-full w-full snap-y snap-mandatory overflow-y-scroll ">
-              {data.length > 0 &&
-                data.map((element, index) => (
-                  <FlixBlogContent data={element} key={index} />
-                ))}
-              {loading && <InitialPageLoadingAnimation />}
-            </section>
+      {/* snap-start snap-always --> used for scrolling inside flix home page */}
+      <div className="relative page-center-parent-container overflow-scrollbar-hidden snap-start snap-always ">
+        {/* Navbar */}
+        {/* {navbar && <FlixNavbar />} */}
+
+          <div ref={scrollContainer} className="w-full h-screen snap-y snap-mandatory overflow-y-scroll ">
+            {data.length > 0 &&
+              data.map((element, index) => (
+                <FlixBlogContent data={element} key={index} />
+              ))}
+            {loading && <InitialPageLoadingAnimation />}
           </div>
+       
+        {/* Scroll Buttons */}
+        {scrollButtons && <ScrollButtons containerName={scrollContainer} />}
 
-          {/* Scroll Buttons */}
-          {scrollButtons && <ScrollButtons containerName={scrollContainer} />}
+      </div>
 
-        </main>
+    </main>
 
-      </article>
-    </>
-  ); 
+  );
 };
 
 export default Page;
