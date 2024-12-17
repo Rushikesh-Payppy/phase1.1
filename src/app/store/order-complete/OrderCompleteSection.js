@@ -184,7 +184,7 @@ function OrderCompleteSection() {
                                 <div className="custom-text-grey900 text-center  body-sm">We&apos;ve received your order, and your parcel will soon be on it’s way!</div>
                             </div>
                         </div>
-                        <button className="custom-text-grey800 body-sm-bold underline">Order Details</button>
+                        {/* <button className="custom-text-grey800 body-sm-bold underline">Order Details</button> */}
                     </div>
                 </div>
 

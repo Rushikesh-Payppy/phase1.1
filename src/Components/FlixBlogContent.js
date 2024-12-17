@@ -16,13 +16,12 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 //PAGE
 import BlogPage from '@/app/flix-blogs/[blog]/Blog';
 
-// icons
-import ChevronRightLight from '@/Images/Icons/chevron-right-light.svg';
-import HotAndCoolLogo from '@/Images/Icons/hot-and-cool-icon.svg';
-
 //component
 import FlixFooter from "./FlixFooter";
 import { Toaster } from "./Toaster";
+
+// icons
+import ArrowRigth from '@/Images/Icons/arrow-right.svg';
 
 
 //base URL
@@ -56,55 +55,42 @@ const FlixBlogContent = ({ data }) => {
   const url = `flix-blogs/${data.documentId}`;
 
   return (
-    <>
-      <article className="relative w-full h-full flex flex-col justify-end snap-start snap-always animate-scroll-up">
 
-        {/* Blog reader Modal */}
-        <BlogPage modalVisible={modalVisible} setModalVisible={setModalVisible} data={data} />
+    <div className="relative w-full h-full flex flex-col justify-end snap-start snap-always animate-scroll-up">
 
-        <Toaster isBlogSave={isBlogSave} setIsBlogSave={setIsBlogSave} />
+      {/* Blog reader Modal */}
+      <BlogPage modalVisible={modalVisible} setModalVisible={setModalVisible} data={data} />
 
-        {/* Back Button */}
-        {/* <button onClick={handleBack} className={`fixed top-0 mt-6 ml-6 bg-[#FDFBF8] gap-8 p-3 border-[0.5px] border-[#3D3E40] rounded-[90px] cursor-pointer`}>
-        <Image  src={ChevronLeft} width={24} height={24} alt="img" quality={100} />
-        </button> */}
+      <Toaster isBlogSave={isBlogSave} setIsBlogSave={setIsBlogSave} />
 
+      {/* blog cover image */}
+      <Image src={getImgUrl(data)} alt="img" width={390} height={802} quality={100} className="absolute top-0 left-0 min-w-[200px] w-full h-full object-cover -z-[1]" />
 
-        {/* hot and cool Logo */}
-        <Image src={HotAndCoolLogo} width={58} height={44} alt="hot&cool" quality={100} className="absolute bottom-10 right-9" />
+      {/* Blog title */}
+      <section className={"bg-flix-blog-title-gradient w-full sticky pt-[50%] flex flex-col justify-center items-center " + plus_jakarta_sans.className} >
 
-        {/* blog cover image */}
-        <Image src={getImgUrl(data)} alt="img" width={390} height={802} quality={100} className="absolute top-0 left-0 min-w-[200px] w-full h-full object-cover -z-[1]" />
+        {/* href={"flix-blogs/" + data.documentId}  */}
+        <Link href='#' onClick={handleReadMore} className="gap-5 mx-4 flex flex-col items-center  pb-9 " >
+          <h1 className="heading-h1 custom-text-white text-center ">
+            {`${data.Title}`}
+          </h1>
 
-        {/* Blog title */}
-        <section className={"bg-flix-blog-title-gradient w-full h-1/2 flex justify-center items-center pb-12 " + plus_jakarta_sans.className} >
+          {/* Read More Link */}
+          <div className=" gap-1.5 flex flex-row items-center " onClick={handleReadMore} >
+            <p className="all-caps-10-bold custom-text-white uppercase ">
+              Read more
+            </p>
 
-          {/* href={"flix-blogs/" + data.documentId}  */}
-          <Link href='#' onClick={handleReadMore} className="gap-5 mx-4 flex flex-col items-center " >
-            <h1 className="heading-h1 custom-text-white text-center ">
-              {data.Title}
-            </h1>
+            <Image src={ArrowRigth} height={16} width={16} alt="Arrow Icon" quality={100} />
+          </div>
 
-            {/* Read More Link */}
-            <div className=" gap-1.5 flex flex-row items-center " onClick={handleReadMore} >
-              <p className="all-caps-10-bold custom-text-white uppercase ">
-                Read more
-              </p>
+        </Link>
 
-              <Image src={ChevronRightLight} height={18} width={18} alt="Arrow Icon" quality={100} />
-            </div>
+        <FlixFooter positionValue="" isLogo={true} title={title} url={url}  isBlogSave={isBlogSave} setIsBlogSave={setIsBlogSave} id={data.documentId} />
 
-
-          </Link>
-
-        </section>
-
-        <footer className=" flex justify-center items-center">
-          <FlixFooter gradient={false} positionValue="absolute" title={title} url={url} isBlogSave={isBlogSave} setIsBlogSave={setIsBlogSave} id={data.documentId} />
-        </footer>
-
-      </article>
-    </>
+      </section>
+      
+    </div>
   );
 };
 

@@ -6,14 +6,53 @@ import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
 import CreateCartApi from "@/apis/store/CreateCartApi";
 
 
+const states = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+    'Andaman and Nicobar Islands',
+    'Chandigarh',
+    'Dadra and Nagar Haveli and Daman and Diu',
+    'Delhi',
+    'Jammu and Kashmir',
+    'Ladakh',
+    'Lakshadweep',
+    'Puducherry',
+  ];
+
 function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddress }) {
     let [loadingAnimation, setLoadingAnimation] = useState(false);
-    let [houseNo, setHouseNo] = useState('');
-    let [apartmentNo, setApartmentNo] = useState('');
-    let [zipcode, setZipcode] = useState('');
-    let [city, setCity] = useState('');
-    let [state, setState] = useState('');
-    let [country, setCountry] = useState('');
+    let [houseNo, setHouseNo] = useState("");
+    let [apartmentNo, setApartmentNo] = useState("");
+    let [zipcode, setZipcode] = useState("");
+    let [city, setCity] = useState("");
+    let [state, setState] = useState("");
+    let [country, setCountry] = useState("");
 
     let [invalidFields, setInvalidFields] = useState(false);
 
@@ -87,9 +126,9 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
             "last_name": userInfo?.details_data?.last_name,
             "phone": userInfo?.details_data?.phone_number,
             "address_1": houseNo,
-            // "address_2": "{value}",
+            "address_2": apartmentNo,
             "city": city,
-            "country_code": country,
+            "country_code": 'in',
             "province": state,
             "postal_code": zipcode,
             // "address_name": "{value}"
@@ -138,7 +177,7 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
         <div className="       ">
             <div className={`page-center-parent-container    w-full  flex flex-col gap-8 px-6  background-custom-grey50  mt-auto duration-500 small-border border-black fixed left-[50%] -translate-x-[50%] z-[2] ${showModal ? ' bottom-0 overflow-scroll pb-10 pt-14 max-h-[80vh] sm:max-h-auto h-full ' : '  -bottom-[100%]  overflow-hidden '} `} ref={modalRef} >
                 <div className="flex justify-center items-center">
-                    <div className="w-12  background-custom-grey400 cursor-pointer" onClick={closeModal}>close</div>
+                    <div className="w-12  background-custom-grey400 cursor-pointer px-2" onClick={closeModal}>close</div>
                 </div>
                 <div className="flex flex-col gap-2 items-center">
                     <h2 className="heading-h2 text-center custom-text-grey900">Manage address</h2>
@@ -178,15 +217,31 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
                     <div className="flex items-center gap-3 w-full ">
                         <div className="flex flex-col gap-1.5 grow">
                             <div className="all-caps-12-bold custom-text-grey900 uppercase">State</div>
-                            <input type="text" value={state} onChange={handleStateInput} className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                            <select
+                                id="state"
+                                name="state"
+                                className="w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 "
+                                defaultValue=""
+                                onChange={(e)=>{setState(e.target.value)}}
+                            >
+                                <option value="" disabled>
+                                    -- Select a State --
+                                </option>
+                                {states.map((state, index) => (
+                                    <option key={index} value={state}>
+                                        {state}
+                                    </option>
+                                ))}
+                            </select>
+                            {/* <input type="text" value={state} onChange={handleStateInput} className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' /> */}
                             {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
                         </div>
 
-                        <div className="flex flex-col gap-1.5 grow">
-                            <div className="all-caps-12-bold custom-text-grey900 uppercase">Country</div>
-                            <input type="text" value={country} onChange={handleCountryInput} className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                        {/* <div className="flex flex-col gap-1.5 grow"> */}
+                            {/* <div className="all-caps-12-bold custom-text-grey900 uppercase">Country</div> */}
+                            {/* <input type="text" value={country} onChange={handleCountryInput} className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' /> */}
                             {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
-                        </div>
+                        {/* </div> */}
 
                     </div>
 
