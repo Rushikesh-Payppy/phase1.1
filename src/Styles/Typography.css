@@ -1,3 +1,8 @@
+.body-xs, .body-xs-bold {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+
 .body-sm,
 .body-sm-bold {
   font-size: 0.75rem;
@@ -19,11 +24,7 @@
   line-height: 2rem;
 }
 
-.body-bold,
-.body-sm-bold,
-.all-caps-10-bold,
-.all-caps-12-bold,
-.all-caps-14-bold {
+.body-bold, .body-xs-bold, .body-sm-bold, .all-caps-10-bold, .all-caps-12-bold, .all-caps-14-bold {
   font-weight: 600;
 }
 
@@ -337,8 +338,13 @@ body {
   filter: brightness(100);
 }
 
+.vh100 {
+  height: 100vh;
+}
+
 .for-flixBlock {
   display: block !important;
   position: static !important;
   min-height: 100vh;
+  margin: 0 auto;
 }/*# sourceMappingURL=Typography.css.map */

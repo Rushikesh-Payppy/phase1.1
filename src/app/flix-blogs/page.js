@@ -78,11 +78,11 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
     <main className="w-full flex justify-center ">
 
       {/* snap-start snap-always --> used for scrolling inside flix home page */}
-      <div className="relative page-center-parent-container overflow-scrollbar-hidden snap-start snap-always ">
+      <div className="relative max-w-[52.7vh] overflow-scrollbar-hidden snap-start snap-always ">
         {/* Navbar */}
         {/* {navbar && <FlixNavbar />} */}
 
-          <div ref={scrollContainer} className="w-full h-screen snap-y snap-mandatory overflow-y-scroll ">
+          <div ref={scrollContainer} className="w-full h-screen-dynamic snap-y snap-mandatory overflow-y-scroll ">
             {data.length > 0 &&
               data.map((element, index) => (
                 <FlixBlogContent data={element} key={index} />

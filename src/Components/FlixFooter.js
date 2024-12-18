@@ -30,11 +30,11 @@ import HotAndCoolLogo from '@/Images/Icons/hot-and-cool-icon.svg';
 
 
 //API
-import GetAccessTokenAPI from "@/apis/auth/GetAccessToken";
-import FlixBlogSaveApi from "@/apis/flix/FlixBlogSaveApi";
-import FlixBlogLikeApi from "@/apis/flix/FlixBlogLikeApi";
-import FlixBlogGetLikesApi from "@/apis/flix/FlixBlogGetLikesApi";
-import FlixBlogFetchLikeAndSave from "@/apis/flix/FlixBlogFetchLikeAndSave";
+// import GetAccessTokenAPI from "@/apis/auth/GetAccessToken";
+// import FlixBlogSaveApi from "@/apis/flix/FlixBlogSaveApi";
+// import FlixBlogLikeApi from "@/apis/flix/FlixBlogLikeApi";
+// import FlixBlogGetLikesApi from "@/apis/flix/FlixBlogGetLikesApi";
+// import FlixBlogFetchLikeAndSave from "@/apis/flix/FlixBlogFetchLikeAndSave";
 
 
 
@@ -50,14 +50,14 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
   //   getAccessToken();
   // }, [])
 
-  //for tecth likes and save
+  // for tecth likes and save
   // useEffect(() => {
   //   if (accessToken) {
   //     fetchLikedAndSavedBlogs(id, accessToken);
   //   }
   // }, [accessToken, id]);
 
-  //getting access token
+  // getting access token
   // function getAccessToken() {
   //   GetAccessTokenAPI()
   //     .then((response) => {
@@ -81,16 +81,20 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
   const handleBookmark = () => {
 
     setBookmarkActive(!isBookmarkActive);
-    // const toastMessage = isBookmarkActive ? "Added to Saved Flix" : "Removed from Saved";
-    // console.log("message", toastMessage);
-    // setIsBlogSave(true);
-    // showToast(toastMessage);
-    // NotificationDemo(toastMessage,isBookmarkActive);
-
+    const toastMessage = isBookmarkActive ? "Added to Saved Flix" : "Removed from Saved";
+    // NotificationDemo(toastMessage, isBookmarkActive);
+    console.log("toastMessage",toastMessage);
+    console.log("bookmar",isBookmarkActive)
+  
+  
     // if (accessToken) {
     //   saveFlixBlog(toastMessage);
     //   setBookmarkActive(!isBookmarkActive);
     // }
+
+    // console.log("message", toastMessage);
+    // setIsBlogSave(true);
+    // showToast(toastMessage);
   };
 
   // save blog api call
@@ -144,14 +148,15 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
   const handleLike = () => {
     setLikeActive(!isLikeActive);
     const toastMessage = isLikeActive ? "Liked" : "Unliked";
-    // setIsBlogSave(!isBlogsave);
-    // showToast(toastMessage);
     // NotificationDemo(toastMessage,isLikeActive);
 
     // if (accessToken) {
     //   likeFlixBlog(toastMessage);
     //   setLikeActive(!isLikeActive)
     // }
+
+     // setIsBlogSave(!isBlogsave);
+    // showToast(toastMessage);
   }
 
 
@@ -217,12 +222,12 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
           <section className={`flex gap-6 px-5 py-3 rounded-[90px] flix-footer-dark-fradient footer-border-dark`} >
 
             <button aria-label="Bookmark" onClick={handleBookmark} type="button" >
-              <Image src={isBookmarkActive ? BookmarkLight : ActiveBookmarkLight}
+              <Image src={isBookmarkActive ? ActiveBookmarkLight : BookmarkLight}
                 width={24} height={24} alt="Bookmark" quality={100} />
             </button>
 
             <button aria-label="Like" onClick={handleLike} type="button" >
-              <Image src={isLikeActive ? LikeLight : ActiveLikeLight}
+              <Image src={isLikeActive ? ActiveLikeLight : LikeLight}
                 width={24} height={24} alt="Like" quality={100} />
             </button>
 
