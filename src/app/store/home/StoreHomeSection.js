@@ -1,7 +1,7 @@
 'use client';
 import StoreFooter from '@/Components/StoreFooter';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 
 //hero section images
@@ -24,6 +24,7 @@ import ClothsImgInfoCompo from '@/Components/ClothsImgInfoCompo';
 import GetAccessTokenAPI from '@/apis/auth/GetAccessToken';
 import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import { useRouter } from 'next/navigation';
+import LoadingAnimation from '@/app/auth/LoadingAnimation';
 
 
 
@@ -35,32 +36,40 @@ function StoreHomeSection() {
     let [gettingAccessToken, setGettingAccessToken] = useState(true);
     let [accessToken, setAccessToken] = useState('');
 
+    let[productsCount,setProductsCount]=useState(0);
+    let[clickedLoadMoreCount,setClickedLoadMore]=useState(1);
+    let[loadingAnimation,setLoadingAnimation]=useState(false);
+
     let router = useRouter();
 
     useEffect(() => {
         FetchProducts();
-    }, [])
+    }, [clickedLoadMoreCount])
 
     //get access token intially
     useEffect(() => {
         getAccessToken();
     }, [])
 
-    let query = '?region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9';
-    function FetchProducts() {
 
+    let limit = clickedLoadMoreCount*50;
+    
+    let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9`;
+    function FetchProducts() {
+        setLoadingAnimation(true);
         StoreProductsListApi(query)
             .then((response) => {
                 console.log(response);
                 setProducts(response?.products);
+                setProductsCount(response?.count);
             })
             .catch((error) => {
                 console.log(error);
             })
-            // .finally()
-            // {
-            //     setGettingAccessToken(false);
-            // }
+            .finally()
+            {
+                setLoadingAnimation(false);
+            }
     }
 
 
@@ -80,6 +89,17 @@ function StoreHomeSection() {
         {
             setGettingAccessToken(false);
         }
+    }
+
+    function handleLoadMoreButtonClick(){
+            let totalcount=products.length<productsCount;
+            
+            if(totalcount)
+            {
+                let totalClickedTime=clickedLoadMoreCount+1;
+                
+                setClickedLoadMore(totalClickedTime);
+            }
     }
 
     //if click on login/signup button
@@ -132,6 +152,10 @@ function StoreHomeSection() {
                             }
 
                         </section>
+                       {products.length<productsCount&& <div className="flex justify-center items-center px-6 py-10 background-custom-grey50">
+                            <button className="py-4 px-8 small-border border-black all-caps-12-bold custom-text-grey900" onClick={handleLoadMoreButtonClick} disabled={loadingAnimation}>{loadingAnimation?<LoadingAnimation/>:'Load More'}</button>
+                        </div>}
+
 
 
                     </div>

@@ -188,7 +188,7 @@ function ShoppingBagSection() {
                 <div className="page-center-parent-container  small-border custom-border-grey600 overflow-y-scroll overflow-scrollbar-hidden flex flex-col justify-between relative">
                 <div>
                     
-                    <StoreShopPepoinNavbar pepcoin={true} backclickurl='/store/home'/>
+                    <StoreShopPepoinNavbar pepcoin={true} backclickurl='/store/home' isItemsPresentInCart={cartItems?.items?.length>0} accessToken={accessToken} store={true}/>
 
                     {/* shopping bag & my Favourites catagory buttons */}
                         <div className="all-caps-12-bold px-4 py-2.5 custom-text-grey800 small-border-bottom custom-border-grey800 text-center w-full ">Shopping Bag ({cartItems?.items?.length || 0})</div>

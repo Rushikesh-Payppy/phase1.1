@@ -208,7 +208,7 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
 
   return (
 
-    <footer className={`${positionValue} bottom-0 pb-14 w-full `}>
+    <footer className={`${positionValue} bottom-0 pb-10 w-full `}>
 
         {/* Back Button */}
         <button onClick={handleBack} type="button" className={`absolute z-[1] left-1/2 transform -translate-x-1/2 -ml-[120px] flex items-center justify-center gap-8 p-3 rounded-[90px] cursor-pointer flix-footer-dark-fradient footer-border-dark `}>

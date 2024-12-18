@@ -69,6 +69,20 @@ function ProductSection() {
 
     let router = useRouter();
 
+
+    //for carousel dots track
+    const [currentIndex, setCurrentIndex] = useState(0); // Track the current image index
+    const carouselRef = useRef(null); // Reference to the carousel container
+
+    const handleScroll = () => {
+        if (carouselRef.current) {
+            const scrollLeft = carouselRef.current.scrollLeft;
+            const itemWidth = carouselRef.current.offsetWidth;
+            const index = Math.round(scrollLeft / itemWidth); // Calculate the active index
+            setCurrentIndex(index);
+        }
+    };
+
     useEffect(() => {
         let productid = params?.get('product');
         if (productid) {
@@ -277,16 +291,29 @@ function ProductSection() {
                 <section className="page-center-parent-container  overflow-scrollbar-hidden   ">
                     <div className="small-border-x border-black overflow-x-hidden " ref={parentContainer}>
 
-                            <StoreShopPepoinNavbar share={true} store={true} pepcoin={true} accessToken={accessToken}/>
-                        {/* <div className=" flex flex-nowrap overflow-scroll snap-x-custom  overflow-scrollbar-hidden scroll-smooth">
-                            {product?.images?.map((element,index)=>{
-                                return <Image key={index} src={element?.url} width={390} height={620} alt="img" quality={100} className="flex-shrink-0 grow w-full h-auto object-cover snap-start-custom items-stretch" />
-                            })}
+                        <StoreShopPepoinNavbar share={true} store={true} pepcoin={true} accessToken={accessToken}/>
+                        <div className="relative">         
+                            <div className=" flex flex-nowrap overflow-scroll snap-x-custom  overflow-scrollbar-hidden scroll-smooth relative"   ref={carouselRef}onScroll={handleScroll} >
+                                {product?.images?.map((element,index)=>{
+                                    return <Image key={index} src={element?.url} width={390} height={620} alt="img" quality={100} className="flex-shrink-0 grow w-full h-auto object-cover snap-start-custom items-stretch" />
+                                })}
+                            </div>
 
-                        </div> */}
-                        <div className="">
-                            {product?.thumbnail && <Image src={product?.thumbnail} width={390} height={620} alt="img" quality={100} className="w-full h-auto object-cover " />}
+                                {/* Dots */}
+                                <div className="flex justify-center mt-4 space-x-2 absolute top-[90%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-1">
+                                    {product?.images?.map((_, index) => (
+                                        <span
+                                            key={index}
+                                            className={`w-2 h-2 rounded-full ${
+                                                index === currentIndex ? " bg-black " : " background-custom-grey800 opacity-20 "
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
                         </div>
+                        {/* <div className="">
+                            {product?.thumbnail && <Image src={product?.thumbnail} width={390} height={620} alt="img" quality={100} className="w-full h-auto object-cover " />}
+                        </div> */}
 
 
                         {/* <div className=""> */}

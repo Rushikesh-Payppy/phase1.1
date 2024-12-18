@@ -518,7 +518,7 @@ function CheckoutSection() {
 
                             <div className="flex flex-col gap-3">
                                 <div className="flex gap-2 items-center">
-                                    <div className="w-4 h-4 small-border custom-border-grey800 bg-black relative cursor-pointer" onClick={()=>{setSelectedTerms(!selectedTerms)}}>
+                                    <div className={`w-4 h-4 small-border custom-border-grey800 ${selectedTerms?' bg-black ':' small-border bg-white border-black '}  relative cursor-pointer`} onClick={()=>{setSelectedTerms(!selectedTerms)}}>
                                        {selectedTerms&& <Image src={CheckIcon} width={12} height={12} alt="img" quality={100} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 brightness-[100]" />}
                                     </div>
                                     <div className="body-sm custom-text-grey900"> I have read and agree to the website <Link href={'/my-account/legal-policies-and-more/terms-of-use'} className='font-semibold '>terms and conditions *</Link></div>
