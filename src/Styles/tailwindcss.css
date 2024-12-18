@@ -1045,6 +1045,10 @@ body {
   height: 0.75rem;
 }
 
+.h-\[100dvh\] {
+  height: 100dvh;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
