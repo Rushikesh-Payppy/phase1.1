@@ -16,7 +16,7 @@ function ClothsImgInfoCompo({containerWidth,borderClass=' small-border-right ',d
     //     let replacedUrl=imgsrc;
     //     if(imgsrc.includes('http://localhost:9000'))
     //     {
-    //         replacedUrl=imgsrc.replace('http://localhost:9000','https://medusa.payppy.app');
+    //         replacedUrl=imgsrc.replace('http://localhost:9000','https://medusa.payppy.in');
     //     }
     //     return replacedUrl;
     // }
@@ -32,16 +32,16 @@ function ClothsImgInfoCompo({containerWidth,borderClass=' small-border-right ',d
     return(
         <>
                 <div className={` flex flex-col  custom-border-grey800 flex-shrink-0 self-stretch scroll-smooth relative cursor-pointer ${containerWidth} ${borderClass}`} onClick={handleProductClick}>
-                    <Image src={Wishlist} width={16} height={16} alt="img" quality={100} className='absolute top-3 right-3 '  />
+                    {/* <Image src={Wishlist} width={16} height={16} alt="img" quality={100} className='absolute top-3 right-3 '  /> */}
 
                     <div className=" small-border-bottom custom-border-grey800  bg-[#F1F2F7] mix-blend-darken ">
                         <Image src={data?.thumbnail} width={147} height={219} alt="img" quality={100} className='w-full h-auto object-contain' />
                     </div>
-                    <div className="p-2.5 pb-5 background-custom-white flex flex-col gap-2  justify-center">
+                    <div className="p-2.5 pb-5  flex flex-col gap-2  justify-center">
                         <div className="all-caps-10 custom-text-grey900 max-w-[160px] w-full text-ellipsis whitespace-nowrap overflow-hidden ">{data.title}</div>
-                        <div className="all-caps-10 custom-text-grey900">₹1899</div>
+                        <div className="all-caps-10 custom-text-grey900">₹{data?.variants[0]?.calculated_price?.calculated_amount || ""}</div>
                     </div>
-                   {addToCartButton&& <button className="small-border-y custom-border-grey800 all-caps-10-bold background-custom-white py-2.5 px-3 text-center">Add to cart</button>}
+                   {addToCartButton&& <button className="small-border-y custom-border-grey800 all-caps-10-bold  py-2.5 px-3 text-center">Add to cart</button>}
                 </div>
 
         </>

@@ -17,7 +17,7 @@ import Subtract from '@/Images/Checkout/Subtract.svg';
 
 //bottom checkout images
 import Store from '@/Images/Homepage/store-icon.svg';
-import Razorpay from '@/Images/Store/razorpay-logo.svg';
+import RazorpayIcon from '@/Images/Store/razorpay-logo.svg';
 import CheckIcon from '@/Images/Store/check-icon.svg';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -32,7 +32,14 @@ import CreatePaymentCollectionApi from '@/apis/store/CreatePaymentCollectionApi'
 import GetPaymentProviderList from '@/apis/store/GetPaymentProviderList';
 import IntiatePaymentApi from '@/apis/store/IntiatePaymentApi';
 import GenerateOrderIdApi from '@/apis/store/GenerateOrderIdApi';
+import Script from 'next/script';
+import AddShippingMethodsApi from '@/apis/store/AddShippingMethodsApi';
 
+import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
+import TaxesApi from '@/apis/store/TaxesApi';
+import CreateCartApi from '@/apis/store/CreateCartApi';
+import GenerateOrderApi from '@/apis/store/GenerateOrderApi';
+import DeleteCartIdApi from '@/apis/store/DeleteCartIdApi';
 
 
 function CheckoutSection() {
@@ -48,27 +55,32 @@ function CheckoutSection() {
 
     let[cartItems,setCartItems]=useState([]);
     // let[notEligibleForCheckout,setNotEligibleForCheckout]=useState(true);
-    let[selectedTerms,setSelectedTerms]=useState(false);
-    let[userAddress,setUserAddress]=useState(false);
+    let[selectedTerms,setSelectedTerms]=useState('');
+    let[userAddress,setUserAddress]=useState('');
 
-
+    let[shippingId,setShippingId]=useState('');
     let [paymentCollection, setPaymentCollection] = useState(null); 
     let[paymentProviderList,setPaymentProvidersList]=useState([]);
     let[invalidAddress,setInvalidAddress]=useState(false);
 
+    let[tax,setTax]=useState('');
+    let[orderDetails,setOrderDetails]=useState('');
+
 
     let router=useRouter();
+
+    const { error, isLoading, Razorpay } = useRazorpay();
      //to get a access token
      useEffect(()=>{
         getAccessToken();
         getPaymentProviderList();
     },[])
-    useEffect(()=>{
-        if(accessToken)
-        {
-            getAddress();
-        }
-    },[accessToken])
+    // useEffect(()=>{
+    //     if(accessToken)
+    //     {
+           
+    //     }
+    // },[accessToken])
 
     useEffect(()=>{
         if(accessToken)
@@ -81,22 +93,40 @@ function CheckoutSection() {
         if(cartInfo)
         {
             getCartItems();
-            CreatePaymentCollection();
-        }
-    },[cartInfo])
-    useEffect(()=>{
-        if(cartInfo)
-        {
-            CreatePaymentCollection();
+            getAddress();
+            AddShippingMethod();
         }
     },[cartInfo])
 
     useEffect(()=>{
+        if(userAddress)
+        {
+            CreatePaymentCollection();
+        }
+    },[userAddress])
+
+    useEffect(()=>{
         if(paymentCollection)
+        {
+            PutTaxesInCart();
+        }
+    },[paymentCollection])
+
+
+    useEffect(()=>{
+        if(tax)
         {
             IntiatePaymentSession();
         }
-    },[paymentCollection])
+    },[tax])
+
+    // useEffect(() => {
+    //     const script = document.createElement('script');
+    //     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    //     script.async = true;
+    //     script.onload = () => console.log('Razorpay script loaded!');
+    //     document.body.appendChild(script);
+    //   }, []);
 
      //getting access token
      function getAccessToken()
@@ -154,6 +184,25 @@ function CheckoutSection() {
         })
      }
 
+     //add shipping method
+     function AddShippingMethod()
+     {
+        let obj={
+              "option_id": "so_01JE68TCMQVJTGQWHYZPT6A28H"
+        }
+        AddShippingMethodsApi(obj,cartInfo.cart_id)
+        .then((response)=>{
+            console.log(response);
+            setShippingId(response?.cart);
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+            
+        })
+
+     }
+
      //create payment collection
      function CreatePaymentCollection()
      {
@@ -195,14 +244,20 @@ function CheckoutSection() {
      {
          // Fetch the data when the component mounts
          let obj={
-            "provider_id": "pp_razorpay_razorpay"
+            "provider_id": "pp_razorpay_razorpay",
+            "context":{
+                "extra": tax
 
          }
+        }
          
          IntiatePaymentApi(obj,paymentCollection?.id)
             .then((response) => {
                 console.log(response);
-                
+                if(response&&'payment_collection' in response)
+                {
+                    setOrderDetails(response.payment_collection);
+                }
             })
             .catch((err) => {
                 console.error("Error fetching payment collection:", err);
@@ -216,25 +271,129 @@ function CheckoutSection() {
             if(response&&'response' in response&&response?.response&&'addresses' in response?.response)
             {
                     setUserAddress(response?.response?.addresses);
+                    let length=response?.response.addresses.length-1;
+                    setInvalidAddress(!response?.response?.addresses[length]?.address_1);
+
+                    let Addresses=response?.response?.addresses[length];
+                    //removing unwanted properties
+                    delete Addresses.company;
+                    delete Addresses.address_2;
+                    delete Addresses.metadata;
+                    delete Addresses.created_at;
+                    delete Addresses.updated_at;
+                    delete Addresses.customer_id;
+                    delete Addresses.id;
+
+
+                    let billingAddresses =Addresses;
+                    let shipping_address=Addresses;
+                  
+
+                   
+
+                    let createCartObj={
+                        "billing_address": billingAddresses,
+                        "shipping_address": shipping_address
+                    }
+
+                    CreateCartApi(createCartObj,cartInfo.cart_id)
+                    .then((response)=>{
+                        console.log(response);
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                    })
+                    
             }
+        })
+     }
+
+     function PutTaxesInCart()
+     {
+        TaxesApi(cartInfo.cart_id)
+        .then((response)=>{
+            console.log('tax info :',response);
+            if(response){
+                setTax(response.cart);
+            }
+        })
+        .catch((error)=>{
+            console.log(error);
         })
      }
 
      function handleProceedToPay()
      {
-        setInvalidAddress( !userAddress[0]?.address_1);
-        if(!userAddress[0]?.address_1)
+        try {
+            
+      
+        setInvalidAddress( !userAddress[userAddress.length-1]?.address_1);
+        if(!userAddress[userAddress.length-1]?.address_1)
         {
             return;
         }
 
-        GenerateOrderIdApi(paymentCollection.id)
-        .then((response)=>{
-            console.log(response);
-        })
-        .catch((error)=>{
+
+        const options = {
+            key: 'rzp_test_7ouO5vEuMs7k4r', // Replace with Razorpay Test/Live Key ID
+            amount: orderDetails?.payment_sessions[0]?.data?.amount, // Amount from Razorpay Order
+            currency: 'INR', // Currency from Razorpay Order
+            order_id: orderDetails?.payment_sessions[0]?.data?.id, // Razorpay Order ID
+            name: cartInfo?.details_data?.first_name,
+            callback_url: `https://medusa.payppy.in/razorpay/hooks`,
+            description: 'Payment for product/service',
+            // image: '/your-logo.png', // Optional logo
+            handler: (response) => {
+              // Handle successful payment here
+              console.log('Payment successful:', response);
+            if(response&&'razorpay_payment_id' in response)
+            {
+                //if payment sucessfull then first generate the order id from medusa 
+                GenerateOrderApi(cartInfo.cart_id)
+                .then((response)=>{
+                  console.log('generate cart response :',response);
+                  if(response&&'order' in response)
+                  {
+
+                    //then delete the cart id that has been used 
+                    DeleteCartIdApi(accessToken)
+                    .then()
+                    .catch()
+                    .finally(()=>{
+                        router.push('/store/order-complete?url='+response?.order.id)
+                    })
+                  }
+                  
+                })
+                .catch((error)=>{
+                  console.log(error);
+                })
+            }
+            },
+            "prefill": {
+              "name": cartInfo?.details_data?.first_name, // Customer's name
+              "email": cartInfo?.email, // Customer's email
+              "contact": cartInfo?.details_data?.phone_number, // Customer's phone
+            },
+            theme: {
+              color: '#3399cc', // Optional custom theme color
+            },
+          };
+    
+          const razorpayInstance = new Razorpay(options);
+          razorpayInstance.open();
+
+          // Handling Razorpay errors
+            razorpayInstance.on('payment.failed', function (response) {
+                console.error('Payment failed:', response.error);
+                // alert('Payment failed. Please try again or contact support.');
+                router.push('/store/order-fail?url='+orderDetails?.payment_sessions[0]?.data?.id);
+            });
+
+        } catch (error) {
             console.log(error);
-        })
+             
+        }
      }
 
     function handleAddressClick()
@@ -243,17 +402,17 @@ function CheckoutSection() {
     }
     function handleBackClick()
     {
-        router.back();
+        router.push('/store/shopping-bag');
     }
     return (
         <>
-            <section className={"flex justify-center min-h-screen w-full background-custom-grey50    "}>
-                <div className="page-center-parent-container  small-border background-custom-grey100  overflow-scrollbar-hidden relative">
+            <section className={"flex justify-center min-h-screen w-full background-custom-grey50  "}>
+                <div className="page-center-parent-container  small-border border-black background-custom-grey100  overflow-scrollbar-hidden relative">
 
 
                     {/* navbar  */}
-                    <div className="flex items-center justify-between py-3.5 px-4 background-custom-white">
-                        <button onClick={handleBackClick}>
+                    <div className="relative flex items-center justify-center py-3.5 px-4 background-custom-grey50">
+                        <button onClick={handleBackClick} className='absolute top-4 left-3.5'>
                             <Image src={CloseIcon} width={20} height={20} alt="img" quality={100} className="" />
                         </button>
                         <h4 className="heading-h4 custom-text-grey900">Review & Pay</h4>
@@ -261,39 +420,39 @@ function CheckoutSection() {
 
 
                     {/* contatct details */}
-                    <div className="background-custom-white py-7 px-6 flex gap-2 justify-start items-start small-border-top custom-border-grey800">
+                    <div className="background-custom-grey50 py-7 px-6 flex gap-2 justify-start items-start small-border-top custom-border-grey800">
                         <Image src={UserIcon} width={20} height={20} alt="img" quality={100} className="" />
                         <div className="flex flex-col gap-2 ">
                             <div className="all-caps-12 custom-text-grey900">Contact Details</div>
                             <div className="flex flex-col gap-1">
-                                <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div>
+                                <div className="body-sm-bold custom-text-grey900">{(cartInfo?.details_data?.first_name || "") + " "+ (cartInfo?.details_data?.last_name || "")}</div>
                                 <div className="flex items-center gap-2">
-                                    <div className="body-sm-bold custom-text-grey900"> {cartInfo?.details_data?.phone_number}</div>
+                                    <div className="body-sm-bold custom-text-grey900"> {cartInfo?.details_data?.phone_number || ""}</div>
                                     <div className=" w-[0.5px] h-[18px] background-custom-grey900"></div>
-                                    <div className="body-sm-bold custom-text-grey900">{cartInfo?.email}</div>
+                                    <div className="body-sm-bold custom-text-grey900">{cartInfo?.email || ""}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Shipping details */}
-                   {userAddress?.length<1? <button className="background-custom-white w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800" onClick={handleAddressClick}>
+                   {userAddress?.length<1? <button className="background-custom-grey50 w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800" onClick={handleAddressClick}>
                         <div className="flex items-center gap-2 ">
                             <Image src={Location} width={20} height={20} alt="img" quality={100} className="" />
                             <div className="all-caps-12 custom-text-grey900">Add Address</div>
                         </div>
                         <Image src={Arrow} width={20} height={20} alt="img" quality={100} className="" />
                     </button>
-                  :  <div className="background-custom-white py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
+                  :  <div className="background-custom-grey50 py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
                         
                         <div className="flex gap-2  items-start">
                         <Image src={Location} width={20} height={20} alt="img" quality={100} className="" />
                         <div className="flex flex-col gap-2 ">
                             <div className="all-caps-12 custom-text-grey900">Shipping to</div>
                             <div className="flex flex-col gap-1">
-                                <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div>
-                                    <div className="body-sm-bold custom-text-grey900">{userAddress[0]?.address_1}
-                                    <br />{userAddress[0]?.city}, {userAddress[0]?.province}, {userAddress[0]?.postal_code}</div>
+                                {/* <div className="body-sm-bold custom-text-grey900">{cartInfo?.details_data?.first_name + " "+cartInfo?.details_data?.last_name}</div> */}
+                                    <div className="body-sm-bold custom-text-grey900">{userAddress[userAddress.length-1]?.address_1 || ""}
+                                    <br />{userAddress[userAddress.length-1]?.city || ""}, {userAddress[userAddress.length-1]?.province || ""}, {userAddress[userAddress.length-1]?.postal_code || ""}</div>
                                 </div>
                             </div>
                         </div>
@@ -303,16 +462,16 @@ function CheckoutSection() {
                     </div>
 }
                     {/* Apply coupon code details */}
-                    <button className="background-custom-white w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
+                    {/* <button className="background-custom-white w-full py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
                         <div className="flex items-center gap-2 ">
                             <Image src={Offer} width={20} height={20} alt="img" quality={100} className="" />
                             <div className="all-caps-12 custom-text-grey900">Apply coupon code</div>
                         </div>
                         <Image src={Arrow} width={20} height={20} alt="img" quality={100} className="" />
-                    </button>
+                    </button> */}
 
                     {/* Delivery details */}
-                    <div className="background-custom-white py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
+                    <div className="background-custom-grey50 py-7 px-6 flex gap-2 justify-between items-start small-border-top custom-border-grey800">
                         <div className="flex items-center gap-2 ">
                             <Image src={Availability} width={20} height={20} alt="img" quality={100} className="" />
                             <div className="body-sm-bold custom-text-grey900">Expected Delivery:  3-5 Days</div>
@@ -320,11 +479,11 @@ function CheckoutSection() {
                     </div>
 
 
-                    <div className="px-6 pt-8 background-custom-grey100 relative ">
-                        <Image src={Subtract} width={524} height={29} alt="img" quality={100} className="w-full object-cover absolute left-0 -top-2 z-[1]" />
+                    <div className="px-6 py-8 background-custom-grey100 relative h-auto">
+                        <Image src={Subtract} width={524} height={20} alt="img" quality={100} className=" w-full object-cover absolute left-0 -top-2 z-[1]" />
 
 
-                        <div className="flex flex-col gap-4  ">
+                        <div className="flex flex-col gap-4  relative z-[2]">
                             <button className="py-[5px] px-2 flex items-center gap-1 ">
                                 <Image src={Store} width={20} height={20} alt="img" quality={100} className="" />
                                 <div className="all-caps-12 custom-text-grey900">Order Summary</div>
@@ -364,11 +523,11 @@ function CheckoutSection() {
                                     </div>
                                     <div className="body-sm custom-text-grey900"> I have read and agree to the website <Link href={'/my-account/legal-policies-and-more/terms-of-use'} className='font-semibold '>terms and conditions *</Link></div>
                                 </div>
-                                {!userAddress[0]?.address_1&&<span className="body-sm text-red-600">Please Enter Valid Address</span>}
+                                {invalidAddress&&<span className="body-sm text-red-600">Please Enter Valid Address</span>}
                                 <button className={`text-center all-caps-12-bold  custom-text-white px-5 py-4 ${!selectedTerms || cartItems?.items.length===0?' background-custom-grey500 ':'  bg-black '}`} disabled={!selectedTerms || cartItems?.items.length===0} onClick={handleProceedToPay}>Proceed to Pay</button>
                                 <div className="flex justify-center items-center  gap-2">
                                     <div className="all-caps-12 custom-text-grey700">Secured by</div>
-                                    <Image src={Razorpay} width={74} height={16} alt="img" quality={100} className="" />
+                                    <Image src={RazorpayIcon} width={74} height={16} alt="img" quality={100} className="" />
                                 </div>
 
                             </div>
@@ -378,10 +537,12 @@ function CheckoutSection() {
                     </div>
 
 
-                    <ManageAddress showModal={showModal} setShowModal={setShowModal} userInfo={cartInfo?.details_data} accessToken={accessToken} getAddress={getAddress}/>
+                    <ManageAddress showModal={showModal} setShowModal={setShowModal} userInfo={cartInfo} accessToken={accessToken} getAddress={getAddress} houseNoprops={userAddress[userAddress.length-1]?.address_1} apartmentNoprops={userAddress[userAddress.length-1]?.address_2} cityProps={userAddress[userAddress.length-1]?.city} zipcodeprops={userAddress[userAddress.length-1]?.postal_code} />
 
                 </div>
             </section>
+
+            {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" /> */}
         </>
     )
 }
