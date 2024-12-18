@@ -94,10 +94,10 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
         <InitialPageLoadingAnimation />
       ) : (
         <>
-          <article className={`page-center-parent-container max-h-screen animate-slide-in overflow-scrollbar-hidden ${modalVisible ? 'absolute top-0 z-10 overflow-scroll max-h-screen h-full block ' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-scroll' : ''}`}>
+          <article className={`max-w-[52.7vh] h-screen-dynamic animate-slide-in overflow-scrollbar-hidden ${modalVisible ? 'absolute top-0 z-10 overflow-scroll max-h-screen h-full ' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-scroll' : ''}`}>
 
             {/* -mt-[50px] add in main tag when top back button is used */}
-            <div className="background-custom-grey50 small-border-left small-border-right custom-border-grey800 scroll-smooth relative">
+            <div className="background-custom-grey50 small-border-left small-border-right custom-border-grey800 scroll-smooth ">
 
               {/* blog Rich feature image */}
               <Image src={getCoverImgUrl(response)} alt="img" height={500} width={500} quality={100} className="w-full h-auto aspect-square object-cover" />
@@ -141,7 +141,7 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
             </div>
 
           </article>
-
+          
         </>
       )}
     </>

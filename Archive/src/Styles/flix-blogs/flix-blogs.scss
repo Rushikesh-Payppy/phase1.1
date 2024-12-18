@@ -91,7 +91,10 @@
     object-position: center;
     object-fit: cover;
 }
-
+.for-flixBlock{
+    // display: block !important;
+    position: static;
+}
 // .scroll-up-animation {
 //     animation: scrollUp 1000ms ease-in-out;
 //   }

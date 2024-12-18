@@ -908,10 +908,6 @@ body {
   margin-top: auto;
 }
 
-.block {
-  display: block;
-}
-
 .flex {
   display: flex;
 }
@@ -1011,6 +1007,10 @@ body {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-screen-dynamic {
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .max-h-0 {
