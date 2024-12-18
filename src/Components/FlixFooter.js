@@ -64,9 +64,6 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
     GetAccessTokenAPI()
       .then((response) => {
         console.log(response);
-        if (response && 'message' in response && response.message === 'Refresh token is missing!') {
-          window.location.href = '/auth/user-auth';
-        }
         if (response && 'access_token' in response) {
           setAccessToken(response.access_token);
         }
