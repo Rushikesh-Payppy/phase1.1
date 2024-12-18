@@ -20,7 +20,7 @@ function SSOVerifySection() {
         'referral_code':refferalCode
     }
     useEffect(()=>{
-        fetch('https://payppy.in/auth/generate-new-access-token',{
+        fetch('https://nexus.payppy.app/auth/generate-new-access-token',{
             method:'POST',
             headers:{
                 'Authorization':'Bearer '+accessToken,

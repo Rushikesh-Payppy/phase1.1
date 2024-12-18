@@ -1,5 +1,5 @@
 
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function AddCartInDatabaseApi(payload,accessToken)
 {
     return fetch(`${baseurl}auth/add-cartid`,

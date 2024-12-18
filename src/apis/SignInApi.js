@@ -4,7 +4,7 @@ import axios from 'axios';
 async function SignInApi(payloadObj)
 {
     try {
-        let response=await axios.post('https://payppy.in/auth/login',payloadObj)
+        let response=await axios.post('https://nexus.payppy.app/auth/login',payloadObj)
     
         return response.data;
     } catch (error) {

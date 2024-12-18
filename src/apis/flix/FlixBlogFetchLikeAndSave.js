@@ -3,7 +3,7 @@ import axios from "axios";
 async function FlixBlogFetchLikeAndSave()
 {
     try {
-        let response = await axios.get(`http://payppy.in/api/user/interaction`);
+        let response = await axios.get(`https://nexus.payppy.app/api/user/interaction`);
 
         return response.data;
     } catch (error) {
