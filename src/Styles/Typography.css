@@ -347,8 +347,13 @@ body {
   height: 100vh;
 }
 
+.vh100 {
+  height: 100vh;
+}
+
 .for-flixBlock {
   display: block !important;
   position: static !important;
   min-height: 100vh;
+  margin: 0 auto;
 }/*# sourceMappingURL=Typography.css.map */
