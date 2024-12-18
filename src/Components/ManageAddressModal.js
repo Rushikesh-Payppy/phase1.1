@@ -4,6 +4,7 @@ import LoadingAnimation from "../app/auth/LoadingAnimation";
 import CreateAddressApi from "../apis/store/CreateAddressApi";
 import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
 import CreateCartApi from "@/apis/store/CreateCartApi";
+import GetAddressApi from "@/apis/store/GetAddressApi";
 
 
 const states = [
@@ -112,6 +113,15 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
         setShowModal(false);
     }
 
+
+    //to get users last updated address
+    useEffect(()=>{
+        if(accessToken)
+        {
+            getUsersLastAddress();
+        }
+    },[showModal])
+
     function handleCreateAddress() {
 
         if (houseNo.length < 0 || apartmentNo.length < 0 || zipcode.length < 0 || city.length < 0 || state.length < 0 || country.length < 0) {
@@ -126,7 +136,7 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
             "last_name": userInfo?.details_data?.last_name,
             "phone": userInfo?.details_data?.phone_number,
             "address_1": houseNo,
-            "address_2": apartmentNo,
+            // "address_2": apartmentNo,
             "city": city,
             "country_code": 'in',
             "province": state,
@@ -173,6 +183,27 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
                 setLoadingAnimation(false);
             })
     }
+
+    function getUsersLastAddress()
+    {
+        GetAddressApi(accessToken)
+        .then((response)=>{
+            console.log('manage address');
+            
+            if(response&&'response' in response&&response?.response&&'addresses' in response?.response)
+                {
+                    let addresses=response?.response?.addresses;
+    
+                    setHouseNo(addresses[addresses.length-1]?.address_1 || "");
+                    // setApartmentNo(addresses[addresses.length-1]?.address_2 || "");
+                    setCity(addresses[addresses.length-1]?.city || "");
+                    setZipcode(addresses[addresses.length-1]?.postal_code || "");
+                    setState(addresses[addresses.length-1]?.province || "");
+                }
+        })
+        .catch()
+            
+    }
     return (
         <div className="       ">
             <div className={`page-center-parent-container    w-full  flex flex-col gap-8 px-6  background-custom-grey50  mt-auto duration-500 small-border border-black fixed left-[50%] -translate-x-[50%] z-[2] ${showModal ? ' bottom-0 overflow-scroll pb-10 pt-14 max-h-[80vh] sm:max-h-auto h-full ' : '  -bottom-[100%]  overflow-hidden '} `} ref={modalRef} >
@@ -192,12 +223,12 @@ function ManageAddress({ showModal, setShowModal, accessToken, userInfo, getAddr
                         {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
                     </div>
 
-                    <div className="flex flex-col gap-1.5">
+                     {/* <div className="flex flex-col gap-1.5"> */}
 
-                        <div className="all-caps-12-bold custom-text-grey900 uppercase">apartment, suite (Optional)</div>
-                        <input type="text" value={apartmentNo} onChange={handleapartmentInput} name="password" className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' />
+                        {/* <div className="all-caps-12-bold custom-text-grey900 uppercase">apartment, suite (Optional)</div> */}
+                        {/* <input type="text" value={apartmentNo} onChange={handleapartmentInput} name="password" className='w-full border-[0.5px] custom-border-grey800 outline-none py-3.5 px-5 ' /> */}
                         {/* {invalidEmail&&email.length>0&&<span className="custom-text-alert body-sm">Please enter a valid email address</span>} */}
-                    </div>
+                    {/* </div>  */}
 
                     <div className="flex items-center gap-3 w-full">
                         <div className="flex flex-col gap-1.5 grow">

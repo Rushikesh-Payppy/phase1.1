@@ -360,7 +360,7 @@ function CheckoutSection() {
                     .then()
                     .catch()
                     .finally(()=>{
-                        router.push('/store/order-complete?url='+response?.order.id)
+                        window.location.href='/store/order-complete?url='+response?.order.id;
                     })
                   }
                   
@@ -387,7 +387,7 @@ function CheckoutSection() {
             razorpayInstance.on('payment.failed', function (response) {
                 console.error('Payment failed:', response.error);
                 // alert('Payment failed. Please try again or contact support.');
-                router.push('/store/order-fail?url='+orderDetails?.payment_sessions[0]?.data?.id);
+                window.location.href='/store/order-fail?url='+orderDetails?.payment_sessions[0]?.data?.id;
             });
 
         } catch (error) {
