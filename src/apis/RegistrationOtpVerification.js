@@ -4,7 +4,7 @@ import axios from 'axios';
 async function RegistrationOtpVerification(payloadObj)
 {
     try {
-        let response=await axios.post('https://payppy.in/auth/verify_mobile_otp',payloadObj)
+        let response=await axios.post('https://nexus.payppy.app/auth/verify_mobile_otp',payloadObj)
     
         return response.data;
     } catch (error) {

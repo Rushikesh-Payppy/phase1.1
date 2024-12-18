@@ -1,5 +1,5 @@
 
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function UserResendMail(payload)
 {
     return fetch(`${baseurl}auth/resend_verification_email`,
