@@ -34,6 +34,7 @@ import AddToCartApi from "../../../apis/store/AddToCartApi";
 import CreateCartApi from "../../../apis/store/CreateCartApi";
 import AddCartInDatabaseApi from "../../../apis/store/AddCartInDatabaseApi";
 import Link from "next/link";
+import LoadingAnimation from "@/app/auth/LoadingAnimation";
 
 
 
@@ -50,6 +51,8 @@ function ProductSection() {
 
     let [product, setProduct] = useState({});
     let [remainingProducts, setRemainingProducts] = useState([]);
+
+    let[loadingAnimation,setLoadingAnimation]=useState(false);
 
     let parentContainer = useRef();
 
@@ -180,6 +183,7 @@ function ProductSection() {
             "variant_id": selectedSize,
             "quantity": 1
         }
+        setLoadingAnimation(true);
         AddToCartApi(obj, cartid)
             .then((response) => {
                 console.log('add to cart ', response);
@@ -189,7 +193,9 @@ function ProductSection() {
             })
             .catch((error) => {
                 console.log(error);
-
+            })
+            .finally(()=>{
+                setLoadingAnimation(false);
             })
 
 
@@ -335,7 +341,7 @@ function ProductSection() {
                                         <div className="all-caps-10 custom-text-grey600">IN STOCK</div>
                                     </div>
                                 </div>
-                                <button className="background-custom-grey900 all-caps-12-bold custom-text-white py-4 px-7 w-full text-center" onClick={handleAddToCart}>Add to cart</button>
+                                <button className="background-custom-grey900 all-caps-12-bold custom-text-white py-4 px-7 w-full text-center flex justify-center items-center" onClick={handleAddToCart} disabled={loadingAnimation}>{loadingAnimation?<LoadingAnimation borderColor='border-white'/>:<span>Add to cart</span>}</button>
 
                             </div>
 
