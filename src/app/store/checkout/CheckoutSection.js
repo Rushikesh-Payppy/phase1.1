@@ -340,7 +340,7 @@ function CheckoutSection() {
             currency: 'INR', // Currency from Razorpay Order
             order_id: orderDetails?.payment_sessions[0]?.data?.id, // Razorpay Order ID
             name: cartInfo?.details_data?.first_name,
-            callback_url: `https://medusa.payppy.in/razorpay/hooks`,
+            // callback_url: `https://medusa.payppy.in/razorpay/hooks`,
             description: 'Payment for product/service',
             // image: '/your-logo.png', // Optional logo
             handler: (response) => {
