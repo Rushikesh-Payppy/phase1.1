@@ -1017,6 +1017,22 @@ body {
   height: calc(var(--vh, 1vh) * 100);
 }
 
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-\[148px\] {
+  height: 148px;
+}
+
+.h-\[128px\] {
+  height: 128px;
+}
+
+.h-\[100dvh\] {
+  height: 100dvh;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
@@ -1343,6 +1359,10 @@ body {
 
 .gap-\[71px\] {
   gap: 71px;
+}
+
+.gap-20 {
+  gap: 5rem;
 }
 
 .gap-x-2 {
@@ -1835,6 +1855,10 @@ body {
 
 .pt-\[50\%\] {
   padding-top: 50%;
+}
+
+.pb-\[30\%\] {
+  padding-bottom: 30%;
 }
 
 .text-left {
