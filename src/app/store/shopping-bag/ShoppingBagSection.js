@@ -84,10 +84,10 @@ function ShoppingBagSection() {
          .catch(()=>{
  
          })
-         .finally()
-         {
-             setGettingAccessToken(false);
-         }
+         .finally(()=>{
+                setGettingAccessToken(false);
+         })
+         
      }
  
      //get cart information from api
