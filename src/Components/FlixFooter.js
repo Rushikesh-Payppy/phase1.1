@@ -47,9 +47,9 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
 
   let [accessToken, setAccessToken] = useState(''); // let[gettingAccessToken,setGettingAccessToken]=useState(true);
 
-  useEffect(() => {
-    getAccessToken();
-  }, [])
+  // useEffect(() => {
+  //   getAccessToken();
+  // }, [])
 
   // for tecth likes and save
   useEffect(() => {
@@ -96,9 +96,9 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
     // console.log("message", toastMessage);
     // showToast(toastMessage);
 
-    if(!accessToken){
-      router.push('/auth/user-auth');
-    }
+    // if(!accessToken){
+    //   router.push('/auth/user-auth');
+    // }
   };
 
   // save blog api call
@@ -161,9 +161,9 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
     //  setIsBlogSave(!isBlogsave);
     // showToast(toastMessage);
 
-    if(!accessToken){
-      router.push('/auth/user-auth');
-    }
+    // if(!accessToken){
+    //   router.push('/auth/user-auth');
+    // }
   }
 
 
