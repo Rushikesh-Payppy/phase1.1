@@ -26,7 +26,7 @@ import ActiveBookmarkLight from '@/Images/Icons/bookmark-active-light.svg';
 import ActiveLikeLight from '@/Images/Icons/like-active-light.svg';
 
 //logo
-import HotAndCoolLogo from '@/Images/Icons/hot-and-cool-icon.svg';
+import HotAndCoolLogo from '@/Images/Icons/hot-and-cool-logo.png';
 
 
 //API
