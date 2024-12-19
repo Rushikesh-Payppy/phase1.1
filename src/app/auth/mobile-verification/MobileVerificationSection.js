@@ -108,6 +108,10 @@ function MobileVerificationSection()
       {
           GetAccessTokenAPI()
           .then((response)=>{
+                if(response&&'message' in response&&response.message==='Refresh token is missing!')
+                {
+                    window.location.href='/auth/user-auth';
+                }
               if(response&&'access_token' in response)
               {
                   setAccessToken(response.access_token);
@@ -134,7 +138,7 @@ function MobileVerificationSection()
       }
     return(
         <>
-         {otpVerificationStep===0&&
+         {accessToken&&otpVerificationStep===0&&
             // <section className={"flex justify-center  background-custom-grey50  h-screen overflow-hidden "+plus_jakarta_sans.className}>
                 <div className="page-center-parent-container background-custom-grey50 border-black vh100 p-6 small-border border-custom-grey800 relative">
 

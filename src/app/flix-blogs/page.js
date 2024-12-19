@@ -24,7 +24,7 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://strapi.payppy.app/api/flixes/?populate=*&pagination[page]=${page}&pagination[pageSize]=3`
+        `https://strapi.payppy.app/api/flixes/?populate=*&pagination[page]=${page}&pagination[pageSize]=3&sort=createdAt:desc`
       );
       const json = await response.json();
 
@@ -78,11 +78,11 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
     <main className=" w-full h-full flex justify-center ">
 
       {/* snap-start snap-always --> used for scrolling inside flix home page */}
-      <div className="relative max-w-[52.7vh] overflow-scrollbar-hidden snap-start snap-always ">
+      <div className="relative max-w-[52.7vh] overflow-scrollbar-hidden snap-start snap-always  ">
         {/* Navbar */}
         {/* {navbar && <FlixNavbar />} */}
 
-          <div ref={scrollContainer} className="w-full h-[100dvh] snap-y snap-mandatory overflow-y-scroll overflow-scrollbar-hidden ">
+          <div ref={scrollContainer} className="w-full h-[100dvh] snap-y snap-mandatory overflow-y-scroll overflow-scrollbar-hidden animate-scroll-up ">
             {data.length > 0 &&
               data.map((element, index) => (
                 <FlixBlogContent data={element} key={index} />
@@ -101,4 +101,3 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
 };
 
 export default Page;
-

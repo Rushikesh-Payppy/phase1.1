@@ -30,11 +30,11 @@ import HotAndCoolLogo from '@/Images/Icons/hot-and-cool-icon.svg';
 
 
 //API
-// import GetAccessTokenAPI from "@/apis/auth/GetAccessToken";
-// import FlixBlogSaveApi from "@/apis/flix/FlixBlogSaveApi";
-// import FlixBlogLikeApi from "@/apis/flix/FlixBlogLikeApi";
-// import FlixBlogGetLikesApi from "@/apis/flix/FlixBlogGetLikesApi";
-// import FlixBlogFetchLikeAndSave from "@/apis/flix/FlixBlogFetchLikeAndSave";
+import GetAccessTokenAPI from "@/apis/auth/GetAccessToken";
+import FlixBlogSaveApi from "@/apis/flix/FlixBlogSaveApi";
+import FlixBlogLikeApi from "@/apis/flix/FlixBlogLikeApi";
+import FlixBlogGetLikesApi from "@/apis/flix/FlixBlogGetLikesApi";
+import FlixBlogFetchLikeAndSave from "@/apis/flix/FlixBlogFetchLikeAndSave";
 
 
 
@@ -42,41 +42,42 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
 
   const [isBookmarkActive, setBookmarkActive] = useState(false);
   const [isLikeActive, setLikeActive] = useState(false);
+
   const router = useRouter();
 
   let [accessToken, setAccessToken] = useState(''); // let[gettingAccessToken,setGettingAccessToken]=useState(true);
 
-  // useEffect(() => {
-  //   getAccessToken();
-  // }, [])
+  useEffect(() => {
+    getAccessToken();
+  }, [])
 
   // for tecth likes and save
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     fetchLikedAndSavedBlogs(id, accessToken);
-  //   }
-  // }, [accessToken, id]);
+  useEffect(() => {
+    if (accessToken) {
+      fetchLikedAndSavedBlogs(id,accessToken);
+    }
+  }, [accessToken]);
 
   // getting access token
-  // function getAccessToken() {
-  //   GetAccessTokenAPI()
-  //     .then((response) => {
-  //       console.log(response);
-  //       if (response && 'message' in response && response.message === 'Refresh token is missing!') {
-  //         window.location.href = '/auth/user-auth';
-  //       }
-  //       if (response && 'access_token' in response) {
-  //         setAccessToken(response.access_token);
-  //       }
+  function getAccessToken() {
+    GetAccessTokenAPI()
+      .then((response) => {
+        console.log(response);
+        if (response && 'message' in response && response.message === 'Refresh token is missing!') {
+          window.location.href = '/auth/user-auth';
+        }
+        if (response && 'access_token' in response) {
+          setAccessToken(response.access_token);
+        }
 
-  //     })
-  //     .catch(() => {
+      })
+      .catch(() => {
 
-  //     })
-  // }
-  // if (!accessToken) {
-  //   return (<></>)
-  // }
+      })
+  }
+  if (!accessToken) {
+    return (<></>)
+  }
 
   const handleBookmark = () => {
 
@@ -87,61 +88,63 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
     console.log("bookmar",isBookmarkActive)
   
   
-    // if (accessToken) {
-    //   saveFlixBlog(toastMessage);
-    //   setBookmarkActive(!isBookmarkActive);
-    // }
+    if (accessToken) {
+      saveFlixBlog(toastMessage);
+      setBookmarkActive(!isBookmarkActive);
+    }
 
     // console.log("message", toastMessage);
-    // setIsBlogSave(true);
     // showToast(toastMessage);
+
+    if(!accessToken){
+      router.push('/auth/user-auth');
+    }
   };
 
   // save blog api call
-  // function saveFlixBlog() {
+  function saveFlixBlog() {
 
-  //   let obj = {
-  //     'content_id': id,
-  //     "saved": isBookmarkActive,
-  //   }
+    let obj = {
+      'content_id': id,
+      "saved": isBookmarkActive,
+    }
 
-  //   FlixBlogSaveApi(obj, accessToken)
-  //     .then((response) => {
-  //       if (response) {
-  //         showToast(toastMessage); // Show toast with the appropriate message
+    FlixBlogSaveApi(obj, accessToken)
+      .then((response) => {
+        if (response) {
+          showToast(toastMessage); // Show toast with the appropriate message
 
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   //fetch like and saved 
-
-  // async function fetchLikedAndSavedBlogs(id,accessToken) {
-  //   try {
-  //     const response = await FlixBlogFetchLikeAndSave(accessToken);
-  //     console.log(response, "response");
+  async function fetchLikedAndSavedBlogs(id,accessToken) {
+    try {
+      const response = await FlixBlogFetchLikeAndSave(accessToken);
+      console.log(response, "response");
   
-  //     // Find the specific content by ID
-  //     const result = response.liked_and_saved_videos.find(
-  //       (item) => item.content_id === id
-  //     );
+      // Find the specific content by ID
+      const result = response.liked_and_saved_videos.find(
+        (item) => item.content_id === id
+      );
   
-  //     if (result) {
-  //       console.log("item.liked:", result.liked, "item.saved:", result.saved);
+      if (result) {
+        console.log("item.liked:", result.liked, "item.saved:", result.saved);
   
-  //       // Update states based on the response
-  //       setLikeActive(result.liked);
-  //       setBookmarkActive(result.saved);
-  //     } else {
-  //       console.log("No item found with the given id:", id);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching liked and saved blogs:", error);
-  //   }
-  // }
+        // Update states based on the response
+        setLikeActive(result.liked);
+        setBookmarkActive(result.saved);
+      } else {
+        console.log("No item found with the given id:", id);
+      }
+    } catch (error) {
+      console.error("Error fetching liked and saved blogs:", error);
+    }
+  }
   
 
 
@@ -150,57 +153,46 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
     const toastMessage = isLikeActive ? "Liked" : "Unliked";
     // NotificationDemo(toastMessage,isLikeActive);
 
-    // if (accessToken) {
-    //   likeFlixBlog(toastMessage);
-    //   setLikeActive(!isLikeActive)
-    // }
+    if (accessToken) {
+      likeFlixBlog(toastMessage);
+      setLikeActive(!isLikeActive)
+    }
 
-     // setIsBlogSave(!isBlogsave);
+    //  setIsBlogSave(!isBlogsave);
     // showToast(toastMessage);
+
+    if(!accessToken){
+      router.push('/auth/user-auth');
+    }
   }
 
 
   // like blog api call
-  // function likeFlixBlog() {
+  function likeFlixBlog() {
 
-  //   let obj = {
-  //     'content_id': id,
-  //     "liked": isLikeActive,
-  //   }
+    let obj = {
+      'content_id': id,
+      "liked": isLikeActive,
+    }
 
-  //   FlixBlogLikeApi(obj, accessToken)
-  //     .then((response) => {
-  //       if (response) {
-  //         showToast(toastMessage); // Show toast with the appropriate message
+    FlixBlogLikeApi(obj, accessToken)
+      .then((response) => {
+        if (response) {
+          showToast(toastMessage); // Show toast with the appropriate message
 
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-
-  //fetch liked and saved blogs
-
-  // async function fetchLikedAndSavedBlogs(id) {
-  //   try {
-  //     const response = await FlixBlogFetchLikeAndSave();
-  //     console.log(response, "response")
-  //     const result = response.find((item) => item.content_id === id); // Use find correctly
-  //     if (result) {
-  //       console.log("item.liked:", result.liked);
-  //     } else {
-  //       console.log("No item found with the given id:", id);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching liked and saved blogs:", error);
-  //   }
-  // }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const handleBack = () => {
     if (setModalVisible) {
-      setModalVisible(false);
+      setModalVisible('animate-slide-out');
+      setTimeout(() => {
+        setModalVisible(false);  // Hide the modal
+      }, 1300);
       return;
     } 
       router.push('/');
@@ -245,3 +237,4 @@ const FlixFooter = ({ positionValue, isLogo = false, setModalVisible, title, url
 };
 
 export default FlixFooter;
+

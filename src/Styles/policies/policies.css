@@ -56,4 +56,13 @@
   line-height: 1.125rem;
   font-weight: 400;
   color: #282827;
+}
+
+.policies ol {
+  list-style-type: disc;
+  padding: 0px 0.7rem;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  font-weight: 400;
+  color: #282827;
 }/*# sourceMappingURL=policies.css.map */

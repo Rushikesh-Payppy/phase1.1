@@ -44,7 +44,7 @@ const SettingsAndActivitySection = () => {
 
                 if(response&&'message' in response&&response.message==='Refresh token is missing')
                 {
-                    router.push('/auth/')
+                    router.push('/auth/user-auth')
                 }
             })
             .catch(() => {

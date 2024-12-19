@@ -60,9 +60,7 @@ export default function RootLayout({ children }) {
 
       <html lang="en">
       <head>
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/icons/icon-512.png"/>
-        <link rel="apple-touch-icon" href="/icons/icon-512.png"/>
+        <link rel="icon" href="/icon.png" type="image/x-icon" />
       </head>
         <body className={" "+plus_jakarta_sans.className}>
           {children}

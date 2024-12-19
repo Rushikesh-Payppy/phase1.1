@@ -252,7 +252,7 @@ function UserAuthPageSection() {
     //to sign in with google
     function handleSignInWithGoogle()
     {
-        router.push('https://nexus.payppy.app/auth/google-login');
+        router.push('https://payppy.in/auth/google-login');
     }
 
     //when someone hit enter in password

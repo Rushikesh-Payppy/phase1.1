@@ -150,6 +150,8 @@ function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,se
 
             VerifyOtpApi(payloadObj,accessToken)
             .then((response)=>{
+                console.log('verify otp response :',response);
+                
                 if(response&&'message' in response)
                 {
                     if(response.message==='Mobile number verified successfully.')
@@ -162,14 +164,19 @@ function SoftLaunchOtpInputs({accessToken,phone_number,setOtpVerificationStep,se
                             router.push('/auth/user-information');
                         }
                     }
-                    if(response.message==='session validation failed' || response.message==='session_uuid is not valid')
+                    if(response.message==='session validation failed' || response.message==='session_uuid is not valid' || response.message==='Invalid OTP or expired.')
                     {
                             setInvalidOtp(true);
                             handleBackBtn();
                     }
+                    // {
+                    //     "message": "Invalid OTP or expired."
+                    // }
                 }
             })
             .catch((error)=>{
+                console.log('verify otp error response :',response);
+
                 console.error(error);
             })
         }

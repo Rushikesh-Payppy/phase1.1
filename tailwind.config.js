@@ -10,9 +10,9 @@ module.exports = {
 	theme: {
 		extend: {
 			animation: {
-				'slide-in': 'slide-in 1s cubic-bezier(0.87, 0, 0.13, 1) both',
-				'slide-out': 'slide-out 1s cubic-bezier(0.87, 0, 0.13, 1) both',
-				'move-out': 'move-out 0.8s cubic-bezier(0.87, 0, 0.13, 1) both',
+				'slide-in': 'slide-in 0.65s cubic-bezier(0.60, 0, 0.10, 1) both',
+				'slide-out': 'slide-out 0.65s cubic-bezier(0.60, 0, 0.10, 1) both',
+				'move-out': 'move-out 0.8s linear both',
 				'move-in': 'move-in 0.8s cubic-bezier(0.87, 0, 0.13, 1) both',
 				'fall-back': 'fall-back 1s cubic-bezier(0.87, 0, 0.13, 1) both',
 				'drop-out': 'drop-out 1s cubic-bezier(0.87, 0, 0.13, 1) both',
@@ -27,7 +27,7 @@ module.exports = {
 				'slide-in': {
 					'0%': {
 						transform: 'translateX(100%)',
-						opacity: '0.5'
+						opacity: '1'
 					},
 					'100%': {
 						transform: 'translateX(0)',
@@ -35,13 +35,13 @@ module.exports = {
 					}
 				},
 				'slide-out': {
-					'100%': {
-						transform: 'translateX(100%)',
+					'0%': {
+						transform: 'translateX(0)',
 						opacity: '1'
 					},
 					'100%': {
-						transform: 'translateX(0)',
-						opacity: '0.5'
+						transform: 'translateX(100%)',
+						opacity: '1'
 					}
 				},
 
@@ -50,7 +50,7 @@ module.exports = {
 						transform: 'translateY(0%)'
 					},
 					'100%': {
-						transform: 'translateY(-100%)'
+						transform: 'translateY(160%)'
 					}
 				},
 				'move-in': {

@@ -151,7 +151,7 @@ function OrderFailSection() {
             currency: 'INR', // Currency from Razorpay Order
             order_id: orderId, // Razorpay Order ID
             name: cartInfo?.details_data?.first_name,
-            // callback_url: `https://medusa.payppy.app/razorpay/hooks`,
+            // callback_url: `https://medusa.payppy.in/razorpay/hooks`,
             description: 'Payment for product',
             // image: '/your-logo.png', // Optional logo
             handler: (response) => {

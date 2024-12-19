@@ -135,15 +135,14 @@ function UserInformationSection()
      {
          GetAccessTokenAPI()
          .then((response)=>{
-             if(response&&'access_token' in response)
-             {
-                 setAccessToken(response.access_token);
-             }
-
-              if(response&&'message' in response&&response.message==='Refresh token is missing')
-             {
-                 router.push('/')
-             }
+            if(response&&'message' in response&&response.message==='Refresh token is missing!')
+                {
+                    window.location.href='/auth/user-auth';
+                }
+              if(response&&'access_token' in response)
+              {
+                  setAccessToken(response.access_token);
+              }
              
          })
          .catch((error)=>{
@@ -169,7 +168,7 @@ function UserInformationSection()
      }
     return(
         <>
-            {userInfoView===0&&
+            {accessToken&&userInfoView===0&&
             // <section className={"flex justify-center  background-custom-grey50  h-screen  overflow-hidden "+plus_jakarta_sans.className}>
                 <div className="page-center-parent-container h-screen background-custom-grey50 border-black overflow-hidden px-6 py-4 small-border border-custom-grey800 ">
                     <div className="flex flex-col gap-10 ">
