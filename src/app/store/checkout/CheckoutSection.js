@@ -276,13 +276,13 @@ function CheckoutSection() {
 
                     let Addresses=response?.response?.addresses[length];
                     //removing unwanted properties
-                    delete Addresses.company;
-                    delete Addresses.address_2;
-                    delete Addresses.metadata;
-                    delete Addresses.created_at;
-                    delete Addresses.updated_at;
-                    delete Addresses.customer_id;
-                    delete Addresses.id;
+                    delete Addresses?.company;
+                    delete Addresses?.address_2;
+                    delete Addresses?.metadata;
+                    delete Addresses?.created_at;
+                    delete Addresses?.updated_at;
+                    delete Addresses?.customer_id;
+                    delete Addresses?.id;
 
 
                     let billingAddresses =Addresses;
