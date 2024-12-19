@@ -104,7 +104,7 @@ const MyAccountSection = () => {
     <>
     {gettingAccessToken?<IntialLoadingAnimation/>
       :
-      <article className={"page-center-parent-container h-screen small-border border-black  scroll-smooth relative "  }>
+      <article className={"page-center-parent-container h-screen small-border-x border-black  scroll-smooth relative "  }>
        {/* hero section */}
         <header className="small-border-bottom custom-border-grey800 ">
           {/* <Link href="#"> */}

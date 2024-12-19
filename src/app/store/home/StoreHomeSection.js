@@ -66,10 +66,10 @@ function StoreHomeSection() {
             .catch((error) => {
                 console.log(error);
             })
-            .finally()
-            {
+            .finally(()=>{
                 setLoadingAnimation(false);
-            }
+            })
+           
     }
 
 
@@ -85,10 +85,11 @@ function StoreHomeSection() {
             .catch((error) => {
                 console.log(error);
             })
-            .finally()
-        {
-            setGettingAccessToken(false);
-        }
+            .finally(()=>{
+                setGettingAccessToken(false);
+            }
+        )
+        
     }
 
     function handleLoadMoreButtonClick(){
@@ -113,7 +114,7 @@ function StoreHomeSection() {
                 : <main className={"page-center-parent-container  relative overflow-scrollbar-hidden"}>
                     <div className="    ">
 
-                        {!accessToken && <button className="sticky top-0 z-[1] background-custom-green all-caps-12-bold custom-text-grey900 w-full text-center py-4 small-border border-black " onClick={handleLoginSignupClick} >Login/SignuP</button>}
+                        {(!accessToken&&!gettingAccessToken) && <button className="sticky top-0 z-[1] background-custom-green all-caps-12-bold custom-text-grey900 w-full text-center py-4 small-border border-black " onClick={handleLoginSignupClick} >Login/SignuP</button>}
 
 
                         {/* hero section  */}

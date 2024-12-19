@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.app/';
+let baseurl='https://medusa.payppy.in/';
 let region_id='reg_01JDPJAQ0EV727HP0MPZH1NZA9';
 function GetPaymentProviderList()
 {
@@ -8,7 +8,7 @@ function GetPaymentProviderList()
         {
             headers:{
                 'Content-Type':'application/json',
-                "x-publishable-api-key": "pk_309836f348011413862e21d0b67c72883a0e149876e5ddcd38db238785c8a9fb"
+                "x-publishable-api-key": "pk_fd3a3f0b2cfa7e96a8a7e2f66f07927cb5e2d6282af3f0251ada0ef101dcf2ee"
             },
         }
     )

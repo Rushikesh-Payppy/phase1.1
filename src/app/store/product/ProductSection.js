@@ -120,8 +120,17 @@ function ProductSection() {
             getCartInfo();
         }
     }, [accessToken])
-    
 
+
+    //to sort the product size based on below size sequence
+    let sizeSequence={
+        'xs':0,
+        's':1,
+        'm':2,
+        'l':3,
+        'xl':4,
+        'xxl':5
+    }
 
     //fetch product
     function FetchProducts() {
@@ -129,6 +138,12 @@ function ProductSection() {
         StoreProductsListApi(query)
             .then((response) => {
                 // console.log(response);
+                //sort the product size like xs , s , m ,l , xl , xxl
+                response?.product?.variants?.sort((a,b)=>{
+                    return sizeSequence[a.title.toLowerCase()] - sizeSequence[b.title.toLowerCase()];
+                })
+                console.log('product Response :',response);
+                
                 setProduct(response.product);
                 // setThumbnailImage(getValidImgUrl(product?.thumbnail));
             })
@@ -284,23 +299,25 @@ function ProductSection() {
                 console.log(error);
             })
     }
+
+   
     return (
         <>
             {gettingAccessToken ? <IntialLoadingAnimation />
                 :
-                <section className="page-center-parent-container  overflow-scrollbar-hidden   ">
+                <section className="page-center-parent-container min-h-screen overflow-scrollbar-hidden   ">
                     <div className="small-border-x border-black overflow-x-hidden " ref={parentContainer}>
 
                         <StoreShopPepoinNavbar share={true} store={true} pepcoin={true} accessToken={accessToken}/>
-                        <div className="relative">         
+                        <div className="relative h-[60vh] border overflow-hidden">         
                             <div className=" flex flex-nowrap overflow-scroll snap-x-custom  overflow-scrollbar-hidden scroll-smooth relative"   ref={carouselRef}onScroll={handleScroll} >
                                 {product?.images?.map((element,index)=>{
-                                    return <Image key={index} src={element?.url} width={390} height={620} alt="img" quality={100} className="flex-shrink-0 grow w-full h-auto object-cover snap-start-custom items-stretch" />
+                                    return <Image key={index} src={element?.url} width={390} height={620} alt="img" quality={100} className="flex-shrink-0 grow w-full h-auto  object-cover snap-start-custom " />
                                 })}
                             </div>
 
                                 {/* Dots */}
-                                <div className="flex justify-center mt-4 space-x-2 absolute top-[90%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-1">
+                                <div className="flex justify-center gap-2 absolute top-[90%] left-[50%] -translate-x-[50%] -translate-y-[50%] z-1  ">
                                     {product?.images?.map((_, index) => (
                                         <span
                                             key={index}
@@ -347,7 +364,7 @@ function ProductSection() {
                                 </div>
                                 <div className="flex overflow-scroll overflow-scrollbar-hidden scroll-smooth">
                                     {product?.variants?.map((element, index) => {
-                                        return <div key={index} className={`flex justify-center items-center p-3 w-16 h-16 small-border body-sm  custom-text-grey900 cursor-pointer text-center ${selectedSize === element.id ? '  border-black font-bold ' : ' custom-border-grey400 '}`} onClick={() => { handleSizeSelect(element.id) }}>{element.options[0]?.value==='Default option value'?'One Size':element.options[0]?.value}</div>
+                                        return <div key={index} className={`flex justify-center items-center p-3 w-16 h-16 border body-sm  custom-text-grey900 cursor-pointer text-center ${selectedSize === element.id ? '  border-black font-bold ' : ' custom-border-grey400 '}`} onClick={() => { handleSizeSelect(element.id) }}>{element.options[0]?.value==='Default option value'?'One Size':element.options[0]?.value}</div>
                                     })
 
                                     }
@@ -356,7 +373,7 @@ function ProductSection() {
                             </div>
 
                             {/* select size button */}
-                            <div className="flex flex-col p-4 pb-6 gap-1.5  ">
+                            <div className="flex flex-col p-4 pb-6 gap-2.5  ">
                                 <div className="flex justify-between items-center px-[5px]">
                                     <div className="flex items-center gap-1">
                                         <Image src={DeliveryTruck} width={16} height={16} alt="img" quality={100} className="" />
