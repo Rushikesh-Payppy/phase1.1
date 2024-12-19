@@ -18,7 +18,7 @@ const AccountCopyrightSection = () => {
     <>
       <section className={"gap-4 px-6 flex flex-col items-center " + plus_jakarta_sans.className}>
         <div className="gap-5 flex flex-row justify-center ">
-          <Link href="https://www.youtube.com/@payppy" target="_blank">
+          <Link href="https://www.youtube.com/@hotandcoolbypayppy" target="_blank">
             <Image src={youtube} width={18} height={18} alt="" quality={100} />
           </Link>
 

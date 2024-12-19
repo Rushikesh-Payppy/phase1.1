@@ -1,4 +1,4 @@
-let baseurl='https://nexus.payppy.app/';
+let baseurl='https://payppy.in/';
 function GetAuthInfoApi(accessToken)
 {
     return fetch(`${baseurl}api/get-customer`,

@@ -1,4 +1,4 @@
-let baseurl='https://nexus.payppy.app/';
+let baseurl='https://payppy.in/';
 function SentOtpApi(payloadObj)
 {
     return fetch(`${baseurl}api/send-otp`,
