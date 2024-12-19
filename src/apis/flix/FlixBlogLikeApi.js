@@ -1,6 +1,6 @@
 function FlixBlogLikeApi(payload,accessToken) {
     
-    return fetch("https://nexus.payppy.app/api/like",{
+    return fetch("https://payppy.in/api/like",{
          method:'POST',
          
          headers:{

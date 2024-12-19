@@ -1,5 +1,5 @@
 
-let baseurl='https://nexus.payppy.app/';
+let baseurl='https://payppy.in/';
 function ForgotPasswordApi(payload)
 {
     return fetch(`${baseurl}auth/forgot-password`,

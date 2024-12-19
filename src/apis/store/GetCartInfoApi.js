@@ -1,5 +1,5 @@
 
-let baseurl='https://nexus.payppy.app/';
+let baseurl='https://payppy.in/';
 function GetCartInfoApi(accessToken)
 {
     return fetch(`${baseurl}auth/profile
