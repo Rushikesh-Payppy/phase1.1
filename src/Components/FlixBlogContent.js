@@ -56,11 +56,12 @@ const FlixBlogContent = ({ data }) => {
 
   return (
 
-    <div className="relative w-full h-full flex flex-col justify-end snap-start snap-always animate-scroll-up">
+    <div className="relative w-full h-full flex flex-col justify-end snap-start snap-always ">
 
-      {/* Blog reader Modal */}
+      {/* Blog reader MODAl */}
       <BlogPage modalVisible={modalVisible} setModalVisible={setModalVisible} data={data} />
 
+      {/* Save / Like MODAL */}
       <Toaster isBlogSave={isBlogSave} setIsBlogSave={setIsBlogSave} />
 
       {/* blog cover image */}
