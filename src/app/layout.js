@@ -39,14 +39,7 @@ import { Suspense } from 'react';
 export const metadata = {
   title: "Payppy",
   description: "Payppy.app — India’s First Fashion Fintech for Gen Z",
-  generator: "Next.js",
-  manifest:"/manifest.json",
-  keywords:["nextjs","next14","pwa","next-pwa"],
  viewport: "width=device-width, initial-scale=1.0",
- icons:[
-  {rel:"apple-touch-icon", url: "/icons/icon-512.png" },
-  {rel:"icon", url: "/icons/icon-512.png" },
- ],
 };
 
 
