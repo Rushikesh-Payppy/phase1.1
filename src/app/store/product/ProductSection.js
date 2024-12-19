@@ -309,7 +309,7 @@ function ProductSection() {
                     <div className="small-border-x border-black overflow-x-hidden " ref={parentContainer}>
 
                         <StoreShopPepoinNavbar share={true} store={true} pepcoin={true} accessToken={accessToken}/>
-                        <div className="relative h-[60dvh] border overflow-hidden">         
+                        <div className="relative h-[60vh] border overflow-hidden">         
                             <div className=" flex flex-nowrap overflow-scroll snap-x-custom  overflow-scrollbar-hidden scroll-smooth relative"   ref={carouselRef}onScroll={handleScroll} >
                                 {product?.images?.map((element,index)=>{
                                     return <Image key={index} src={element?.url} width={390} height={620} alt="img" quality={100} className="flex-shrink-0 grow w-full h-auto  object-cover snap-start-custom " />
