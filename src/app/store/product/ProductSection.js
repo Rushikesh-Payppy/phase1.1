@@ -59,6 +59,7 @@ function ProductSection() {
     //to select a size of product like XL 
     let [selectedSize, setSelectedSize] = useState('');
     let [isSizeSelected, setIsSizeSelected] = useState(false);
+    let[selectedInventoryQuantity,setSelectedInventoryQuantity]=useState(-1);
 
     let [accessToken, setAccessToken] = useState('');
     let [gettingAccessToken, setGettingAccessToken] = useState(true);
@@ -134,7 +135,7 @@ function ProductSection() {
 
     //fetch product
     function FetchProducts() {
-        let query = `/${productId}?region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9`;
+        let query = `/${productId}?region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&fields=*variants,*variants.inventory_quantity`;
         StoreProductsListApi(query)
             .then((response) => {
                 // console.log(response);
@@ -192,9 +193,10 @@ function ProductSection() {
 
 
     //to select size of product i.e. varient id
-    function handleSizeSelect(value) {
+    function handleSizeSelect(value,quantity) {
         setSelectedSize(value);
         setIsSizeSelected(value === '');
+        setSelectedInventoryQuantity(quantity);
     }
 
     //handle add to cart
@@ -364,7 +366,7 @@ function ProductSection() {
                                 </div>
                                 <div className="flex overflow-scroll overflow-scrollbar-hidden scroll-smooth">
                                     {product?.variants?.map((element, index) => {
-                                        return <div key={index} className={`flex justify-center items-center p-3 w-16 h-16 border body-sm  custom-text-grey900 cursor-pointer text-center ${selectedSize === element.id ? '  border-black font-bold ' : ' custom-border-grey400 '}`} onClick={() => { handleSizeSelect(element.id) }}>{element.options[0]?.value==='Default option value'?'One Size':element.options[0]?.value}</div>
+                                        return <button key={index} className={`flex justify-center items-center p-3 w-16 h-16 border body-sm  custom-text-grey900 cursor-pointer text-center ${selectedSize === element.id ? '  border-black font-bold ' : ' custom-border-grey400 '}`} onClick={() => { handleSizeSelect(element.id,element.inventory_quantity) }}>{element.options[0]?.value==='Default option value'?'One Size':element.options[0]?.value}</button>
                                     })
 
                                     }
@@ -385,7 +387,7 @@ function ProductSection() {
                                         <div className="all-caps-10 custom-text-grey600">IN STOCK</div>
                                     </div>
                                 </div>
-                                <button className="background-custom-grey900 all-caps-12-bold custom-text-white py-4 px-7 w-full text-center flex justify-center items-center" onClick={handleAddToCart} disabled={loadingAnimation}>{loadingAnimation?<LoadingAnimation borderColor='border-white'/>:<span>Add to cart</span>}</button>
+                                <button className={`${selectedInventoryQuantity===0?'background-custom-grey500':'background-custom-grey900'} all-caps-12-bold custom-text-white py-4 px-7 w-full text-center flex justify-center items-center`} onClick={handleAddToCart} disabled={loadingAnimation || selectedInventoryQuantity===0}>{loadingAnimation?<LoadingAnimation borderColor='border-white'/>:<span>{selectedInventoryQuantity===0?'Out of stock':'Add to cart'}</span>}</button>
 
                             </div>
 

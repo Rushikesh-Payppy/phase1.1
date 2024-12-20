@@ -97,13 +97,12 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
         <InitialPageLoadingAnimation />
       ) : (
         <>
-          <article className={`max-w-[52.7vh] h-[100dvh] overflow-y-scroll overflow-scrollbar-hidden ${modalVisible === 'animate-slide-out' ? 'animate-slide-out z-10 absolute top-0 h-[100dvh]' : modalVisible ? 'absolute top-0 z-10 overflow-y-scroll h-[100dvh] animate-slide-in' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-y-scroll z-auto h-auto ' : ''}`}>
+          <article className={`max-w-[52.7vh] h-[100dvh] overflow-y-scroll overflow-x-hidden overflow-scrollbar-hidden ${modalVisible === 'animate-slide-out' ? 'animate-slide-out z-[1] absolute top-0 h-[100dvh]' : modalVisible ? 'fixed top-0 z-[1] overflow-y-scroll overflow-x-hidden h-[100dvh] max-w-[52.7vh] animate-slide-in' : ' hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-y-scroll z-auto h-[100dvh] ' : ''}`}>
           {/* <article className={`max-w-[52.7vh] h-[100dvh] overflow-y-scroll overflow-scrollbar-hidden ${modalVisible === 'animate-slide-out' ? 'animate-slide-out z-10 block absolute top-0 h-[100dvh]' : modalVisible ? 'absolute top-0 z-10 overflow-y-scroll h-[100dvh] animate-slide-in' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-y-scroll z-auto ' : ''}`}> */}
           {/* -mt-[50px] add in main tag when top back button is used */}
           <div className="background-custom-grey50 small-border-left small-border-right custom-border-grey800 scroll-smooth ">
             {/* blog Rich feature image */}
             <Image src={getCoverImgUrl(response)} alt="img" height={500} width={500} quality={100} className="w-full h-auto aspect-square object-cover" />
-            
             <div className="flex flex-col gap-5 px-6 pt-7 pb-9 ">
               {/* blog title & publish details */}
               <section className=" gap-3">

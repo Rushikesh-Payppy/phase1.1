@@ -90,14 +90,14 @@ const SettingsAndActivitySection = () => {
                 <AccountButton href="#" buttonName="Change Password" />
 
                 {/* seperator gap 1 */}
-                <div className=' w-full gap-3 h-10  background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div>
+                {/* <div className=' w-full gap-3 h-10  background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div> */}
 
                 <AccountButton href="#" buttonName="Address Book" />
 
                 {/* seperator gap 2 */}
-                <div className=' w-full gap-3 h-10 background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div>
+                {/* <div className=' w-full gap-3 h-10 background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div> */}
 
-                <AccountButton href="#" buttonName="Delete Account" />
+                {/* <AccountButton href="#" buttonName="Delete Account" /> */}
 
                 {/* logout button */}
                 <div className='mt-10 mx-6'>
