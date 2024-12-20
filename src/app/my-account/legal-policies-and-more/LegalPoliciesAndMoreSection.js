@@ -46,7 +46,7 @@ const LegalPoliciesAndMoreSection = () => {
         <h4 className="heading-4 custom-text-grey900 font-semibold pt-10 pl-4 pb-5 border-b-[0.5px] custom-border-grey900">
           More
         </h4>
-        <AccountButton href="https://payppy.co/payppy-india" buttonIcon={AboutUs} buttonName="About us" buttonIcon2={UpRightArrow} arrowIcon={false}/>
+        <AccountButton href="https://payppy.co/payppy-india" target="_blank" buttonIcon={AboutUs} buttonName="About us" buttonIcon2={UpRightArrow} arrowIcon={false}/>
         {/* <AccountButton href="#" buttonIcon={BecomePartner} buttonName="Become Partner" buttonIcon2={UpRightArrow} arrowIcon={false}/> */}
 
       </main>

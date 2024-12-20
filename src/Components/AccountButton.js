@@ -12,10 +12,10 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 //icons
 import ChevronRight from "@/Images/Icons/chevron-right-icon-dark.svg";
 
-const AccountButton = ({href,buttonName,buttonIcon,buttonIcon2, arrowIcon=true}) => {
+const AccountButton = ({href,target,buttonName,buttonIcon,buttonIcon2, arrowIcon=true}) => {
   return (
     <>
-      <Link href={href}  className={"flex flex-row gap-3 border-b-[0.5px] custom-border-grey600 w-full "+plus_jakarta_sans.className} >
+      <Link href={href} target={target} className={"flex flex-row gap-3 border-b-[0.5px] custom-border-grey600 w-full "+plus_jakarta_sans.className} >
         <div className=" gap-2 flex flex-row items-center py-7 pl-6 flex-grow">
          {buttonIcon &&  <Image src={buttonIcon} width={20} height={20} alt="" quality={100} />}
           <p className="uppercase all-caps-12 font-medium custom-text-grey900 ">

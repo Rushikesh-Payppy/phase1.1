@@ -42,6 +42,15 @@ const HelpAndFAQSection = () => {
       content:
         "Yes, we take data security seriously. Your personal information is encrypted and protected according to industry standards.",
     },
+    {
+      id: "3",
+      title: "How can I delete my account?",
+      content:
+        <>
+        To delete your account, please mail us at <Link href="mailto:support@payppy.app"  className="underline" >support@payppy.app</Link>  to submit your request. Our team will process it as soon as possible.
+        </>
+          
+    },
   ];
 
 

@@ -8,7 +8,7 @@ function CreatePaymentCollectionApi(payload)
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
-                "x-publishable-api-key": "pk_fd3a3f0b2cfa7e96a8a7e2f66f07927cb5e2d6282af3f0251ada0ef101dcf2ee"
+                "x-publishable-api-key": process.env.PUBLISHABLE_KEY
             },
             body:JSON.stringify(payload)
         }

@@ -73,7 +73,7 @@ const FlixBlogContent = ({ data }) => {
         {/* href={"flix-blogs/" + data.documentId}  */}
         <Link href='#' onClick={handleReadMore} className="gap-5 mx-4 flex flex-col items-center  pb-9 " >
           <h1 className="heading-h1 custom-text-white text-center ">
-            {`${data.Title}`}
+            {`${data?.Title}`}
           </h1>
 
           {/* Read More Link */}
