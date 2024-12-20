@@ -74,7 +74,7 @@ function StoreHomeSection() {
 
     let limit = clickedLoadMoreCount*50;
     
-    let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9`;
+    let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&order=-id`;
     function FetchProducts() {
         setLoadingAnimation(true);
         StoreProductsListApi(query)
