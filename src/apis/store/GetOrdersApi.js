@@ -1,16 +1,15 @@
 
 let baseurl='https://payppy.in/';
-function GetCartInfoApi(accessToken)
+function GetOrdersApi(accessToken)
 {
-    return fetch(`${baseurl}auth/profile
+    return fetch(`${baseurl}api/get-orders
 `,
         {
             headers:{
                 'Content-Type':'application/json',
-                "x-publishable-api-key": process.env.PUBLISHABLE_KEY,
+                // "x-publishable-api-key": process.env.PUBLISHABLE_KEY,
                 'Authorization': 'Bearer '+accessToken
             },
-
         }
     )
     .then((data)=>{
@@ -21,4 +20,4 @@ function GetCartInfoApi(accessToken)
     })
 }
 
-export default GetCartInfoApi;
+export default GetOrdersApi;

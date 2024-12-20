@@ -1,7 +1,7 @@
  //sign in with google
  function signInWithGoogle()
  {
-     fetch('https://nexus.payppy.app/auth/google-login')
+     fetch('https://payppy.in/auth/google-login')
      .then((data)=>{
 
      })

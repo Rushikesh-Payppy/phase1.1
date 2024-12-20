@@ -140,7 +140,7 @@ const MyAccountSection = () => {
         {/* main section */}
         <main className=" flex flex-col items-center w-full">
          {accessToken&& <>
-            <AccountButton href="#" buttonIcon={orderIcon} buttonName="my orders" />
+            <AccountButton href="/my-account/my-orders" buttonIcon={orderIcon} buttonName="my orders" />
             <AccountButton href="/my-account/settings-and-activity" buttonIcon={settingIcon} buttonName="Settings & Activity" />
           </>}
           <AccountButton href="/my-account/help-and-faq" buttonIcon={helpIcon} buttonName="Help & Support"  />

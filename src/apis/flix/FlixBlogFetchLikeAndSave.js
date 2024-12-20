@@ -1,7 +1,7 @@
 
 function FlixBlogFetchLikeAndSave(accessToken) {
 
-    return fetch("https://nexus.payppy.app/api/user/interaction", {
+    return fetch("https://payppy.in/api/user/interaction", {
         method: 'GET',
 
         headers: {
@@ -35,8 +35,8 @@ export default FlixBlogFetchLikeAndSave;
 // async function FlixBlogFetchLikeAndSave(accessToken)
 // {
 //     try {
-//         // let response = await axios.get(`https://nexus.payppy.app/api/user/interaction`);
-//         let response = await fetch(`https://nexus.payppy.app/api/user/interaction`);
+//         // let response = await axios.get(`https://payppy.in/api/user/interaction`);
+//         let response = await fetch(`https://payppy.in/api/user/interaction`);
         
 
 //         return response.data;
