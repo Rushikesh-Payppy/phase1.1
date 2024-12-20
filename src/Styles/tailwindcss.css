@@ -818,6 +818,10 @@ body {
   z-index: 2;
 }
 
+.z-auto {
+  z-index: auto;
+}
+
 .mx-16 {
   margin-left: 4rem;
   margin-right: 4rem;
@@ -1029,6 +1033,10 @@ body {
   height: 100vh;
 }
 
+.h-\[100vh\] {
+  height: 100vh;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
@@ -1047,6 +1055,10 @@ body {
 
 .max-h-\[900px\] {
   max-height: 900px;
+}
+
+.max-h-\[100dvh\] {
+  max-height: 100dvh;
 }
 
 .min-h-\[200px\] {
@@ -1115,6 +1127,10 @@ body {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[52\.7vh\] {
+  width: 52.7vh;
 }
 
 .min-w-\[200px\] {

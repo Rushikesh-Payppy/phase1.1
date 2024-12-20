@@ -146,14 +146,14 @@ function StoreHomeSection() {
                         <section className={`grid grid-cols-${gridColums} small-border-bottom small-border-x  custom-border-grey800`}>
 
                             {products?.length > 0 &&
-                                products.map((element, index) => {
+                                products?.map((element, index) => {
                                     return <ClothsImgInfoCompo key={index} borderClass={`  small-border-top ${index % 2 == 0 && gridColums === 2 ? ' small-border-right ' : ' '} `} data={element} />
                                 })
 
                             }
 
                         </section>
-                       {products.length<productsCount&& <div className="flex justify-center items-center px-6 py-10 background-custom-grey50">
+                       {products?.length<productsCount&& <div className="flex justify-center items-center px-6 py-10 background-custom-grey50">
                             <button className="py-4 px-8 small-border border-black all-caps-12-bold custom-text-grey900" onClick={handleLoadMoreButtonClick} disabled={loadingAnimation}>{loadingAnimation?<LoadingAnimation/>:'Load More'}</button>
                         </div>}
 

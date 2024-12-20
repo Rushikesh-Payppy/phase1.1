@@ -83,8 +83,8 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
         {/* {navbar && <FlixNavbar />} */}
 
           <div ref={scrollContainer} className="w-full h-[100dvh] snap-y snap-mandatory overflow-y-scroll overflow-scrollbar-hidden animate-scroll-up ">
-            {data.length > 0 &&
-              data.map((element, index) => (
+            {data?.length > 0 &&
+              data?.map((element, index) => (
                 <FlixBlogContent data={element} key={index} />
               ))}
             {loading && <InitialPageLoadingAnimation />}
