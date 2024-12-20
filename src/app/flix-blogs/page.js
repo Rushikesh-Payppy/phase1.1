@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import ScrollButtons from "@/Components/ScrollButtons";
 import FlixBlogContent from "@/Components/FlixBlogContent";
 import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
+import MuxPlayer from '@mux/mux-player-react';
 
 
 const Page = ({ scrollButtons = true, navbar = true }) => {
@@ -85,7 +86,21 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
           <div ref={scrollContainer} className="w-full h-[100dvh] snap-y snap-mandatory overflow-y-scroll overflow-scrollbar-hidden animate-scroll-up ">
             {data.length > 0 &&
               data.map((element, index) => (
-                <FlixBlogContent data={element} key={index} />
+                <>
+                  <MuxPlayer
+                    streamType="on-demand"
+                    playbackId="sQdPAl6gw00Hzi8XxVLugcjQsny01Z02WZv2KIZ2g7xXdc"
+                    metadataVideoTitle="Placeholder (optional)"
+                    metadataViewerUserId="Placeholder (optional)"
+                    primaryColor="#FFFFFF"
+                    secondaryColor="#000000"
+                    className="snap-start snap-always"
+                    autoPlay={true}
+                    loop={true}
+
+                  />
+                  <FlixBlogContent data={element} key={index} />
+                </>
               ))}
             {loading && <InitialPageLoadingAnimation />}
           </div>

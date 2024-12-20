@@ -335,7 +335,7 @@ function CheckoutSection() {
 
 
         const options = {
-            key: 'rzp_test_7ouO5vEuMs7k4r', // Replace with Razorpay Test/Live Key ID
+            key: process.env.RAZORPAY_KEY, // Replace with Razorpay Test/Live Key ID
             amount: orderDetails?.payment_sessions[0]?.data?.amount, // Amount from Razorpay Order
             currency: 'INR', // Currency from Razorpay Order
             order_id: orderDetails?.payment_sessions[0]?.data?.id, // Razorpay Order ID
