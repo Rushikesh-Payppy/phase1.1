@@ -3,7 +3,7 @@
 function StoreGetProductsExcludingOne(query,productId)
 {
 
-    return fetch(`https://medusa.payppy.app/store/products${query}`,{
+    return fetch(`https://medusa.payppy.in/store/products${query}`,{
             headers:{
                 "x-publishable-api-key": process.env.PUBLISHABLE_KEY
             }

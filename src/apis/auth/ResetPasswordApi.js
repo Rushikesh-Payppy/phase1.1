@@ -1,5 +1,5 @@
 
-let baseurl='https://nexus.payppy.app/';
+let baseurl='https://payppy.in/';
 function ResetPasswordApi(payload,token)
 {
     return fetch(`${baseurl}auth/reset-password/${token}`,

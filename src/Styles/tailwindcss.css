@@ -1041,6 +1041,10 @@ body {
   height: 100vh;
 }
 
+.h-3\.5 {
+  height: 0.875rem;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
@@ -1837,6 +1841,11 @@ body {
 .py-\[5px\] {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .pb-10 {

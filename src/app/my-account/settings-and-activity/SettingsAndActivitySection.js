@@ -88,6 +88,8 @@ const SettingsAndActivitySection = () => {
             <main className='gap-10 mt-5 border-t-[0.5px] custom-border-grey800'>
                 <AccountButton href="/my-account/settings-and-activity/personal-information" buttonName="Personal Information" />
                 <AccountButton href="#" buttonName="Change Password" />
+                <AccountButton href="/my-account/settings-and-activity/manage-address" buttonName="Address Book" />
+
 
                 {/* seperator gap 1 */}
                 {/* <div className=' w-full gap-3 h-10  background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div> */}

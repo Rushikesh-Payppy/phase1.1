@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.app/';
+let baseurl='https://medusa.payppy.in/';
 function UpdateProductQuantityApi(cartId,lineId,payload)
 {
     return fetch(`${baseurl}store/carts/${cartId}/line-items/${lineId}

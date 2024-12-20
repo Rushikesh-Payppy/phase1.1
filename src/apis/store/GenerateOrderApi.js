@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.app/';
+let baseurl='https://medusa.payppy.in/';
 function GenerateOrderApi(cartId)
 {
     return fetch(`${baseurl}store/carts/${cartId}/complete
