@@ -263,4 +263,7 @@ ipython_config.py
 # Node configs
 .next
 node_modules
+
+# Ignoring .zip files
+*.zip
  

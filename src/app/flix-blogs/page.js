@@ -38,7 +38,7 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
       const json = await response.json();
 
       const newItems = json?.data || [];
-      console.log("new items", newItems);
+      // console.log("new items", newItems);
       setData((prevData) => [...prevData, ...newItems]);
 
       if (newItems.length < 3) setHasMore(false); // If fewer than 3 items are fetched, no more data

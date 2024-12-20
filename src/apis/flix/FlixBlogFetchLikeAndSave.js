@@ -11,7 +11,7 @@ function FlixBlogFetchLikeAndSave(accessToken) {
 
     })
         .then((response) => {
-            console.log(response,"response from api");
+            // console.log(response,"response from api");
             return response.json();
         })
         .catch((error) => {
