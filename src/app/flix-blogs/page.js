@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useRouter } from 'next/navigation';
 
 // Components
 // import FlixNavbar from "@/Components/FlixNavbar";
 import ScrollButtons from "@/Components/ScrollButtons";
 import FlixBlogContent from "@/Components/FlixBlogContent";
 import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
-import MuxPlayer from '@mux/mux-player-react';
+
+//API
+import GetAccessTokenAPI from '@/apis/auth/GetAccessToken';
 
 
 const Page = ({ scrollButtons = true, navbar = true }) => {
@@ -16,6 +19,11 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const initialFetchDone = useRef(false); // Tracks if the first fetch is complete
+
+  let [gettingAccessToken, setGettingAccessToken] = useState(true);
+  let [accessToken, setAccessToken] = useState('');
+  let router = useRouter();
+
 
 
   // Fetch data for a given page
@@ -73,34 +81,50 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
+    //get access token intially
+    useEffect(() => {
+      getAccessToken();
+  }, [])
+
+  function getAccessToken() {
+    setGettingAccessToken(true);
+    GetAccessTokenAPI()
+        .then((response) => {
+
+            if (response && 'access_token' in response) {
+                setAccessToken(response.access_token);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally(()=>{
+            setGettingAccessToken(false);
+        }
+    )
+    
+}
+
+  //if click on login/signup button
+  function handleLoginSignupClick() {
+    router.push('/auth/user-auth');
+}
+
 
   return (
 
     <main className=" w-full h-full flex justify-center ">
-
+   
       {/* snap-start snap-always --> used for scrolling inside flix home page */}
-      <div className="relative max-w-[52.7vh] overflow-scrollbar-hidden snap-start snap-always  ">
+      <div className="relative max-w-[52.7vh] overflow-scrollbar-hidden snap-start snap-always ">
+      {(!accessToken&&!gettingAccessToken) && <button className="absolute top-0 w-full  z-10 background-custom-green all-caps-12-bold custom-text-grey900  text-center py-4 small-border border-black " onClick={handleLoginSignupClick} >Login/SignuP</button>}
         {/* Navbar */}
         {/* {navbar && <FlixNavbar />} */}
 
           <div ref={scrollContainer} className="w-full h-[100dvh] snap-y snap-mandatory overflow-y-scroll overflow-scrollbar-hidden animate-scroll-up ">
-            {data.length > 0 &&
-              data.map((element, index) => (
-                <>
-                  <MuxPlayer
-                    streamType="on-demand"
-                    playbackId="sQdPAl6gw00Hzi8XxVLugcjQsny01Z02WZv2KIZ2g7xXdc"
-                    metadataVideoTitle="Placeholder (optional)"
-                    metadataViewerUserId="Placeholder (optional)"
-                    primaryColor="#FFFFFF"
-                    secondaryColor="#000000"
-                    className="snap-start snap-always"
-                    autoPlay={true}
-                    loop={true}
-
-                  />
-                  <FlixBlogContent data={element} key={index} />
-                </>
+            {data?.length > 0 &&
+              data?.map((element, index) => (
+                <FlixBlogContent data={element} key={index} />
               ))}
             {loading && <InitialPageLoadingAnimation />}
           </div>

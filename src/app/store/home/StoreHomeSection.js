@@ -180,7 +180,7 @@ function StoreHomeSection() {
                         <section className={`grid grid-cols-${gridColums} small-border-bottom small-border-x  custom-border-grey800`}>
 
                             {products?.length > 0 ?
-                                products.map((element, index) => {
+                                products?.map((element, index) => {
                                     return <ClothsImgInfoCompo key={index} borderClass={`  small-border-top ${index % 2 == 0 && gridColums === 2 ? ' small-border-right ' : ' '} `} data={element} />
                                 })
                                 :

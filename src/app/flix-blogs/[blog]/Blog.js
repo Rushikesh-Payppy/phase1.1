@@ -50,6 +50,7 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
       getBlogData();
 
     }
+
   }, []);
 
 
@@ -57,6 +58,8 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
     console.log(response);
 
   }, [response]);
+
+ 
 
 
 
@@ -94,55 +97,53 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
         <InitialPageLoadingAnimation />
       ) : (
         <>
-        <article className={`max-w-[52.7vh] h-[100dvh] overflow-scrollbar-hidden ${modalVisible === 'animate-slide-out' ? 'animate-slide-out z-10 block absolute top-0 h-[100dvh]' : modalVisible ? 'absolute top-0 z-10 overflow-scroll h-[100dvh] animate-slide-in' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-scroll' : ''}`}>
-
-            {/* -mt-[50px] add in main tag when top back button is used */}
-            <div className="background-custom-grey50 small-border-left small-border-right custom-border-grey800 scroll-smooth ">
-
-              {/* blog Rich feature image */}
-              <Image src={getCoverImgUrl(response)} alt="img" height={500} width={500} quality={100} className="w-full h-auto aspect-square object-cover" />
-
-              <div className="flex flex-col gap-5 px-6 pt-7 pb-9 ">
-                {/* blog title & publish details */}
-                <section className=" gap-3">
-                  <section className={" gap-2 py-[1px] flex flex-row items-center uppercase font-medium all-caps-10 custom-text-grey600 " + plus_jakarta_sans.className} >
-                    <p>{response?.BlogReadingminutes} min read</p>
-                    <p className="border-l pl-2 custom-border-grey300 ">
-                      Published on: {gerFormattedPublishedDate(response?.publishedAt)}
-                    </p>
-                  </section>
-
-                  <h1 className={"heading-h1 tracking-tight !font-normal custom-text-grey900 mt-3 " + noto_serif.className}>
-                    {response?.Title}
-                  </h1>
+          <article className={`max-w-[52.7vh] h-[100dvh] overflow-y-scroll overflow-x-hidden overflow-scrollbar-hidden ${modalVisible === 'animate-slide-out' ? 'animate-slide-out z-[1] absolute top-0 h-[100dvh]' : modalVisible ? 'fixed top-0 z-[1] overflow-y-scroll overflow-x-hidden h-[100dvh] max-w-[52.7vh] animate-slide-in' : ' hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-y-scroll z-auto h-[100dvh] ' : ''}`}>
+          {/* <article className={`max-w-[52.7vh] h-[100dvh] overflow-y-scroll overflow-scrollbar-hidden ${modalVisible === 'animate-slide-out' ? 'animate-slide-out z-10 block absolute top-0 h-[100dvh]' : modalVisible ? 'absolute top-0 z-10 overflow-y-scroll h-[100dvh] animate-slide-in' : 'hidden -z-[1] top-[100%] overflow-hidden max-h-0 '} ${id ? ' for-flixBlock overflow-y-scroll z-auto ' : ''}`}> */}
+          {/* -mt-[50px] add in main tag when top back button is used */}
+          <div className="background-custom-grey50 small-border-left small-border-right custom-border-grey800 scroll-smooth ">
+            {/* blog Rich feature image */}
+            <Image src={getCoverImgUrl(response)} alt="img" height={500} width={500} quality={100} className="w-full h-auto aspect-square object-cover" />
+            <div className="flex flex-col gap-5 px-6 pt-7 pb-9 ">
+              {/* blog title & publish details */}
+              <section className=" gap-3">
+                <section className={" gap-2 py-[1px] flex flex-row items-center uppercase font-medium all-caps-10 custom-text-grey600 " + plus_jakarta_sans.className} >
+                  <p>{response?.BlogReadingminutes} min read</p>
+                  <p className="border-l pl-2 custom-border-grey300 ">
+                    Published on: {gerFormattedPublishedDate(response?.publishedAt)}
+                  </p>
                 </section>
 
-                <RichText data={response?.BlogDescription || []} />
+                <h1 className={"heading-h1 tracking-tight !font-normal custom-text-grey900 mt-3 " + noto_serif.className}>
+                  {response?.Title}
+                </h1>
+              </section>
 
-                {/* categories at bottom */}
-                <section className={"flex flex-wrap  gap-4 items-center custom-text-grey900 " + plus_jakarta_sans.className}>
-                  {response?.Category?.length > 0 && response?.Category?.split(',').map((element, index) => {
-                    return <div key={index} className="gap-2 py-2.5 px-4 background-custom-grey50 text-center border-[0.5px] custom-border-grey900 rounded-full ">
-                      #{element}
-                    </div>
-                  })}
-                </section>
+              <RichText data={response?.BlogDescription || []} />
 
-              </div>
-
-              {/* footer */}
-              <FlixFooter url={url} title={title} positionValue="sticky" setModalVisible={setModalVisible} id={data?.documentId || response?.documentId} />
-
-              {/* Back Button */}
-              {/* <button onClick={handleBack} className={`sticky bottom-0 z-10 ml-[60px] background-custom-grey50  gap-8 p-3 small-border custom-border-grey800 rounded-[90px] cursor-pointer`}>
-              <Image src={ChevronLeftDark} width={24} height={24} alt="img" quality={100} />
-              </button> */}
+              {/* categories at bottom */}
+              <section className={"flex flex-wrap  gap-4 items-center custom-text-grey900 " + plus_jakarta_sans.className}>
+                {response?.Category?.length > 0 && response?.Category?.split(',').map((element, index) => {
+                  return <div key={index} className="gap-2 py-2.5 px-4 background-custom-grey50 text-center border-[0.5px] custom-border-grey900 rounded-full ">
+                    #{element}
+                  </div>
+                })}
+              </section>
 
             </div>
-          </article>
 
-        </>
-      )}
+            {/* footer */}
+            <FlixFooter url={url} title={title} positionValue="sticky" setModalVisible={setModalVisible} id={data?.documentId || response?.documentId} />
+
+            {/* Back Button */}
+            {/* <button onClick={handleBack} className={`sticky bottom-0 z-10 ml-[60px] background-custom-grey50  gap-8 p-3 small-border custom-border-grey800 rounded-[90px] cursor-pointer`}>
+              <Image src={ChevronLeftDark} width={24} height={24} alt="img" quality={100} />
+              </button> */}
+          </div>
+        </article>
+
+    </>
+  )
+}
     </>
   );
 }

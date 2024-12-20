@@ -822,6 +822,10 @@ body {
   z-index: 2;
 }
 
+.z-auto {
+  z-index: auto;
+}
+
 .mx-16 {
   margin-left: 4rem;
   margin-right: 4rem;
@@ -1243,28 +1247,6 @@ body {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-
-  32% {
-    transform: translateX(-100%);
-  }
-
-  62% {
-    transform: translateX(-200%);
-  }
-
-  100% {
-    transform: translateX(-200%);
-  }
-}
-
-.animate-scroll-horizontal {
-  animation: scroll 5s linear infinite;
-}
-
 @keyframes scrollUp {
   0% {
     transform: translateY(0);
@@ -1290,7 +1272,7 @@ body {
   }
 
   100% {
-    transform: translateX(0);
+    transform: translateX(0%);
     opacity: 1;
   }
 }
