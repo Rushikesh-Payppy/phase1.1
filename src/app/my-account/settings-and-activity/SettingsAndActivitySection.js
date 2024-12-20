@@ -92,7 +92,7 @@ const SettingsAndActivitySection = () => {
                 {/* seperator gap 1 */}
                 {/* <div className=' w-full gap-3 h-10  background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div> */}
 
-                <AccountButton href="#" buttonName="Address Book" />
+                {/* <AccountButton href="#" buttonName="Address Book" /> */}
 
                 {/* seperator gap 2 */}
                 {/* <div className=' w-full gap-3 h-10 background-custom-grey100 border-b-[0.5px] custom-border-grey800 '></div> */}
