@@ -4,7 +4,7 @@ import axios from 'axios';
 async function ResendEmail(payloadObj)
 {
     try {
-        let response=await axios.post('https://payppy.in/auth/resend_verification_email',payloadObj)
+        let response=await axios.post('https://nexus.payppy.app/auth/resend_verification_email',payloadObj)
     
         return response.data;
     } catch (error) {

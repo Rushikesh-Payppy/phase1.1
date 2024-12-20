@@ -1,5 +1,5 @@
 
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function DeleteCartIdApi(accessToken)
 {
     return fetch(`${baseurl}auth/delete-cartid

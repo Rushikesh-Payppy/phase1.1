@@ -1,5 +1,5 @@
 'use client';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,14 +17,91 @@ import AccountDark from "@/Images/Icons/account-icon-dark.svg";
 import SearchLight from "@/Images/Icons/search-menu-icon-light.svg";
 import SearcgDark from "@/Images/Icons/search-menu-icon-dark.svg";
 import { usePathname } from "next/navigation";
+import GetAccessTokenAPI from "@/apis/auth/GetAccessToken";
+import GetCartInfoApi from "@/apis/store/GetCartInfoApi";
+import GetCartItemsApi from "@/apis/store/GetCartItemsApi";
 
 
 
 const StoreFooter = () => {
 
+  let[accessToken,setAccessToken]=useState('');
+
+  let[cartid,setCartId]=useState('');
+
+  let[cartItems,setCartItems]=useState([]);
+
+
+   //to get a access token
+   useEffect(()=>{
+      getAccessToken();
+  },[])
+
+  useEffect(()=>{
+      if(accessToken)
+      {
+          getCartInfo();
+      }
+  },[accessToken])
+
+  useEffect(()=>{
+      if(cartid)
+      {
+          getCartItems();
+      }
+  },[cartid])
+
+   //getting access token
+   function getAccessToken()
+   {
+       GetAccessTokenAPI()
+       .then((response)=>{
+          //  console.log(response);
+           if(response&&'access_token' in response)
+           {
+               setAccessToken(response.access_token);
+           }
+           
+       })
+       .catch(()=>{
+
+       })
+
+   }
+
+   //get cart information from api
+   function getCartInfo()
+   {
+       GetCartInfoApi(accessToken)
+       .then((response)=>{
+           console.log('response');
+
+           if(response&&'cart_id' in response)
+           {
+               setCartId(response.cart_id);
+           }
+       })
+       .catch((error)=>{
+           console.log(error);
+       })
+   }
+
+   //get cart items
+   function getCartItems()
+   {
+      GetCartItemsApi(cartid)
+      .then((response)=>{
+          // console.log(response);
+          setCartItems(response.cart);
+
+      })
+      .catch((error)=>{
+          console.log(error);
+      })
+   }
   let pathname=usePathname();
 
-  console.log('pathname :',pathname);
+  console.log('pathname :',pathname); 
   
   
   return (
@@ -51,9 +128,10 @@ const StoreFooter = () => {
           :<Image src={SearchLight} width={24} height={24} alt="img" quality={100} />}
         </Link> */}
 
-        <Link href="/store/shopping-bag">
+        <Link href="/store/shopping-bag" className="relative">
          {pathname.includes('/shopping-bag')?  <Image src={BagDark} width={24} height={24} alt="img" quality={100} />
           :<Image src={BagLight} width={24} height={24} alt="img" quality={100} />}
+          {cartItems?.items?.length > 0&& <div className="w-2 h-2 small-border border-black background-custom-green rounded-full absolute top-0.5 right-0"></div>}
         </Link>
 
         <Link href="/my-account">

@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.in/';
+let baseurl='https://medusa.payppy.app/';
 let region_id='reg_01JDPJAQ0EV727HP0MPZH1NZA9';
 function GetPaymentProviderList()
 {
