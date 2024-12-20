@@ -3,7 +3,7 @@
 function TaxesApi(cartId)
 {
 
-    return fetch(`https://medusa.payppy.in/store/carts/${cartId}/taxes`,{
+    return fetch(`https://medusa.payppy.app/store/carts/${cartId}/taxes`,{
         method:'POST',
             headers:{
                 "x-publishable-api-key": process.env.PUBLISHABLE_KEY

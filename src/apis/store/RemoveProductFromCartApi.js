@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.in/';
+let baseurl='https://medusa.payppy.app/';
 function RemoveProductFromCartApi(cartId,lineId)
 {
     return fetch(`${baseurl}store/carts/${cartId}/line-items/${lineId}

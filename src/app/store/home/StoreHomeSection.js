@@ -6,9 +6,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 //hero section images
 // import Homepage from '@/Images/Homepage/homepage-img.jpg';
-import Hero1 from '@/Images/Store/hero_image_1.jpg';
-import Hero2 from '@/Images/Store/hero_image_2.jpg';
-import Hero3 from '@/Images/Store/hero_image_3.jpg';
+import Hero1 from '@/Images/Store/hero-image-1.jpg';
+import Hero2 from '@/Images/Store/hero-image-2.jpg';
+import Hero3 from '@/Images/Store/hero-image-3.jpg';
 
 import PayppyStoreLogo from '@/Images/Store/Payppy-Store-Logo.svg';
 
@@ -74,7 +74,7 @@ function StoreHomeSection() {
 
     let limit = clickedLoadMoreCount*50;
     
-    let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9`;
+    let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&order=-id`;
     function FetchProducts() {
         setLoadingAnimation(true);
         StoreProductsListApi(query)
