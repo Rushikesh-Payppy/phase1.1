@@ -806,18 +806,6 @@ body {
   top: 90%;
 }
 
-.bottom-20 {
-  bottom: 5rem;
-}
-
-.bottom-24 {
-  bottom: 6rem;
-}
-
-.bottom-28 {
-  bottom: 7rem;
-}
-
 .-z-\[1\] {
   z-index: -1;
 }
@@ -836,6 +824,10 @@ body {
 
 .z-\[2\] {
   z-index: 2;
+}
+
+.z-\[4\] {
+  z-index: 4;
 }
 
 .z-auto {
@@ -872,21 +864,6 @@ body {
   margin-bottom: 2.5rem;
 }
 
-.mx-8 {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-.mx-10 {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
-}
-
-.mx-20 {
-  margin-left: 5rem;
-  margin-right: 5rem;
-}
-
 .-ml-\[120px\] {
   margin-left: -120px;
 }
@@ -897,6 +874,10 @@ body {
 
 .mb-16 {
   margin-bottom: 4rem;
+}
+
+.mb-24 {
+  margin-bottom: 6rem;
 }
 
 .ml-1 {
@@ -951,46 +932,6 @@ body {
   margin-top: auto;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-
-.mb-20 {
-  margin-bottom: 5rem;
-}
-
-.mb-24 {
-  margin-bottom: 6rem;
-}
-
-.mb-\[84px\] {
-  margin-bottom: 84px;
-}
-
-.mb-\[88px\] {
-  margin-bottom: 88px;
-}
-
-.mb-\[90px\] {
-  margin-bottom: 90px;
-}
-
-.mb-28 {
-  margin-bottom: 7rem;
-}
-
-.mb-\[100px\] {
-  margin-bottom: 100px;
-}
-
-.mb-\[110px\] {
-  margin-bottom: 110px;
-}
-
 .block {
   display: block;
 }
@@ -1015,6 +956,10 @@ body {
   aspect-ratio: 1 / 1;
 }
 
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
 .h-0 {
   height: 0px;
 }
@@ -1029,6 +974,10 @@ body {
 
 .h-11 {
   height: 2.75rem;
+}
+
+.h-12 {
+  height: 3rem;
 }
 
 .h-16 {
@@ -1170,6 +1119,10 @@ body {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-4 {
@@ -1408,6 +1361,10 @@ body {
 
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-cols-\[119px\2c auto\] {
+  grid-template-columns: 119px auto;
 }
 
 .flex-row {
@@ -1675,6 +1632,11 @@ body {
   border-color: rgb(215 212 207 / var(--tw-border-opacity, 1));
 }
 
+.border-\[\#EBE7E1\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(235 231 225 / var(--tw-border-opacity, 1));
+}
+
 .border-\[\#FFFFFF4D\] {
   border-color: #FFFFFF4D;
 }
@@ -1696,11 +1658,6 @@ body {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
-}
-
-.border-\[\#EBE7E1\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(235 231 225 / var(--tw-border-opacity, 1));
 }
 
 .bg-\[\#F1F2F7\] {
@@ -1928,11 +1885,6 @@ body {
   padding-bottom: 5px;
 }
 
-.px-24 {
-  padding-left: 6rem;
-  padding-right: 6rem;
-}
-
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -2035,10 +1987,6 @@ body {
 
 .pt-\[50\%\] {
   padding-top: 50%;
-}
-
-.pb-\[100px\] {
-  padding-bottom: 100px;
 }
 
 .text-left {
@@ -2180,6 +2128,12 @@ body {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.backdrop-blur-\[12px\] {
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2300,12 +2254,12 @@ body {
   opacity: 0.5;
 }
 
-.group.toaster .group-\[\.toaster\]\:border-\[0\.5px\] {
-  border-width: 0.5px;
-}
-
 .group.toaster .group-\[\.toaster\]\:border {
   border-width: 1px;
+}
+
+.group.toaster .group-\[\.toaster\]\:border-\[0\.5px\] {
+  border-width: 0.5px;
 }
 
 .group.toaster .group-\[\.toaster\]\:border-border {
@@ -2324,13 +2278,13 @@ body {
   background-color: #1A1917CC;
 }
 
-.group.toaster .group-\[\.toaster\]\:bg-background {
-  background-color: hsl(var(--background));
-}
-
 .group.toaster .group-\[\.toaster\]\:bg-\[\#FFFFFF\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.group.toaster .group-\[\.toaster\]\:bg-background {
+  background-color: hsl(var(--background));
 }
 
 .group.toast .group-\[\.toast\]\:text-muted-foreground {
@@ -2380,16 +2334,8 @@ body {
 }
 
 @media (min-width: 640px) {
-  .sm\:absolute {
-    position: absolute;
-  }
-
   .sm\:mb-0 {
     margin-bottom: 0px;
-  }
-
-  .sm\:mt-80 {
-    margin-top: 20rem;
   }
 }
 
@@ -2404,10 +2350,6 @@ body {
 
   .lg\:bottom-4 {
     bottom: 1rem;
-  }
-
-  .lg\:mb-0 {
-    margin-bottom: 0px;
   }
 
   .lg\:mb-24 {

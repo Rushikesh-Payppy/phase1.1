@@ -3,7 +3,6 @@
 import ForgotPasswordApi from '@/apis/auth/ForgotPasswordApi';
 import Arrow from '@/Images/Otp/arrow-icon.svg';
 import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
-import { Plus_Jakarta_Sans } from 'next/font/google';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -11,10 +10,7 @@ import ResetPasswordEmailResendSection from './ResetPasswordEmailResendSection';
 import LoadingAnimation from '../LoadingAnimation';
 
 
-const plus_jakarta_sans=Plus_Jakarta_Sans({
-    subsets:['latin'],
-    display:'swap'
-})
+
 function ResetPasswordSection()
 {
     let[email,setEmail]=useState('');
@@ -101,13 +97,13 @@ function ResetPasswordSection()
         <>
             {resetPasswordSteps==0&&
             // <section className={"flex justify-center  background-custom-grey50   "+plus_jakarta_sans.className}>
-                <div className="page-center-parent-container overflow-hidden border-black px-6 py-10 small-border border-custom-grey800">
+                <div className="page-center-parent-container vh100 overflow-hidden border-black px-6 py-10 small-border border-custom-grey800">
                     <div className="flex flex-col gap-10 ">
                         <Image src={Arrow} width={32} height={32} alt='img' quality={100} className='cursor-pointer' onClick={handleBackButtonClick}/>
                         <div className="flex flex-col gap-8">
                             <div className="flex flex-col gap-2">
                                 <h2 className="heading-h2 custom-text-grey900 ">Reset Password</h2>
-                                <div className="body-sm custom-text-grey700">We'll send a verification link. Once you verify it, you can set a new password</div>
+                                <div className="body-sm custom-text-grey700">We&apos;ll send a verification link. Once you verify it, you can set a new password</div>
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <div className="all-caps-12-bold custom-text-grey900">Email</div>

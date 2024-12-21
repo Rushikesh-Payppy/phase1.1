@@ -93,8 +93,10 @@
 
 .flix-footer-dark-fradient {
   background: rgba(26, 25, 23, 0.8117647059);
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
+          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
+          box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
 }
 
 .footer-border-dark {
@@ -331,11 +333,13 @@ body {
 }
 
 .store-button-shadow {
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
+          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
 }
 
 .snap-x-custom {
-  scroll-snap-type: x mandatory;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
 }
 
 .snap-start-custom {
@@ -343,11 +347,20 @@ body {
 }
 
 .get-light-img {
-  filter: brightness(100);
+  -webkit-filter: brightness(100);
+          filter: brightness(100);
 }
 
 .vh100 {
   height: 100vh;
+}
+
+.min-vh100 {
+  min-height: 100vh;
+}
+
+.vh-auto {
+  height: auto;
 }
 
 .for-flixBlock {

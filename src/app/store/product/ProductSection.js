@@ -382,10 +382,10 @@ function ProductSection() {
                                         <div className="all-caps-10 custom-text-grey600">Delivery in 3-7 days</div>
                                     </div>
 
-                                    <div className="flex items-center gap-1">
+                                   {selectedInventoryQuantity>0&& <div className="flex items-center gap-1">
                                         <Image src={InStock} width={16} height={16} alt="img" quality={100} className="" />
                                         <div className="all-caps-10 custom-text-grey600">IN STOCK</div>
-                                    </div>
+                                    </div>}
                                 </div>
                                 <button className={`${selectedInventoryQuantity===0?'background-custom-grey500':'background-custom-grey900'} all-caps-12-bold custom-text-white py-4 px-7 w-full text-center flex justify-center items-center`} onClick={handleAddToCart} disabled={loadingAnimation || selectedInventoryQuantity===0}>{loadingAnimation?<LoadingAnimation borderColor='border-white'/>:<span>{selectedInventoryQuantity===0?'Out of stock':'Add to cart'}</span>}</button>
 

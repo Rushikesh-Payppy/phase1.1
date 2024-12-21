@@ -10,6 +10,8 @@ import InitialPageLoadingAnimation from '@/Components/InitialPageLoadingAnimatio
 
 //API
 import GetAccessTokenAPI from '@/apis/auth/GetAccessToken';
+import GetMuxVideosApi from "@/apis/flix/GetMuxVideosApi";
+import FlixReelContent from "@/Components/FlixReelContent";
 
 
 const Page = ({ scrollButtons = true, navbar = true }) => {
@@ -19,6 +21,7 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const initialFetchDone = useRef(false); // Tracks if the first fetch is complete
+  let[muxVideos,setMuxVideos]=useState([]);
 
   let [gettingAccessToken, setGettingAccessToken] = useState(true);
   let [accessToken, setAccessToken] = useState('');
@@ -53,6 +56,8 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
     if (initialFetchDone.current) return;
     initialFetchDone.current = true;
     getFlixData();
+
+    getMuxVideos();
   }, []); // Run only once on mount
 
   // Handle infinite scroll
@@ -105,6 +110,24 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
     
 }
 
+
+function getMuxVideos()
+{
+ GetMuxVideosApi()
+ .then((response)=>{
+   if(response)
+   {
+     if('items' in response)
+     {
+       setMuxVideos(response?.items);
+     }
+   }
+ })
+ .catch(()=>{
+   
+ })
+}
+
   //if click on login/signup button
   function handleLoginSignupClick() {
     router.push('/auth/user-auth');
@@ -124,7 +147,10 @@ const Page = ({ scrollButtons = true, navbar = true }) => {
           <div ref={scrollContainer} className="w-full h-[100dvh] snap-y snap-mandatory overflow-y-scroll overflow-scrollbar-hidden animate-scroll-up ">
             {data?.length > 0 &&
               data?.map((element, index) => (
-                <FlixBlogContent data={element} key={index} />
+                <>
+                  <FlixBlogContent data={element} key={index} />
+                  {muxVideos.length-1>=index&&<FlixReelContent playbackId={muxVideos[index]?.playback_id} key={index}/>}
+                </>
               ))}
             {loading && <InitialPageLoadingAnimation />}
           </div>
