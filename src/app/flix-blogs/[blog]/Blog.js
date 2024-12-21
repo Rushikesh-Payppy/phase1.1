@@ -26,6 +26,7 @@ import FlixFooter from "@/Components/FlixFooter";
 
 //API's
 import FlixForYouBlogData from "@/apis/flix/FlixForYouBlogData";
+import GetMuxVideosApi from "@/apis/flix/GetMuxVideosApi";
 
 
 // function Blog({ data=false, modalVisible, setModalVisible }) {
@@ -59,7 +60,6 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
 
   }, [response]);
 
- 
 
 
 

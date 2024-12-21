@@ -826,6 +826,10 @@ body {
   z-index: auto;
 }
 
+.z-\[4\] {
+  z-index: 4;
+}
+
 .mx-16 {
   margin-left: 4rem;
   margin-right: 4rem;
@@ -948,6 +952,10 @@ body {
   aspect-ratio: 1 / 1;
 }
 
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
 .h-0 {
   height: 0px;
 }
@@ -1045,6 +1053,10 @@ body {
   height: 0.875rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .max-h-0 {
   max-height: 0px;
 }
@@ -1131,6 +1143,10 @@ body {
 
 .w-full {
   width: 100%;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .min-w-\[200px\] {
@@ -1343,6 +1359,10 @@ body {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
+.grid-cols-\[119px\2c auto\] {
+  grid-template-columns: 119px auto;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -1471,6 +1491,10 @@ body {
   overflow: hidden;
 }
 
+.overflow-visible {
+  overflow: visible;
+}
+
 .overflow-scroll {
   overflow: scroll;
 }
@@ -1553,6 +1577,11 @@ body {
 
 .border-\[1\.5px\] {
   border-width: 1.5px;
+}
+
+.border-x {
+  border-left-width: 1px;
+  border-right-width: 1px;
 }
 
 .border-b {

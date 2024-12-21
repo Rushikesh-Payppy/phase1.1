@@ -1,5 +1,4 @@
 'use client';
-import { Plus_Jakarta_Sans } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -10,11 +9,7 @@ import UserResendMail from '@/apis/auth/UserResendMail';
 import ForgotPasswordApi from '@/apis/auth/ForgotPasswordApi';
 
 
-const plus_jakarta_sans=Plus_Jakarta_Sans({
-    subsets:['latin'],
-    display:'swap'
-})
-    
+ 
 
 function ResetPasswordEmailResendSection({email,setResetPasswordSteps,alreadyRegistered})
 {
@@ -74,7 +69,7 @@ function ResetPasswordEmailResendSection({email,setResetPasswordSteps,alreadyReg
         <>
         {/* <section className={"flex justify-center h-screen w-full background-custom-grey100  overflow-hidden "+plus_jakarta_sans.className}> */}
             
-            <div className="page-center-parent-container overflow-hidden border-black small-border custom-border-grey600 background-custom-white">
+            <div className="page-center-parent-container vh100 overflow-hidden border-black small-border custom-border-grey600 background-custom-white">
                 
                 <div className="flex flex-col px-6 pt-24 pb-10 background-custom-grey100 gap-8 h-screen relative ">
                     
@@ -84,8 +79,8 @@ function ResetPasswordEmailResendSection({email,setResetPasswordSteps,alreadyReg
                             <div className="flex flex-col gap-8">
 
                                 <div className="flex flex-col gap-2">
-                                    <h3 className="heading-h3 custom-text-grey900 ">We’ve sent a verification link to {email} </h3>
-                                    <div className="body-sm custom-text-grey700">We're one step closer to setting a new password</div>
+                                    <h3 className="heading-h3 custom-text-grey900 ">We&apos;ve sent a verification link to {email} </h3>
+                                    <div className="body-sm custom-text-grey700">We&apos;re one step closer to setting a new password</div>
                                 </div>
 
                                 {emailRegistered? <span className="custom-text-alert body-sm">Your email is already verified.</span>

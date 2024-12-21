@@ -1,7 +1,7 @@
 'use client';
 import StoreFooter from '@/Components/StoreFooter';
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 //hero section images
@@ -72,14 +72,25 @@ function StoreHomeSection() {
     }, [])
 
 
+    // function shuffleArray(array) {
+    //     for (let i = array.length - 1; i > 0; i--) {
+    //       // Generate a random index
+    //       const j = Math.floor(Math.random() * (i + 1));
+    //       // Swap elements at indices i and j
+    //       [array[i], array[j]] = [array[j], array[i]];
+    //     }
+    //     return array;
+    //   }
+
     let limit = clickedLoadMoreCount*50;
     
     let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&order=-id`;
+    // let query = `?limit=${limit}&&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&fields=*variants.calculated_price&category_id=pcat_01JFF49WBG2MMV3W8SJ5VV2RKG`;
     function FetchProducts() {
         setLoadingAnimation(true);
         StoreProductsListApi(query)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 setProducts(response?.products);
                 setProductsCount(response?.count);
             })
