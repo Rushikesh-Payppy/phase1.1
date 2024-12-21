@@ -11,7 +11,7 @@ import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
 import ChangePasswordApi from '@/apis/auth/ChangePasswordApi';
 import LoadingAnimation from '@/app/auth/LoadingAnimation';
-import { PasswordToaster } from '@/Components/PasswordToaster';
+import showPasswordToaster, { PasswordToaster } from '@/Components/PasswordToaster';
 
 
     
@@ -64,10 +64,10 @@ function ChangePasswordSection()
             .catch(() => {
 
             })
-            .finally()
-        {
-            setGettingAccessToken(false);
-        }
+            .finally(()=> {
+                setGettingAccessToken(false);
+            })
+       
     }
 
     //when click on proceed
@@ -102,7 +102,9 @@ function ChangePasswordSection()
                 if(response?.message==='Password has been changed successfully.')
                 {
                     // alert('password changed succesfully');
-                    <PasswordToaster />
+                   
+                {showPasswordToaster()}
+
                     resetAllStates();
 
                 }
@@ -208,6 +210,7 @@ function ChangePasswordSection()
 
                 </div>
             </div>
+            <PasswordToaster/>
         </section>}
         </>
     )

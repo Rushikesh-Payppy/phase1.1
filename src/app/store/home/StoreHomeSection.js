@@ -120,6 +120,8 @@ function StoreHomeSection() {
     // let query = `?limit=${limit}&&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&fields=*variants.calculated_price&category_id=pcat_01JFF49WBG2MMV3W8SJ5VV2RKG`;
     function FetchProducts() {
         setLoadingAnimation(true);
+        setProducts('');
+        setProductsCount('');
         StoreProductsListApi(query)
             .then((response) => {
                 // console.log(response);

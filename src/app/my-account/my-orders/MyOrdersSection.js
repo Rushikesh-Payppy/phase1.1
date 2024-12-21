@@ -109,7 +109,8 @@ function MyOrdersSection() {
         <>
             {gettingAccessToken || !accessToken ? <IntialLoadingAnimation />
                 : <div className={"flex justify-center  w-full background-custom-grey50    " }>
-                    <div className="page-center-parent-container vh100 small-border custom-border-grey600  overflow-scrollbar-hidden flex flex-col gap-5 relative">
+                    <div className="page-center-parent-container  custom-border-grey600  overflow-scrollbar-hidden flex flex-col gap-5 relative">
+                        <div className=" small-border border-black">
                         <button className="py-3 px-4" onClick={handleBackBtn}>
                             <Image src={CloseIcon} width={24} height={24} alt='img' quality={100} className='' />
                         </button>
@@ -123,6 +124,7 @@ function MyOrdersSection() {
 
                            
                         </section>
+                        </div>
                     </div>
                 </div>}
         </>

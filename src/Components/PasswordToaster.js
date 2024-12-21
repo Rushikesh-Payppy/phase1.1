@@ -16,16 +16,16 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 import Checkbox from '@/Images/Icons/checkbox-green.svg';
 
 
-const PasswordToaster = ({ isBlogSave, setIsBlogSave, ...props }) => {
+const PasswordToaster = ({  ...props }) => {
   const { theme = "system" } = useTheme();
 
   return (
 
     <Sonner
       theme={theme}
-      className="toaster group z-10 sticky lg:absolute lg:mb-24 mb-24 sm:mb-0 mx-auto text-center"
+      className="toaster group z-10 fixed sm:top-[80%] sm:left-[50%] sm:-translate-x-[50%] sm:-translate-y-[50%]  mb-24 sm:mb-0  text-center"
       toastOptions={{
-        duration: 2000, // Set the duration for the toast to be visible (in milliseconds)
+        // duration: 2000, // Set the duration for the toast to be visible (in milliseconds)
         classNames: {
           toast:
             "group toast group-[.toaster]:border flex justify-center border-[#EBE7E1] group-[.toaster]:bg-[#FFFFFF] py-3 "
@@ -38,7 +38,7 @@ const PasswordToaster = ({ isBlogSave, setIsBlogSave, ...props }) => {
 
 export { PasswordToaster };
 
-export default function showPasswordToaster(toastMessage) {
+export default function showPasswordToaster() {
 
   toast.custom((t) => (
     <div className="w-[var(--width)] py-2">

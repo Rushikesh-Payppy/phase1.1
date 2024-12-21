@@ -22,6 +22,7 @@ import GetCartItemsApi from '@/apis/store/GetCartItemsApi';
 import RemoveProductFromCartApi from '@/apis/store/RemoveProductFromCartApi';
 import { useRouter } from 'next/navigation';
 import GetOrdersApi from '@/apis/store/GetOrdersApi';
+import { useSearchParams } from 'next/navigation';
 
 
 
@@ -36,13 +37,23 @@ function OrderCompleteSection() {
 
     let[accessToken,setAccessToken]=useState('');
     let[gettingAccessToken,setGettingAccessToken]=useState(true);
+    let[parameterOrderId,setParameterOrderId]=useState('');
 
+    let params=useSearchParams();
 
     let router=useRouter();
      //to get a access token
      useEffect(()=>{
         getAccessToken();
     },[])
+
+    useEffect(()=>{
+       let orderId= params.get('url');
+       if(orderId)
+       {
+        setParameterOrderId(orderId);
+       }
+    },[params])
 
    
 
@@ -76,7 +87,7 @@ function OrderCompleteSection() {
 
     function handleRouterClick()
     {
-        // router.push('/my-account/my-orders');
+        router.push('/my-account/my-orders/'+parameterOrderId);
     }
     
      function handlebackClick()
