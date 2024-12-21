@@ -1,5 +1,5 @@
 
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function GetSingleOrderInfoApi(orderId,accessToken)
 {
     return fetch(`${baseurl}api/get-order/${orderId}

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images:{
-        domains:['148.135.138.27','medusa-public-images.s3.eu-west-1.amazonaws.com','localhost','medusa.payppy.app','48.135.138.27','strapi.payppy.app']
+        domains:['148.135.138.27','medusa-public-images.s3.eu-west-1.amazonaws.com','localhost','medusa.payppy.app','48.135.138.27','strapi.payppy.app','medusa.payppy.app']
     },
     productionBrowserSourceMaps:false,
     output: 'standalone', // Use standalone for dynamic server rendering

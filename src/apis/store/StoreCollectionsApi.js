@@ -3,7 +3,7 @@
 let publishKey=process.env.PUBLISHABLE_KEY;
 function StoreCollectionsApi()
 {
-       return fetch('https://medusa.payppy.in/store/collections',{
+       return fetch('https://medusa.payppy.app/store/collections',{
             headers:{
                 'x-publishable-api-key': publishKey,
                 'Content-Type': 'application/json'

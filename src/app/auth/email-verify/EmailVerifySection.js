@@ -18,7 +18,7 @@ function EmailVerifySection() {
     let[sessionExpired,setSessionExpired]=useState(false);
     let router=useRouter();
     useEffect(()=>{
-        fetch(`https://payppy.in/auth/confirm/${accessToken}`)
+        fetch(`https://nexus.payppy.app/auth/confirm/${accessToken}`)
         .then((data)=>{
             return data.json();
         })

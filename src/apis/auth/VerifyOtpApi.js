@@ -1,4 +1,4 @@
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function VerifyOtpApi(payloadObj,accessToken)
 {
     return fetch(`${baseurl}api/verify_mobile_otp`,

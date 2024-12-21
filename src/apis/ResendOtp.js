@@ -4,7 +4,7 @@ import axios from 'axios';
 async function ResendOtp(payloadObj)
 {
     try {
-        let response=await axios.post('https://payppy.in/auth/resend-otp',payloadObj)
+        let response=await axios.post('https://nexus.payppy.app/auth/resend-otp',payloadObj)
     
         return response.data;
     } catch (error) {
