@@ -1,10 +1,13 @@
+import { Suspense } from "react";
 import StoreHomeSection from "./StoreHomeSection";
 
 function Page() {
     
     return(
         <>
-        <StoreHomeSection/>
+        <Suspense>
+            <StoreHomeSection/>
+        </Suspense>
         </>
     )
 }
