@@ -8,6 +8,7 @@ function FlixBlogFetchLikeAndSave(accessToken) {
             'Authorization': 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
+        'credentials':'include'
 
     })
         .then((response) => {

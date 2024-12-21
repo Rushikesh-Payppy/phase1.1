@@ -22,8 +22,15 @@ module.exports = {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'scroll-up': 'scrollUp 1000ms ease-in-out 0.6s',
+				'scroll-horizontal': 'scroll 5s linear infinite',
 			},
 			keyframes: {
+				'scroll': {
+					'0%': { transform: 'translateX(0)' },
+					'32%': { transform: 'translateX(-100%)' },
+					'62%': { transform: 'translateX(-200%)' },
+					'100%': { transform: 'translateX(-200%)' },
+					},
 				'slide-in': {
 					'0%': {
 						transform: 'translateX(100%)',
@@ -177,7 +184,6 @@ module.exports = {
 				'account-user-hero-gradient':'linear-gradient(299.19deg, #353330 1.12%, #5B564F 99.49%)',
 				'flix-blog-title-gradient': 'linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.5) 60.99%)',
 				'flix-blog-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)',
-
 			},
 			boxShadow: {
 				'flix-footer-dark-shadow': '0px 1px 2px 0px #0000000F, 0px 1px 3px 0px #0000001A',

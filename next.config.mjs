@@ -5,6 +5,10 @@ const nextConfig = {
     },
     productionBrowserSourceMaps:false,
     output: 'standalone', // Use standalone for dynamic server rendering
+    env:{
+        RAZORPAY_KEY:process.env.RAZORPAY_KEY,
+        PUBLISHABLE_KEY:process.env.PUBLISHABLE_KEY
+    }
 };
 
 export default nextConfig;

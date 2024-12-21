@@ -263,7 +263,13 @@ ipython_config.py
 # Node configs
 .next
 node_modules
-
-# Ignoring .zip files
-*.zip
  
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+.env.*.development
+.env.*.production

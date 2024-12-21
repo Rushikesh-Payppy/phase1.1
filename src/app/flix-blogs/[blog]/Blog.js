@@ -130,7 +130,7 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
 
             {/* footer */}
             <FlixFooter url={url} title={title} positionValue="sticky" setModalVisible={setModalVisible} id={data?.documentId || response?.documentId} />
-            
+
           </div>
         </article>
 
