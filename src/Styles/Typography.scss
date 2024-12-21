@@ -171,9 +171,15 @@ $grey900: #282827;
 $grey950: #1A1917;
 $green: #00FF95;
 $alert: #E13A3A;
+$toaster-border:#FFFFFF4D;
 
-// for flix dark footer
+
+// for Flix Dark Footer
 $flix-footer-background: #1a1917cf;  
+
+//for Flix Toaster
+$flix-toaster-background: #1A1917CC;
+
 
 .flix-footer-dark-fradient {
     background: #1a1917cf;
@@ -300,6 +306,12 @@ $flix-footer-background: #1a1917cf;
   border-color: $alert;
 }
 
+.custom-border-toaster {
+  border-color: $toaster-border;
+}
+
+
+
 //small borders
 .small-border {
   border-width: 0.3px !important;
@@ -388,6 +400,10 @@ $flix-footer-background: #1a1917cf;
   background-color: $alert;
 }
 
+.background-custom-flix-toaster {
+  background-color: $flix-toaster-background;
+}
+
 
 
 //custom body background color
@@ -452,6 +468,6 @@ body{
 .for-flixBlock{
   display: block !important;
   position: static !important;
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
 }

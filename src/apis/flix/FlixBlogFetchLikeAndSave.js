@@ -8,10 +8,11 @@ function FlixBlogFetchLikeAndSave(accessToken) {
             'Authorization': 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
+        'credentials':'include'
 
     })
         .then((response) => {
-            console.log(response,"response from api");
+            // console.log(response,"response from api");
             return response.json();
         })
         .catch((error) => {

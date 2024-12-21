@@ -2,6 +2,14 @@
 import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Plus_Jakarta_Sans } from "next/font/google";
+
+//fonts
+const plus_jakarta_sans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
 
 //components
@@ -104,30 +112,30 @@ const MyAccountSection = () => {
     <>
     {gettingAccessToken?<IntialLoadingAnimation/>
       :
-      <article className={"page-center-parent-container h-screen small-border-x border-black  scroll-smooth relative "  }>
+      <article className="page-center-parent-container h-screen small-border-x border-black  scroll-smooth relative ">
        {/* hero section */}
-        <header className="small-border-bottom custom-border-grey800 ">
+        <header className={"small-border-bottom custom-border-grey800  "+plus_jakarta_sans.className }>
           {/* <Link href="#"> */}
-            <div className="gap-6 mt-4 mx-4 rounded-tl-xl rounded-tr-xl small-border-top small-border-right  small-border-left custom-border-grey800 background-custom-grey100 min-h-[235px] flex justify-center items-center">
+            <div className="gap-6 mt-4 mx-4 rounded-tl-xl rounded-tr-xl small-border-top small-border-right small-border-left custom-border-grey800 min-h-[235px] flex justify-center items-center bg-account-user-hero-gradient  ">
               
               {/* User Section */}
              {!accessToken? <section className="gap-6 flex flex-col items-center py-12 px-5">
                 <div className="gap-2 flex flex-col items-center max-w-60 w-full">
-                    <h2 className="heading-h2 custom-text-grey900 text-center ">Welcome to Payppy Membership!</h2>
-                    <div className="custom-text-grey900 text-center body">From sensible rewards to irresistible collections, cool things await you on this side of the world.</div>
+                    <h2 className={"heading-h2 custom-text-white text-center "}>Welcome to Payppy Membership!</h2>
+                    <div className="custom-text-white text-center body font-normal">From sensible rewards to irresistible collections, cool things await you on this side of the world.</div>
                 </div>
                 <button className="background-custom-green all-caps-12-bold custom-text-grey900 text-center py-4 small-border border-black max-w-[156px] w-full " onClick={handleLoginSignupClick} >Login/SignuP</button>
 
               </section>
               :
               <section className="gap-2 flex flex-col items-center ">
-                  <h2 className="heading-h2 custom-text-grey900 ">
+                  <h2 className="heading-h2 custom-text-white ">
                   {(userInfo?.details_data?.first_name || "")  + " "+ (userInfo?.details_data?.last_name || "")  }
                   </h2>
 
                   <div className="flex items-center justify-center pt-1">
                     <div className=" h-[1px] w-2 background-custom-grey600 mr-1 "></div>
-                    <p className="all-caps-10-bold custom-text-grey600">
+                    <p className="all-caps-10-bold custom-text-grey500">
                       WELCOME TIER
                     </p>
                     <div className=" h-[1px] w-2 background-custom-grey600 ml-1 "></div>

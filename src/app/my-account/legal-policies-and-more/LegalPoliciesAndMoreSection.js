@@ -34,18 +34,18 @@ const LegalPoliciesAndMoreSection = () => {
       <main className="relative">
 
         {/* legal section */}
-        <h4 className="heading-4 custom-text-grey900 font-semibold pt-6 pl-4 pb-5 border-b-[0.5px] custom-border-grey900">
+        <h3 className="heading-h3 custom-text-grey900 font-semibold pt-6 pl-4 pb-5 border-b-[0.5px] custom-border-grey900">
           Legal
-        </h4>
+        </h3>
         <AccountButton href="/my-account/legal-policies-and-more/privacy-policy/" buttonIcon={PrivacyPolicy} buttonName="Privacy Policy"/>
         <AccountButton href="/my-account/legal-policies-and-more/terms-of-use" buttonIcon={TermsOfUse} buttonName="Terms of Use"/>
         <AccountButton href="/my-account/legal-policies-and-more/shipping-return-refund" buttonIcon={ShippingandReturns} buttonName="Shipping & Returns"/>
         <AccountButton href="/my-account/legal-policies-and-more/cookies-policy" buttonIcon={CookiePolicy} buttonName="Cookie Policy"/>
 
         {/* more section */}
-        <h4 className="heading-4 custom-text-grey900 font-semibold pt-10 pl-4 pb-5 border-b-[0.5px] custom-border-grey900">
+        <h3 className="heading-h3 custom-text-grey900 font-semibold pt-10 pl-4 pb-5 border-b-[0.5px] custom-border-grey900">
           More
-        </h4>
+        </h3>
         <AccountButton href="https://payppy.co/payppy-india" target="_blank" buttonIcon={AboutUs} buttonName="About us" buttonIcon2={UpRightArrow} arrowIcon={false}/>
         {/* <AccountButton href="#" buttonIcon={BecomePartner} buttonName="Become Partner" buttonIcon2={UpRightArrow} arrowIcon={false}/> */}
 

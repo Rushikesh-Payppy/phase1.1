@@ -11,6 +11,7 @@ import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import SanitizeInputs from '@/SanitizingInputs/SanitizeInputs';
 import ChangePasswordApi from '@/apis/auth/ChangePasswordApi';
 import LoadingAnimation from '@/app/auth/LoadingAnimation';
+import { PasswordToaster } from '@/Components/PasswordToaster';
 
 
     
@@ -100,7 +101,8 @@ function ChangePasswordSection()
 
                 if(response?.message==='Password has been changed successfully.')
                 {
-                    alert('password changed succesfully');
+                    // alert('password changed succesfully');
+                    <PasswordToaster />
                     resetAllStates();
 
                 }

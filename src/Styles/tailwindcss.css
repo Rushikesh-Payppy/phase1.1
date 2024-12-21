@@ -678,6 +678,10 @@ body {
   }
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
 }
@@ -822,12 +826,12 @@ body {
   z-index: 2;
 }
 
-.z-auto {
-  z-index: auto;
-}
-
 .z-\[4\] {
   z-index: 4;
+}
+
+.z-auto {
+  z-index: auto;
 }
 
 .mx-16 {
@@ -872,6 +876,10 @@ body {
   margin-bottom: 4rem;
 }
 
+.mb-24 {
+  margin-bottom: 6rem;
+}
+
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -882,10 +890,6 @@ body {
 
 .ml-4 {
   margin-left: 1rem;
-}
-
-.ml-\[60px\] {
-  margin-left: 60px;
 }
 
 .mr-1 {
@@ -972,6 +976,10 @@ body {
   height: 2.75rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-16 {
   height: 4rem;
 }
@@ -982,6 +990,10 @@ body {
 
 .h-24 {
   height: 6rem;
+}
+
+.h-3\.5 {
+  height: 0.875rem;
 }
 
 .h-4 {
@@ -1049,14 +1061,6 @@ body {
   height: 100vh;
 }
 
-.h-3\.5 {
-  height: 0.875rem;
-}
-
-.h-12 {
-  height: 3rem;
-}
-
 .max-h-0 {
   max-height: 0px;
 }
@@ -1117,6 +1121,10 @@ body {
   width: 6rem;
 }
 
+.w-32 {
+  width: 8rem;
+}
+
 .w-4 {
   width: 1rem;
 }
@@ -1143,10 +1151,6 @@ body {
 
 .w-full {
   width: 100%;
-}
-
-.w-32 {
-  width: 8rem;
 }
 
 .min-w-\[200px\] {
@@ -1491,10 +1495,6 @@ body {
   overflow: hidden;
 }
 
-.overflow-visible {
-  overflow: visible;
-}
-
 .overflow-scroll {
   overflow: scroll;
 }
@@ -1579,11 +1579,6 @@ body {
   border-width: 1.5px;
 }
 
-.border-x {
-  border-left-width: 1px;
-  border-right-width: 1px;
-}
-
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1635,6 +1630,15 @@ body {
 .border-\[\#D7D4CF\] {
   --tw-border-opacity: 1;
   border-color: rgb(215 212 207 / var(--tw-border-opacity, 1));
+}
+
+.border-\[\#EBE7E1\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(235 231 225 / var(--tw-border-opacity, 1));
+}
+
+.border-\[\#FFFFFF4D\] {
+  border-color: #FFFFFF4D;
 }
 
 .border-black {
@@ -1713,6 +1717,10 @@ body {
 
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
+}
+
+.bg-account-user-hero-gradient {
+  background-image: linear-gradient(299.19deg, #353330 1.12%, #5B564F 99.49%);
 }
 
 .bg-flix-blog-title-gradient {
@@ -1802,6 +1810,11 @@ body {
   padding-right: 5px;
 }
 
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -1872,8 +1885,7 @@ body {
   padding-bottom: 5px;
 }
 
-.py-1 {
-  padding-top: 0.25rem;
+.pb-1 {
   padding-bottom: 0.25rem;
 }
 
@@ -2120,6 +2132,12 @@ body {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.backdrop-blur-\[12px\] {
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2240,8 +2258,8 @@ body {
   opacity: 0.5;
 }
 
-.group.toaster .group-\[\.toaster\]\:flex {
-  display: flex;
+.group.toaster .group-\[\.toaster\]\:border {
+  border-width: 1px;
 }
 
 .group.toaster .group-\[\.toaster\]\:border-\[0\.5px\] {
@@ -2258,6 +2276,15 @@ body {
 
 .group.toast .group-\[\.toast\]\:bg-primary {
   background-color: hsl(var(--primary));
+}
+
+.group.toaster .group-\[\.toaster\]\:bg-\[\#1A1917CC\] {
+  background-color: #1A1917CC;
+}
+
+.group.toaster .group-\[\.toaster\]\:bg-\[\#FFFFFF\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .group.toaster .group-\[\.toaster\]\:bg-background {
@@ -2310,6 +2337,12 @@ body {
   animation: accordion-down 0.2s ease-out;
 }
 
+@media (min-width: 640px) {
+  .sm\:mb-0 {
+    margin-bottom: 0px;
+  }
+}
+
 @media (min-width: 1024px) {
   .lg\:absolute {
     position: absolute;
@@ -2321,6 +2354,10 @@ body {
 
   .lg\:bottom-4 {
     bottom: 1rem;
+  }
+
+  .lg\:mb-24 {
+    margin-bottom: 6rem;
   }
 
   .lg\:flex {

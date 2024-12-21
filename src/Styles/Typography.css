@@ -93,10 +93,8 @@
 
 .flix-footer-dark-fradient {
   background: rgba(26, 25, 23, 0.8117647059);
-  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
-          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
-  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
-          box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0588235294);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1019607843);
 }
 
 .footer-border-dark {
@@ -215,6 +213,10 @@
   border-color: #E13A3A;
 }
 
+.custom-border-toaster {
+  border-color: rgba(255, 255, 255, 0.3019607843);
+}
+
 .small-border {
   border-width: 0.3px !important;
 }
@@ -301,6 +303,10 @@
   background-color: #E13A3A;
 }
 
+.background-custom-flix-toaster {
+  background-color: rgba(26, 25, 23, 0.8);
+}
+
 body {
   background-color: #FDFBF8;
 }
@@ -325,13 +331,11 @@ body {
 }
 
 .store-button-shadow {
-  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
-          box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.0509803922);
 }
 
 .snap-x-custom {
-  -ms-scroll-snap-type: x mandatory;
-      scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
 }
 
 .snap-start-custom {
@@ -339,8 +343,7 @@ body {
 }
 
 .get-light-img {
-  -webkit-filter: brightness(100);
-          filter: brightness(100);
+  filter: brightness(100);
 }
 
 .vh100 {
@@ -358,6 +361,6 @@ body {
 .for-flixBlock {
   display: block !important;
   position: static !important;
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
 }/*# sourceMappingURL=Typography.css.map */

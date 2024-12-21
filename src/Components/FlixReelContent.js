@@ -2,14 +2,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
-//components
-// import FlixFooter from "./FlixFooter";
 
 //icons
 import muteIcon from "@/Images/Icons/volume-mute.svg";
 import unmuteIcon from "@/Images/Icons/volume-unmute.svg";
 import MuxPlayer from "@mux/mux-player-react";
 import Hls from "hls.js";
+import FlixReelFooter from "./FlixReelFooter";
 
 
 const FlixReelContent = ({ playbackId }) => {
@@ -117,10 +116,12 @@ const FlixReelContent = ({ playbackId }) => {
       {/* footer */}
       {/* <FlixFooter backOption="/" positionValue="absolute" mode="" /> */}
 
+      <FlixReelFooter positionValue="absolute"/>
+
       {/* Conditionally render the Mute/Unmute Button */}
       {showMuteIcon && (
         <button onClick={handleMuteToggle} type="button"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 gap-2.5 p-3 rounded-[2px] sound-button-gradient flex items-center justify-center"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 gap-2.5 p-3 rounded-[2px] backdrop-blur-[12px] flex items-center justify-center"
         >
           <Image src={isMuted ? muteIcon : unmuteIcon} width={24} height={24} alt="" quality={100} />
         </button>
