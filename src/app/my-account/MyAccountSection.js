@@ -106,7 +106,7 @@ const MyAccountSection = () => {
       :
       <article className={"page-center-parent-container h-screen small-border-x border-black  scroll-smooth relative "  }>
        {/* hero section */}
-        <header className="small-border-bottom custom-border-grey800 ">
+        <header className="small-border-bottom custom-border-grey800 account-user-hero-gradient ">
           {/* <Link href="#"> */}
             <div className="gap-6 mt-4 mx-4 rounded-tl-xl rounded-tr-xl small-border-top small-border-right  small-border-left custom-border-grey800 background-custom-grey100 min-h-[235px] flex justify-center items-center">
               
