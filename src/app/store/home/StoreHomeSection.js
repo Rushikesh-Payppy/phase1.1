@@ -192,7 +192,7 @@ function StoreHomeSection() {
                                 <Image src={Hero3} width={400} height={675} alt='img' quality={100} className='w-full h-full  object-cover flex-shrink-0 snap-start-custom' />
                             </div>
                             {/* Dots */}
-                            <div className="absolute bottom-4 flex space-x-2 z-10">
+                            <div className="absolute bottom-4 flex space-x-2 z-[3]">
                                 {Array(3).fill(null).map((_, index) => (
                                     <div
                                         key={index}

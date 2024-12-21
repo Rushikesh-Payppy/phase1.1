@@ -1,5 +1,5 @@
 
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function UserRegisterApi(payload)
 {
     return fetch(`${baseurl}auth/register`,

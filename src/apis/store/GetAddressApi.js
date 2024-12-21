@@ -1,5 +1,5 @@
 
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function GetAddressApi(accessToken)
 {
     return fetch(`${baseurl}api/get-addresses`,

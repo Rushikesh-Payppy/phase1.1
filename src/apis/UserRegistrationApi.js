@@ -4,7 +4,7 @@ import axios from 'axios';
 async function UserRegisterApi(payloadObj)
 {
     try {
-        let response=await axios.post('https://payppy.in/auth/register',payloadObj)
+        let response=await axios.post('https://nexus.payppy.app/auth/register',payloadObj)
     
         return response.data;
     } catch (error) {

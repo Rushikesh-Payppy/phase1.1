@@ -16,7 +16,7 @@ function ClothsImgInfoCompo({containerWidth,borderClass=' small-border-right ',d
     //     let replacedUrl=imgsrc;
     //     if(imgsrc.includes('http://localhost:9000'))
     //     {
-    //         replacedUrl=imgsrc.replace('http://localhost:9000','https://medusa.payppy.in');
+    //         replacedUrl=imgsrc.replace('http://localhost:9000','https://medusa.payppy.app');
     //     }
     //     return replacedUrl;
     // }

@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.in/';
+let baseurl='https://medusa.payppy.app/';
 function AddShippingMethodsApi(payload,cartId)       //cart Id if we want to add a data for that cart then  
 {
     return fetch(`${baseurl}store/carts/${cartId}/shipping-methods

@@ -1,4 +1,4 @@
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function LogoutApi(accessToken)
 {
     return fetch(`${baseurl}auth/logout`,

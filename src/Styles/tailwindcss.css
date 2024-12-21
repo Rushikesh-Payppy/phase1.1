@@ -838,6 +838,10 @@ body {
   z-index: auto;
 }
 
+.z-\[3\] {
+  z-index: 3;
+}
+
 .mx-16 {
   margin-left: 4rem;
   margin-right: 4rem;
@@ -1717,6 +1721,11 @@ body {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#01C572\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 197 114 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-80 {

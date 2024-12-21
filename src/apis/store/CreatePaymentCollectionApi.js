@@ -1,5 +1,5 @@
 
-let baseurl='https://medusa.payppy.in/';
+let baseurl='https://medusa.payppy.app/';
 function CreatePaymentCollectionApi(payload)
 {
     return fetch(`${baseurl}store/payment-collections

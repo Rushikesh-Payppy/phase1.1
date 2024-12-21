@@ -1,7 +1,7 @@
 
 function FlixBlogSaveApi(payload,accessToken) {
     
-       return fetch("https://payppy.in/api/save",{
+       return fetch("https://nexus.payppy.app/api/save",{
             method:'POST',
             
             headers:{

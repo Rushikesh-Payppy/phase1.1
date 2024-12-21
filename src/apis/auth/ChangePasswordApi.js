@@ -1,4 +1,4 @@
-let baseurl='https://payppy.in/';
+let baseurl='https://nexus.payppy.app/';
 function ChangePasswordApi(payload,accessToken)
 {
     return fetch(`${baseurl}auth/change_password`,

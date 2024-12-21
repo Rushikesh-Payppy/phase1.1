@@ -144,8 +144,8 @@ function SingleOrderListSection({ orderId }) {
     let statusBackgroundColor = {
         'processing': 'background-custom-grey100',
         'shipped': 'background-custom-grey800',
-        'delivered': 'background-custom-green',
-        'not_fulfilled': 'background-custom-green',
+        'delivered': 'bg-[#01C572]',
+        'not_fulfilled': 'bg-[#01C572]',
     }
 
     let statusColor = {
