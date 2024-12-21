@@ -158,7 +158,7 @@ const ManageAddressSection = () => {
                             <Image src={CloseIcon} width={24} height={24} alt='img' quality={100} className='' />
                         </button>
                         <section className="flex flex-col gap-8 px-6">
-                            <h4 className="heading-h4 custom-text-grey900">My Orders</h4>
+                            <h4 className="heading-h4 custom-text-grey900">Manage addresses</h4>
                             {userAddress?.length>0?
                             <div className="flex flex-col gap-3">
                                 <div className="all-caps-12 custom-text-grey700">Shipping Address</div>

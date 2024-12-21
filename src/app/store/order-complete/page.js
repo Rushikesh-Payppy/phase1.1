@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import OrderCompleteSection from './OrderCompleteSection'
 
 const page = () => {
   return (
    <>
-    <OrderCompleteSection/>
+   <Suspense>
+      <OrderCompleteSection/>
+   </Suspense>
    </>
   )
 }

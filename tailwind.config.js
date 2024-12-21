@@ -181,9 +181,9 @@ module.exports = {
 			backgroundImage: {
 				'landingpage-gradient': 'linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.7) 99.5%)',
 				'store-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)',
+				'account-user-hero-gradient':'linear-gradient(299.19deg, #353330 1.12%, #5B564F 99.49%)',
 				'flix-blog-title-gradient': 'linear-gradient(180deg, rgba(26, 25, 23, 0) 0%, rgba(26, 25, 23, 0.5) 60.99%)',
 				'flix-blog-footer-gradient': 'linear-gradient(180deg, rgba(253, 251, 248, 0) 0%, #FDFBF8 100%)',
-
 			},
 			boxShadow: {
 				'flix-footer-dark-shadow': '0px 1px 2px 0px #0000000F, 0px 1px 3px 0px #0000001A',

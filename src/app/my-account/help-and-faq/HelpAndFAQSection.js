@@ -194,9 +194,9 @@ const HelpAndFAQSection = () => {
 
         <PageCloseButton />
 
-        <h4 className="heading-4 font-semibold custom-text-grey900 pl-4 mt-5">
+        <h3 className="heading-h3 font-semibold custom-text-grey900 pl-4 mt-5">
           Help & FAQs
-        </h4>
+        </h3>
 
         {/* Options navbar */}
         <nav className="overflow-scrollbar-hidden gap-6 mt-5 pt-5 px-4 border-b-[0.5px] custom-border-grey800 flex flex-row overflow-x-scroll scroll-smooth overflow-y-hidden text-nowrap">

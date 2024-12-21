@@ -26,6 +26,7 @@ import FlixFooter from "@/Components/FlixFooter";
 
 //API's
 import FlixForYouBlogData from "@/apis/flix/FlixForYouBlogData";
+import GetMuxVideosApi from "@/apis/flix/GetMuxVideosApi";
 
 
 // function Blog({ data=false, modalVisible, setModalVisible }) {
@@ -55,7 +56,7 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
 
 
   useEffect(() => {
-    console.log(response);
+    // console.log(response);
 
   }, [response]);
 
@@ -134,10 +135,6 @@ function Blog({ id = false, data = false, modalVisible, setModalVisible }) {
             {/* footer */}
             <FlixFooter url={url} title={title} positionValue="sticky" setModalVisible={setModalVisible} id={data?.documentId || response?.documentId} />
 
-            {/* Back Button */}
-            {/* <button onClick={handleBack} className={`sticky bottom-0 z-10 ml-[60px] background-custom-grey50  gap-8 p-3 small-border custom-border-grey800 rounded-[90px] cursor-pointer`}>
-              <Image src={ChevronLeftDark} width={24} height={24} alt="img" quality={100} />
-              </button> */}
           </div>
         </article>
 

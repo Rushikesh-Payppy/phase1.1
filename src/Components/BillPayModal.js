@@ -57,7 +57,7 @@ function BillPayModal() {
    
     return (
         <div className="       ">
-            <div className={`page-center-parent-container    w-full     background-custom-grey50  duration-500 small-border border-black fixed left-[50%] -translate-x-[50%] z-[2] ${showModal ? ' bottom-0    ' : '  -bottom-[100%]  '} `} ref={modalRef} style={{minHeight:'auto'}} >
+            <div className={`page-center-parent-container    w-full     background-custom-grey50  duration-500 small-border border-black fixed left-[50%] -translate-x-[50%] z-[4] ${showModal ? ' bottom-0    ' : '  -bottom-[100%]  '} `} ref={modalRef} style={{minHeight:'auto'}} >
 
                 <div className="flex flex-col items-center gap-8 p-6 pt-2 ">
                     <div className="w-12 h-[1px] background-custom-grey400"></div>

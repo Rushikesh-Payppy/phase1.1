@@ -1,7 +1,7 @@
 'use client';
 import StoreFooter from '@/Components/StoreFooter';
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 //hero section images
@@ -30,6 +30,7 @@ import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import { useRouter } from 'next/navigation';
 import LoadingAnimation from '@/app/auth/LoadingAnimation';
 import StorePulseEffectComponent from '@/Components/StorePulseEffectComponent';
+import { useSearchParams } from 'next/navigation';
 
 
 
@@ -44,6 +45,8 @@ function StoreHomeSection() {
     let[productsCount,setProductsCount]=useState(0);
     let[clickedLoadMoreCount,setClickedLoadMore]=useState(1);
     let[loadingAnimation,setLoadingAnimation]=useState(false);
+    let[currentFilterId,setCurrentFilterId]=useState('');
+    let[selectedCatagory,setSelectedCatagory]=useState('');
 
     let router = useRouter();
     
@@ -51,7 +54,13 @@ function StoreHomeSection() {
 
     const [activeIndex, setActiveIndex] = useState(0);
 
-  
+  let params=useSearchParams();
+
+  let filterCatagories={
+    'men':'pcat_01JE90TZWNW2N8SKKXYCKN711A',
+    'women':'pcat_01JF1SPYGN7HQKZA0YK9K2Z4BW',
+    'accessories':'pcat_01JFF47JZMV8QXD30HPQSXB4E4'
+}
   
     const handleScroll = () => {
         if (carouselRef.current) {
@@ -64,24 +73,62 @@ function StoreHomeSection() {
 
     useEffect(() => {
         FetchProducts();
-    }, [clickedLoadMoreCount])
+    }, [clickedLoadMoreCount,selectedCatagory])
 
     //get access token intially
     useEffect(() => {
         getAccessToken();
     }, [])
 
+    useEffect(()=>{
+        let queryFilter=params.get('catagory');
+        if(queryFilter)
+        {
+            setSelectedCatagory(queryFilter);
+            setCurrentFilterId(filterCatagories[queryFilter]);
+        }
+        else{
+            setCurrentFilterId('');
+            setSelectedCatagory('');
+        }
+    },[params])
+
+   
+    function handleProductCatagory(catagory)
+    {
+        if(params.get('catagory')===catagory)
+        {
+            router.push('/');
+        }
+        else{
+            router.push('/?catagory='+catagory);
+        }
+    }
+    // function shuffleArray(array) {
+    //     for (let i = array.length - 1; i > 0; i--) {
+    //       // Generate a random index
+    //       const j = Math.floor(Math.random() * (i + 1));
+    //       // Swap elements at indices i and j
+    //       [array[i], array[j]] = [array[j], array[i]];
+    //     }
+    //     return array;
+    //   }
 
     let limit = clickedLoadMoreCount*50;
     
-    let query = `?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&order=-id`;
+    let query = (selectedCatagory!=='')? `?limit=${limit}&&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&fields=*variants.calculated_price&category_id=${currentFilterId}`:`?limit=${limit}&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&order=-id`;
+    // let query = `?limit=${limit}&&region_id=reg_01JDPJAQ0EV727HP0MPZH1NZA9&fields=*variants.calculated_price&category_id=pcat_01JFF49WBG2MMV3W8SJ5VV2RKG`;
     function FetchProducts() {
         setLoadingAnimation(true);
+        setProducts('');
+        setProductsCount('');
         StoreProductsListApi(query)
             .then((response) => {
-                console.log(response);
-                setProducts(response?.products);
-                setProductsCount(response?.count);
+                // console.log(response);
+                setTimeout(() => {      
+                    setProducts(response?.products);
+                    setProductsCount(response?.count);
+                }, 500);
             })
             .catch((error) => {
                 console.log(error);
@@ -162,13 +209,13 @@ function StoreHomeSection() {
 
                         {/* filter section  */}
 
-                        <section className="py-4 px-5 small-border-x small-border-top  custom-border-grey800 flex justify-end items-cneter  ">
-                            {/* <div className="flex items-center gap-5">
-                        <button className="all-caps-10 custom-text-grey800">Men</button>
-                        <button className="all-caps-10 custom-text-grey800">Women</button>
-                        <div className="background-custom-grey700 h-4 w-[0.5px]"></div>
-                        <button className="all-caps-10 custom-text-grey800">FILTER</button>
-                    </div> */}
+                        <section className="py-4 px-5 small-border-x small-border-top  custom-border-grey800 flex justify-between items-cneter  ">
+                            <div className="flex items-center gap-5">
+                                <button className={`custom-text-grey800 ${selectedCatagory==='men'?' all-caps-10-bold':' all-caps-10 '}`}  onClick={()=>{handleProductCatagory('men')}}>Men</button>
+                                <button className={`${selectedCatagory==='women'?' all-caps-10-bold':' all-caps-10 '} custom-text-grey800`} onClick={()=>{handleProductCatagory('women')}}>Women</button>
+                                {/* <div className="background-custom-grey700 h-4 w-[0.5px]"></div> */}
+                                <button className={`${selectedCatagory==='accessories'?' all-caps-10-bold':' all-caps-10 '} custom-text-grey800`} onClick={()=>{handleProductCatagory('accessories')}}>Accessories</button>
+                            </div>
                             <div className="flex items-center gap-4 ">
                                 <Image src={gridColums == 1 ? SingleViewActiveFilter : SingleViewFilter} width={16} height={14} quality={100} alt='img' className='cursor-pointer' onClick={() => { setGridColumns(1) }} />
                                 <Image src={gridColums === 2 ? MultiViewActiveFilter : MultiViewFilter} width={16} height={14} quality={100} alt='img' className='cursor-pointer' onClick={() => { setGridColumns(2) }} />

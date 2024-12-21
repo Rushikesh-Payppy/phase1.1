@@ -16,6 +16,7 @@ import IntialLoadingAnimation from '@/Components/InitialPageLoadingAnimation';
 import GetAccessTokenAPI from '@/apis/auth/GetAccessToken';
 import LogoutApi from '@/apis/auth/LogoutApi';
 import { useRouter } from 'next/navigation';
+import GetCartInfoApi from '@/apis/store/GetCartInfoApi';
 
 
 const SettingsAndActivitySection = () => {
@@ -24,7 +25,7 @@ const SettingsAndActivitySection = () => {
 
     let [accessToken, setAccessToken] = useState('');
     let [gettingAccessToken, setGettingAccessToken] = useState(true);
-
+    let[cartInfo,setCartInfo]=useState('');
 
     let router=useRouter();
 
@@ -33,19 +34,27 @@ const SettingsAndActivitySection = () => {
         getAccessToken();
     }, [])
 
+    //to hit cart info if user logged in 
+    useEffect(()=>{
+        if(accessToken)
+        {
+            getCartInfo();
+        }
+    },[accessToken])
+
       //getting access token
       function getAccessToken() {
         setGettingAccessToken(true);
         GetAccessTokenAPI()
             .then((response) => {
-                if (response && 'access_token' in response) {
-                    setAccessToken(response.access_token);
-                }
-
                 if(response&&'message' in response&&response.message==='Refresh token is missing')
                 {
                     router.push('/auth/user-auth')
                 }
+                if (response && 'access_token' in response) {
+                    setAccessToken(response.access_token);
+                }
+
             })
             .catch(() => {
 
@@ -55,6 +64,23 @@ const SettingsAndActivitySection = () => {
             setGettingAccessToken(false);
         }
     }
+
+     //get cart information from api
+     function getCartInfo()
+     {
+         GetCartInfoApi(accessToken)
+         .then((response)=>{
+             console.log('response');
+ 
+             if(response&&'details_data' in response)
+             {
+                setCartInfo(response);
+             }
+         })
+         .catch((error)=>{
+             console.log(error);
+         })
+     }
 
      //when user click logout
   function handleLogOut()
@@ -87,7 +113,7 @@ const SettingsAndActivitySection = () => {
 
             <main className='gap-10 mt-5 border-t-[0.5px] custom-border-grey800'>
                 <AccountButton href="/my-account/settings-and-activity/personal-information" buttonName="Personal Information" />
-                <AccountButton href="#" buttonName="Change Password" />
+               {!cartInfo?.details_data?.is_sso&& <AccountButton href="/my-account/settings-and-activity/change-password" buttonName="Change Password" />}
                 <AccountButton href="/my-account/settings-and-activity/manage-address" buttonName="Address Book" />
 
 

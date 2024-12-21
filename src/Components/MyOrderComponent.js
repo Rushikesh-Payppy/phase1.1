@@ -29,7 +29,7 @@ const MyOrderComponent = ({orderId,price,quantity,date,time,status}) => {
     }
 
     return (
-        <Link href={'/'}>
+        <Link href={'/my-account/my-orders/'+orderId}>
             <div className="flex justify-between items-start small-border-bottom border-black py-6 px-6">
                 <div className="flex flex-col gap-5">
                     <div className="all-caps-12 custom-text-grey900">Order ID: #{orderId}</div>
